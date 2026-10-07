@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoDì - Notizie e Mappe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- HEADER E BREAKING NEWS -->
+    <header class="bg-blue-900 text-white text-center py-4 shadow-md">
+        <h1 class="text-4xl font-extrabold tracking-tight">GeoDì🌍</h1>
+        <p class="text-sm font-light text-blue-200 mt-1">Le tue notizie in 1 minuto. La tua sfida quotidiana.</p>
+    </header>
+    <div class="bg-red-600 text-white text-center py-2 px-4 text-sm font-bold animate-pulse">
+        ⚡ FLASH: Trovato accordo storico sul clima a Parigi. Mercati in rialzo.
+    </div>
+
+    <main class="max-w-4xl mx-auto p-4 md:p-6 space-y-8">
+
+        <!-- SEZIONE NOTIZIE -->
+        <section>
+            <h2 class="text-2xl font-bold border-b-2 border-emerald-500 pb-2 mb-4 text-blue-900">Il Diario di Oggi</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Mattina -->
+                <div class="bg-white p-4 rounded-lg shadow border-t-4 border-yellow-400">
+                    <h3 class="font-bold text-lg mb-2">☕ Mattina</h3>
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li>• Il governo vara il nuovo decreto sulle startup digitali.</li>
+                        <li>• Serie A: Il Napoli vince al 90' e vola in testa.</li>
+                        <li>• Lanciata la nuova missione SpaceX verso Marte.</li>
+                    </ul>
+                </div>
+                <!-- Pomeriggio -->
+                <div class="bg-white p-4 rounded-lg shadow border-t-4 border-orange-400">
+                    <h3 class="font-bold text-lg mb-2">☀️ Pomeriggio</h3>
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li>• Disoccupazione in calo dello 0.5% nell'ultimo trimestre.</li>
+                        <li>• Fiera del Libro a Torino: record di presenze.</li>
+                        <li>• Scoperto un nuovo esopianeta simile alla Terra.</li>
+                    </ul>
+                </div>
+                <!-- Sera -->
+                <div class="bg-white p-4 rounded-lg shadow border-t-4 border-blue-800">
+                    <h3 class="font-bold text-lg mb-2">🌙 Sera</h3>
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li>• Wall Street chiude in positivo trainata dal tech.</li>
+                        <li>• L'Italia vince l'oro agli Europei di scherma.</li>
+                        <li>• Previsioni meteo: pioggia in arrivo al Nord.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE GIOCHI -->
+        <section class="bg-emerald-50 p-6 rounded-xl border border-emerald-200">
+            <h2 class="text-2xl font-bold text-emerald-800 mb-6 text-center">🎯 La Sfida del Giorno</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Gioco 1: Bandiera -->
+                <div class="bg-white p-5 rounded-lg shadow text-center">
+                    <h3 class="font-bold text-gray-600 mb-2">Bandiera del Giorno</h3>
+                    <div class="text-6xl mb-4">🇳🇴</div>
+                    <div class="grid grid-cols-2 gap-2" id="flag-buttons">
+                        <button onclick="checkFlag(this, false)" class="bg-gray-100 hover:bg-gray-200 py-2 rounded font-medium transition">Svezia</button>
+                        <button onclick="checkFlag(this, true)" class="bg-gray-100 hover:bg-gray-200 py-2 rounded font-medium transition">Norvegia</button>
+                        <button onclick="checkFlag(this, false)" class="bg-gray-100 hover:bg-gray-200 py-2 rounded font-medium transition">Finlandia</button>
+                        <button onclick="checkFlag(this, false)" class="bg-gray-100 hover:bg-gray-200 py-2 rounded font-medium transition">Islanda</button>
+                    </div>
+                </div>
+
+                <!-- Gioco 2: Luogo -->
+                <div class="bg-white p-5 rounded-lg shadow text-center">
+                    <h3 class="font-bold text-gray-600 mb-2">Luogo Misterioso</h3>
+                    <div class="bg-gray-300 h-32 rounded-lg mb-4 flex items-center justify-center text-gray-500 italic">
+                        [Foto di Mont Saint-Michel]
+                    </div>
+                    <input type="text" placeholder="Dove ci troviamo?" class="w-full border p-2 rounded mb-2 text-sm">
+                    <button class="w-full bg-emerald-600 text-white py-2 rounded font-bold hover:bg-emerald-700 transition">Indovina (100 pt)</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CLASSIFICA E PREMIO -->
+        <section class="bg-white p-6 rounded-lg shadow-lg border-2 border-yellow-400">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-gray-800">🏆 Lega di Ottobre</h2>
+                <span class="bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded uppercase tracking-wide">In palio: Buono Amazon 50€</span>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-gray-100 text-gray-600">
+                        <tr>
+                            <th class="p-2">Pos</th>
+                            <th class="p-2">Giocatore</th>
+                            <th class="p-2">Punteggio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b font-bold text-emerald-700 bg-emerald-50">
+                            <td class="p-2">1°</td>
+                            <td class="p-2">Marco R.</td>
+                            <td class="p-2">1450 pt</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="p-2">2°</td>
+                            <td class="p-2">Giulia92</td>
+                            <td class="p-2">1380 pt</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="p-2">3°</td>
+                            <td class="p-2">GeoMaster</td>
+                            <td class="p-2">1310 pt</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center mt-4">
+                <button class="text-blue-600 text-sm font-semibold hover:underline">Accedi per partecipare alla classifica</button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center py-6 mt-8">
+        <p class="text-sm">© 2026 GeoDì. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script>
+        function checkFlag(btn, isCorrect) {
+            let buttons = document.querySelectorAll('#flag-buttons button');
+            buttons.forEach(b => b.disabled = true); // Disabilita dopo il primo click
+            
+            if(isCorrect) {
+                btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
+                btn.classList.add('bg-green-500', 'text-white');
+                alert("Esatto! +50 Punti alla tua classifica.");
+            } else {
+                btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
+                btn.classList.add('bg-red-500', 'text-white');
+                alert("Sbagliato! La risposta corretta era Norvegia.");
+            }
+        }
+    </script>
+</body>
+</html>
