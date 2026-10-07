@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GeoDì - Notizie e Mappe</title>
+    <title>GeoFlash - Notizie e Mappe</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
@@ -89,35 +89,12 @@
                 <span class="bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded uppercase tracking-wide">In palio: Buono Amazon 50€</span>
             </div>
             
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm">
-                    <thead class="bg-gray-100 text-gray-600">
-                        <tr>
-                            <th class="p-2">Pos</th>
-                            <th class="p-2">Giocatore</th>
-                            <th class="p-2">Punteggio</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b font-bold text-emerald-700 bg-emerald-50">
-                            <td class="p-2">1°</td>
-                            <td class="p-2">Marco R.</td>
-                            <td class="p-2">1450 pt</td>
-                        </tr>
-                        <tr class="border-b">
-                            <td class="p-2">2°</td>
-                            <td class="p-2">Giulia92</td>
-                            <td class="p-2">1380 pt</td>
-                        </tr>
-                        <tr class="border-b">
-                            <td class="p-2">3°</td>
-                            <td class="p-2">GeoMaster</td>
-                            <td class="p-2">1310 pt</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="text-center mt-4">
+            <!-- CONTENITORE VUOTO PER LA CLASSIFICA SUPABASE -->
+            <ul id="lista-classifica" class="w-full mt-4">
+                <li class="text-center text-gray-500 py-4">Caricamento classifica in corso...</li>
+            </ul>
+
+            <div class="text-center mt-6">
                 <button class="text-blue-600 text-sm font-semibold hover:underline">Accedi per partecipare alla classifica</button>
             </div>
         </section>
@@ -131,7 +108,7 @@
     <script>
         function checkFlag(btn, isCorrect) {
             let buttons = document.querySelectorAll('#flag-buttons button');
-            buttons.forEach(b => b.disabled = true); // Disabilita dopo il primo click
+            buttons.forEach(b => b.disabled = true); 
             
             if(isCorrect) {
                 btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
@@ -144,48 +121,51 @@
             }
         }
     </script>
-    <!-- Importa Supabase -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-  // 1. Collega il database
-  const supabaseUrl = 'https://rwkfnkqdsdokjxzwfddg.supabase.co/rest/v1/';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ';
-  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-  // 2. Funzione per scaricare e mostrare la classifica
-  async function caricaClassifica() {
-    // Pesca i migliori 10 dalla tabella leaderboard, ordinati per punteggio
-    const { data, error } = await supabase
-      .from('leaderboard')
-      .select('username, score')
-      .order('score', { ascending: false })
-      .limit(10);
-
-    if (error) {
-      console.error("Errore di caricamento:", error);
-      return;
-    }
-
-    // Trova l'elemento HTML dove mostrare la classifica (assicurati di avere un <ul id="lista-classifica"> nel tuo HTML)
-    const listaHtml = document.getElementById('lista-classifica');
     
-    // Se c'è l'elemento, svuotalo e riempilo coi dati veri
-    if (listaHtml) {
-      listaHtml.innerHTML = ''; 
-      data.forEach((giocatore, index) => {
-        listaHtml.innerHTML += `
-          <li class="flex justify-between items-center bg-gray-50 p-3 rounded-lg mb-2">
-            <span class="font-bold text-gray-700">${index + 1}. ${giocatore.username}</span>
-            <span class="text-blue-600 font-bold">${giocatore.score} pt</span>
-          </li>
-        `;
-      });
-    }
-  }
+    <!-- Importa Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  // Carica la classifica appena si apre la pagina
-  caricaClassifica();
-</script>
+    <script>
+      // 1. Collega il database
+      const supabaseUrl = 'https://rwkfnkqdsdokjxzwfddg.supabase.co/rest/v1/'; // INSERISCI QUI IL TUO VERO URL
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; // INSERISCI QUI LA TUA VERA CHIAVE
+      const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+      // 2. Funzione per scaricare e mostrare la classifica
+      async function caricaClassifica() {
+        const { data, error } = await supabase
+          .from('leaderboard')
+          .select('username, score')
+          .order('score', { ascending: false })
+          .limit(10);
+
+        if (error) {
+          console.error("Errore di caricamento:", error);
+          document.getElementById('lista-classifica').innerHTML = '<li class="text-red-500 text-center py-4">Errore nel caricamento della classifica.</li>';
+          return;
+        }
+
+        const listaHtml = document.getElementById('lista-classifica');
+        
+        if (listaHtml) {
+          listaHtml.innerHTML = ''; 
+          
+          if (data.length === 0) {
+              listaHtml.innerHTML = '<li class="text-center text-gray-500 py-4 font-medium">Nessun giocatore in classifica. Diventa il primo!</li>';
+          } else {
+              data.forEach((giocatore, index) => {
+                listaHtml.innerHTML += `
+                  <li class="flex justify-between items-center bg-gray-50 p-3 rounded-lg mb-2 border border-gray-200 shadow-sm">
+                    <span class="font-bold text-gray-700">${index + 1}. ${giocatore.username}</span>
+                    <span class="text-emerald-600 font-extrabold">${giocatore.score} pt</span>
+                  </li>
+                `;
+              });
+          }
+        }
+      }
+
+      caricaClassifica();
+    </script>
 </body>
 </html>
