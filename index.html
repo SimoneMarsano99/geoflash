@@ -144,5 +144,48 @@
             }
         }
     </script>
+    <!-- Importa Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  // 1. Collega il database
+  const supabaseUrl = 'https://rwkfnkqdsdokjxzwfddg.supabase.co/rest/v1/';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ';
+  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+  // 2. Funzione per scaricare e mostrare la classifica
+  async function caricaClassifica() {
+    // Pesca i migliori 10 dalla tabella leaderboard, ordinati per punteggio
+    const { data, error } = await supabase
+      .from('leaderboard')
+      .select('username, score')
+      .order('score', { ascending: false })
+      .limit(10);
+
+    if (error) {
+      console.error("Errore di caricamento:", error);
+      return;
+    }
+
+    // Trova l'elemento HTML dove mostrare la classifica (assicurati di avere un <ul id="lista-classifica"> nel tuo HTML)
+    const listaHtml = document.getElementById('lista-classifica');
+    
+    // Se c'è l'elemento, svuotalo e riempilo coi dati veri
+    if (listaHtml) {
+      listaHtml.innerHTML = ''; 
+      data.forEach((giocatore, index) => {
+        listaHtml.innerHTML += `
+          <li class="flex justify-between items-center bg-gray-50 p-3 rounded-lg mb-2">
+            <span class="font-bold text-gray-700">${index + 1}. ${giocatore.username}</span>
+            <span class="text-blue-600 font-bold">${giocatore.score} pt</span>
+          </li>
+        `;
+      });
+    }
+  }
+
+  // Carica la classifica appena si apre la pagina
+  caricaClassifica();
+</script>
 </body>
 </html>
