@@ -23,7 +23,6 @@
         <section>
             <h2 class="text-2xl font-bold border-b-2 border-emerald-500 pb-2 mb-4 text-blue-900">Il Diario di Oggi</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <!-- Mattina -->
                 <div class="bg-white p-4 rounded-lg shadow border-t-4 border-yellow-400">
                     <h3 class="font-bold text-lg mb-2">☕ Mattina</h3>
                     <ul class="space-y-2 text-sm text-gray-700">
@@ -32,7 +31,6 @@
                         <li>• Lanciata la nuova missione SpaceX verso Marte.</li>
                     </ul>
                 </div>
-                <!-- Pomeriggio -->
                 <div class="bg-white p-4 rounded-lg shadow border-t-4 border-orange-400">
                     <h3 class="font-bold text-lg mb-2">☀️ Pomeriggio</h3>
                     <ul class="space-y-2 text-sm text-gray-700">
@@ -41,7 +39,6 @@
                         <li>• Scoperto un nuovo esopianeta simile alla Terra.</li>
                     </ul>
                 </div>
-                <!-- Sera -->
                 <div class="bg-white p-4 rounded-lg shadow border-t-4 border-blue-800">
                     <h3 class="font-bold text-lg mb-2">🌙 Sera</h3>
                     <ul class="space-y-2 text-sm text-gray-700">
@@ -93,7 +90,7 @@
                 <li class="text-center text-gray-500 py-4">Caricamento classifica in corso...</li>
             </ul>
 
-            <!-- ZONA AUTENTICAZIONE (Visibile se non loggato) -->
+            <!-- ZONA AUTENTICAZIONE -->
             <div id="auth-section" class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
                 <h3 class="font-bold text-gray-700 mb-3 text-center">Crea un account per salvare i punti!</h3>
                 <input type="email" id="email-input" placeholder="La tua email" class="w-full border p-2 rounded mb-2 text-sm">
@@ -105,7 +102,7 @@
                 <p id="auth-msg" class="text-sm text-red-500 mt-2 text-center hidden"></p>
             </div>
 
-            <!-- ZONA UTENTE CONNESSO (Visibile se loggato) -->
+            <!-- ZONA UTENTE CONNESSO -->
             <div id="user-section" class="mt-6 bg-emerald-100 p-4 rounded-lg border border-emerald-300 hidden text-center">
                 <p class="font-bold text-emerald-800">Benvenuto in GeoFlash!</p>
                 <p id="user-email" class="text-sm text-emerald-700 mb-2"></p>
@@ -127,8 +124,7 @@
             if(isCorrect) {
                 btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
                 btn.classList.add('bg-green-500', 'text-white');
-                alert("Esatto! +50 Punti alla tua classifica.");
-                // In futuro, qui manderemo i punti a Supabase!
+                alert("Esatto! +50 Punti.");
             } else {
                 btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
                 btn.classList.add('bg-red-500', 'text-white');
@@ -141,16 +137,16 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-      // 1. Collega il database
-      const supabaseUrl = 'https://rwkfnkqdsdokjxzwfddg.supabase.co'; // RIMETTI QUI IL TUO VERO URL
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; // RIMETTI QUI LA TUA VERA CHIAVE PUBLISHABLE
-      const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+      // 1. Collega il database (usiamo 'db' per evitare il conflitto di nomi!)
+      const supabaseUrl = 'https://rwkfnkqdsdokjxzwfddg.supabase.co'; // IL TUO URL GIA' INSERITO
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; // <-- INCOLLA QUI LA TUA PUBLISHABLE KEY
+      const db = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-      // 2. Logica di Autenticazione (Registrazione e Accesso)
+      // 2. Logica di Autenticazione
       async function registrati() {
           const email = document.getElementById('email-input').value;
           const password = document.getElementById('password-input').value;
-          const { data, error } = await supabase.auth.signUp({ email, password });
+          const { data, error } = await db.auth.signUp({ email, password });
           
           if (error) {
               mostraErroreAuth("Errore: " + error.message);
@@ -162,7 +158,7 @@
       async function accedi() {
           const email = document.getElementById('email-input').value;
           const password = document.getElementById('password-input').value;
-          const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+          const { data, error } = await db.auth.signInWithPassword({ email, password });
           
           if (error) {
               mostraErroreAuth("Credenziali errate. Riprova.");
@@ -170,8 +166,8 @@
       }
 
       async function esci() {
-          await supabase.auth.signOut();
-          window.location.reload();
+          await db.auth.signOut();
+          window.location.reload(); // Ricarica la pagina per far sparire la sessione
       }
 
       function mostraErroreAuth(messaggio) {
@@ -181,22 +177,20 @@
       }
 
       // 3. Ascolta i cambiamenti (quando un utente entra o esce)
-      supabase.auth.onAuthStateChange((event, session) => {
+      db.auth.onAuthStateChange((event, session) => {
           if (session) {
-              // Utente loggato
               document.getElementById('auth-section').classList.add('hidden');
               document.getElementById('user-section').classList.remove('hidden');
               document.getElementById('user-email').innerText = session.user.email;
           } else {
-              // Utente non loggato
               document.getElementById('auth-section').classList.remove('hidden');
               document.getElementById('user-section').classList.add('hidden');
           }
       });
 
-      // 4. Funzione per scaricare e mostrare la classifica
+      // 4. Scarica e mostra la classifica
       async function caricaClassifica() {
-        const { data, error } = await supabase
+        const { data, error } = await db
           .from('leaderboard')
           .select('username, score')
           .order('score', { ascending: false })
