@@ -117,14 +117,55 @@
     </footer>
 
     <script>
-        function checkFlag(btn, isCorrect) {
+        async function checkFlag(btn, isCorrect) {
             let buttons = document.querySelectorAll('#flag-buttons button');
             buttons.forEach(b => b.disabled = true); 
             
             if(isCorrect) {
                 btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
                 btn.classList.add('bg-green-500', 'text-white');
-                alert("Esatto! +50 Punti.");
+                alert("Esatto! Sto salvando i tuoi 50 punti...");
+                
+                // --- INIZIO SALVATAGGIO PUNTI ---
+                // 1. Controlliamo se c'è un utente loggato
+                const { data: sessionData } = await db.auth.getSession();
+                const session = sessionData.session;
+
+                if (session) {
+                    const user = session.user;
+                    // Generiamo un nome utente dalla mail (es. "mario@email.it" diventa "mario")
+                    const username = user.email.split('@')[0];
+
+                    // 2. Cerchiamo se l'utente è già in classifica
+                    const { data: existingUser } = await db
+                        .from('leaderboard')
+                        .select('*')
+                        .eq('user_id', user.id)
+                        .single();
+
+                    if (existingUser) {
+                        // Se c'è già, aggiorniamo il suo punteggio (+50)
+                        await db
+                            .from('leaderboard')
+                            .update({ score: existingUser.score + 50 })
+                            .eq('user_id', user.id);
+                    } else {
+                        // Se è nuovo, lo inseriamo in classifica con 50 punti
+                        await db
+                            .from('leaderboard')
+                            .insert([
+                                { user_id: user.id, username: username, score: 50 }
+                            ]);
+                    }
+                    
+                    alert("Punti salvati con successo! Ricarico la classifica...");
+                    // Ricarichiamo la classifica per farti vedere subito al primo posto!
+                    caricaClassifica();
+                } else {
+                    alert("Ottimo! Ma per salvare i punti e scalare la classifica devi prima registrarti o accedere.");
+                }
+                // --- FINE SALVATAGGIO PUNTI ---
+
             } else {
                 btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
                 btn.classList.add('bg-red-500', 'text-white');
