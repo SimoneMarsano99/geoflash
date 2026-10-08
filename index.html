@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GeoFlash - Notizie e Mappe</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Importiamo il motore di Supabase SUBITO in cima, così è impossibile che sbagli -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
@@ -59,8 +58,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Gioco 1: Bandiera -->
                 <div class="bg-white p-5 rounded-lg shadow text-center">
-                    <h3 class="font-bold text-gray-600 mb-2">Bandiera del Giorno</h3>
-                    <div class="text-6xl mb-4">🇳🇴</div>
+                    <h3 class="font-bold text-gray-600 mb-4">Bandiera del Giorno</h3>
+                    
+                    <!-- Immagine vera della bandiera -->
+                    <img src="https://flagcdn.com/w320/no.png" alt="Bandiera da indovinare" class="h-24 mx-auto mb-6 border border-gray-200 shadow-sm rounded">
+                    
                     <div class="grid grid-cols-2 gap-2" id="flag-buttons">
                         <button onclick="checkFlag(this, false)" class="bg-gray-100 hover:bg-gray-200 py-2 rounded font-medium transition">Svezia</button>
                         <button onclick="checkFlag(this, true)" class="bg-gray-100 hover:bg-gray-200 py-2 rounded font-medium transition">Norvegia</button>
@@ -71,10 +73,11 @@
 
                 <!-- Gioco 2: Luogo -->
                 <div class="bg-white p-5 rounded-lg shadow text-center">
-                    <h3 class="font-bold text-gray-600 mb-2">Luogo Misterioso</h3>
-                    <div class="bg-gray-300 h-32 rounded-lg mb-4 flex items-center justify-center text-gray-500 italic">
-                        [Foto di Mont Saint-Michel]
-                    </div>
+                    <h3 class="font-bold text-gray-600 mb-4">Luogo Misterioso</h3>
+                    
+                    <!-- Immagine vera di Mont Saint-Michel -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Mont-Saint-Michel_vu_du_ciel.jpg/800px-Mont-Saint-Michel_vu_du_ciel.jpg" alt="Luogo Misterioso" class="w-full h-36 object-cover rounded-lg mb-4 shadow-sm border border-gray-200">
+                    
                     <input type="text" id="luogo-input" placeholder="Dove ci troviamo?" class="w-full border p-2 rounded mb-2 text-sm">
                     <button id="luogo-btn" onclick="checkLuogo(this)" class="w-full bg-emerald-600 text-white py-2 rounded font-bold hover:bg-emerald-700 transition">Indovina (100 pt)</button>
                 </div>
@@ -121,9 +124,9 @@
     <!-- SCRIPT PRINCIPALE -->
     <script>
         // --- 1. CONFIGURAZIONE DATABASE ---
-        // ATTENZIONE A NON CANCELLARE GLI APICI SINGOLI!
+        // INSERISCI LA TUA CHIAVE MANTENENDO GLI APICI SINGOLI!
         const supabaseUrl = 'https://rwkfnkqdsdokjxzwfddg.supabase.co'; 
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; // <-- SOSTITUISCI GLI ASTERISCHI CON LA TUA CHIAVE
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; 
         const db = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 
