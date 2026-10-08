@@ -73,8 +73,8 @@
                     <div class="bg-gray-300 h-32 rounded-lg mb-4 flex items-center justify-center text-gray-500 italic">
                         [Foto di Mont Saint-Michel]
                     </div>
-                    <input type="text" placeholder="Dove ci troviamo?" class="w-full border p-2 rounded mb-2 text-sm">
-                    <button class="w-full bg-emerald-600 text-white py-2 rounded font-bold hover:bg-emerald-700 transition">Indovina (100 pt)</button>
+                    <input type="text" id="luogo-input" placeholder="Dove ci troviamo?" class="w-full border p-2 rounded mb-2 text-sm">
+                    <button id="luogo-btn" onclick="checkLuogo(this)" class="w-full bg-emerald-600 text-white py-2 rounded font-bold hover:bg-emerald-700 transition">Indovina (100 pt)</button>
                 </div>
             </div>
         </section>
@@ -118,33 +118,42 @@
 
     <!-- SCRIPT DEL GIOCO E BLOCCO FURBETTI -->
     <script>
-        // 1. All'apertura della pagina, controlliamo se ha già giocato oggi
         window.addEventListener('load', () => {
-            const oggi = new Date().toDateString(); // Es: "Thu Oct 08 2026"
-            const ultimoGioco = localStorage.getItem('dataUltimoGiocoBandiera');
+            const oggi = new Date().toDateString(); 
 
-            // Se la data salvata nel telefono è uguale a oggi, disabilita i bottoni
-            if (ultimoGioco === oggi) {
+            // Controllo blocco Bandiera
+            const ultimoGiocoBandiera = localStorage.getItem('dataUltimoGiocoBandiera');
+            if (ultimoGiocoBandiera === oggi) {
                 let buttons = document.querySelectorAll('#flag-buttons button');
                 buttons.forEach(b => {
                     b.disabled = true;
                     b.classList.add('opacity-50', 'cursor-not-allowed');
                 });
             }
+
+            // Controllo blocco Luogo
+            const ultimoGiocoLuogo = localStorage.getItem('dataUltimoGiocoLuogo');
+            if (ultimoGiocoLuogo === oggi) {
+                const btnLuogo = document.getElementById('luogo-btn');
+                const inputLuogo = document.getElementById('luogo-input');
+                if(btnLuogo && inputLuogo) {
+                    btnLuogo.disabled = true;
+                    btnLuogo.classList.add('opacity-50', 'cursor-not-allowed');
+                    inputLuogo.disabled = true;
+                }
+            }
         });
 
-        // 2. Quando l'utente clicca una risposta
+        // GIOCO 1: BANDIERA
         async function checkFlag(btn, isCorrect) {
             const oggi = new Date().toDateString();
             const ultimoGioco = localStorage.getItem('dataUltimoGiocoBandiera');
 
-            // Controllo di sicurezza extra: se ha già giocato, fermiamo tutto
             if (ultimoGioco === oggi) {
                 alert("Hai già giocato oggi! Torna domani per una nuova bandiera.");
                 return; 
             }
 
-            // Disabilita subito tutti i bottoni
             let buttons = document.querySelectorAll('#flag-buttons button');
             buttons.forEach(b => b.disabled = true); 
 
@@ -152,43 +161,86 @@
                 btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
                 btn.classList.add('bg-green-500', 'text-white');
                 alert("Esatto! Sto salvando i tuoi 50 punti...");
-                
-                // Salviamo i punti su Supabase
-                const { data: sessionData } = await db.auth.getSession();
-                const session = sessionData.session;
-
-                if (session) {
-                    const user = session.user;
-                    const username = user.email.split('@')[0];
-
-                    const { data: existingUser } = await db
-                        .from('leaderboard')
-                        .select('*')
-                        .eq('user_id', user.id)
-                        .single();
-
-                    if (existingUser) {
-                        await db.from('leaderboard').update({ score: existingUser.score + 50 }).eq('user_id', user.id);
-                    } else {
-                        await db.from('leaderboard').insert([{ user_id: user.id, username: username, score: 50 }]);
-                    }
-                    
-                    alert("Punti salvati con successo! Ricarico la classifica...");
-                    caricaClassifica();
-                } else {
-                    alert("Ottimo! Ma per salvare i punti e scalare la classifica devi prima registrarti o accedere.");
-                }
-
-                // Timbro la memoria del telefono: l'utente ha giocato oggi!
-                localStorage.setItem('dataUltimoGiocoBandiera', oggi);
-
+                await salvaPunti(50);
             } else {
                 btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
                 btn.classList.add('bg-red-500', 'text-white');
                 alert("Sbagliato! La risposta corretta era Norvegia.");
+            }
+            
+            localStorage.setItem('dataUltimoGiocoBandiera', oggi);
+        }
+
+        // GIOCO 2: LUOGO MISTERIOSO
+        async function checkLuogo(btn) {
+            const oggi = new Date().toDateString();
+            const ultimoGioco = localStorage.getItem('dataUltimoGiocoLuogo');
+
+            if (ultimoGioco === oggi) {
+                alert("Hai già tentato di indovinare il luogo oggi!");
+                return; 
+            }
+
+            const input = document.getElementById('luogo-input');
+            const rispostaUtente = input.value.toLowerCase().trim(); // Trasforma tutto in minuscolo
+            
+            // Disabilita tasto e input
+            btn.disabled = true;
+            input.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            // Soluzioni accettate
+            const soluzioni = ["mont saint michel", "mont saint-michel", "mont st michel", "mont-saint-michel"];
+            
+            let isCorrect = false;
+            for(let sol of soluzioni) {
+                if(rispostaUtente.includes(sol)) {
+                    isCorrect = true;
+                    break;
+                }
+            }
+
+            if(isCorrect) {
+                btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
+                btn.classList.add('bg-green-500');
+                btn.innerText = "Esatto!";
+                alert("Bravissimo! Sto salvando i tuoi 100 punti...");
+                await salvaPunti(100);
+            } else {
+                btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
+                btn.classList.add('bg-red-500');
+                btn.innerText = "Sbagliato!";
+                alert("Peccato! Il luogo misterioso era Mont Saint-Michel.");
+            }
+            
+            localStorage.setItem('dataUltimoGiocoLuogo', oggi);
+        }
+
+        // FUNZIONE UNICA PER SALVARE PUNTI (evita di ripetere codice)
+        async function salvaPunti(puntiDaAggiungere) {
+            const { data: sessionData } = await db.auth.getSession();
+            const session = sessionData.session;
+
+            if (session) {
+                const user = session.user;
+                const username = user.email.split('@')[0];
+
+                const { data: existingUser } = await db
+                    .from('leaderboard')
+                    .select('*')
+                    .eq('user_id', user.id)
+                    .single();
+
+                if (existingUser) {
+                    await db.from('leaderboard').update({ score: existingUser.score + puntiDaAggiungere }).eq('user_id', user.id);
+                } else {
+                    await db.from('leaderboard').insert([{ user_id: user.id, username: username, score: puntiDaAggiungere }]);
+                }
                 
-                // Timbro la memoria del telefono anche se ha sbagliato (nessun secondo tentativo!)
-                localStorage.setItem('dataUltimoGiocoBandiera', oggi);
+                alert("Punti salvati con successo! Ricarico la classifica...");
+                caricaClassifica();
+            } else {
+                alert("Ottimo! Ma per salvare i punti e scalare la classifica devi prima registrarti o accedere.");
             }
         }
     </script>
@@ -197,9 +249,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-      // INCOLLA QUI SOTTO IL TUO VERO URL E LA TUA VERA PUBLISHABLE KEY
       const supabaseUrl = 'https://rwkfnkqdsdokjxzwfddg.supabase.co'; 
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; 
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; // INCOLLA QUI LA TUA PUBLISHABLE KEY
       const db = window.supabase.createClient(supabaseUrl, supabaseKey);
 
       async function registrati() {
@@ -247,39 +298,4 @@
       });
 
       async function caricaClassifica() {
-        const { data, error } = await db
-          .from('leaderboard')
-          .select('username, score')
-          .order('score', { ascending: false })
-          .limit(10);
-
-        if (error) {
-          console.error("Errore di caricamento:", error);
-          document.getElementById('lista-classifica').innerHTML = '<li class="text-red-500 text-center py-4">Errore nel caricamento della classifica.</li>';
-          return;
-        }
-
-        const listaHtml = document.getElementById('lista-classifica');
-        
-        if (listaHtml) {
-          listaHtml.innerHTML = ''; 
-          
-          if (data.length === 0) {
-              listaHtml.innerHTML = '<li class="text-center text-gray-500 py-4 font-medium">Nessun giocatore in classifica. Diventa il primo!</li>';
-          } else {
-              data.forEach((giocatore, index) => {
-                listaHtml.innerHTML += `
-                  <li class="flex justify-between items-center bg-gray-50 p-3 rounded-lg mb-2 border border-gray-200 shadow-sm">
-                    <span class="font-bold text-gray-700">${index + 1}. ${giocatore.username}</span>
-                    <span class="text-emerald-600 font-extrabold">${giocatore.score} pt</span>
-                  </li>
-                `;
-              });
-          }
-        }
-      }
-
-      caricaClassifica();
-    </script>
-</body>
-</html>
+        const { data, error }
