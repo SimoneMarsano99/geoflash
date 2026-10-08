@@ -116,27 +116,51 @@
         <p class="text-sm">© 2026 GeoFlash. Tutti i diritti riservati.</p>
     </footer>
 
+    <!-- SCRIPT DEL GIOCO E BLOCCO FURBETTI -->
     <script>
+        // 1. All'apertura della pagina, controlliamo se ha già giocato oggi
+        window.addEventListener('load', () => {
+            const oggi = new Date().toDateString(); // Es: "Thu Oct 08 2026"
+            const ultimoGioco = localStorage.getItem('dataUltimoGiocoBandiera');
+
+            // Se la data salvata nel telefono è uguale a oggi, disabilita i bottoni
+            if (ultimoGioco === oggi) {
+                let buttons = document.querySelectorAll('#flag-buttons button');
+                buttons.forEach(b => {
+                    b.disabled = true;
+                    b.classList.add('opacity-50', 'cursor-not-allowed');
+                });
+            }
+        });
+
+        // 2. Quando l'utente clicca una risposta
         async function checkFlag(btn, isCorrect) {
+            const oggi = new Date().toDateString();
+            const ultimoGioco = localStorage.getItem('dataUltimoGiocoBandiera');
+
+            // Controllo di sicurezza extra: se ha già giocato, fermiamo tutto
+            if (ultimoGioco === oggi) {
+                alert("Hai già giocato oggi! Torna domani per una nuova bandiera.");
+                return; 
+            }
+
+            // Disabilita subito tutti i bottoni
             let buttons = document.querySelectorAll('#flag-buttons button');
             buttons.forEach(b => b.disabled = true); 
-            
+
             if(isCorrect) {
                 btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
                 btn.classList.add('bg-green-500', 'text-white');
                 alert("Esatto! Sto salvando i tuoi 50 punti...");
                 
-                // --- INIZIO SALVATAGGIO PUNTI ---
-                // 1. Controlliamo se c'è un utente loggato
+                // Salviamo i punti su Supabase
                 const { data: sessionData } = await db.auth.getSession();
                 const session = sessionData.session;
 
                 if (session) {
                     const user = session.user;
-                    // Generiamo un nome utente dalla mail (es. "mario@email.it" diventa "mario")
                     const username = user.email.split('@')[0];
 
-                    // 2. Cerchiamo se l'utente è già in classifica
                     const { data: existingUser } = await db
                         .from('leaderboard')
                         .select('*')
@@ -144,32 +168,27 @@
                         .single();
 
                     if (existingUser) {
-                        // Se c'è già, aggiorniamo il suo punteggio (+50)
-                        await db
-                            .from('leaderboard')
-                            .update({ score: existingUser.score + 50 })
-                            .eq('user_id', user.id);
+                        await db.from('leaderboard').update({ score: existingUser.score + 50 }).eq('user_id', user.id);
                     } else {
-                        // Se è nuovo, lo inseriamo in classifica con 50 punti
-                        await db
-                            .from('leaderboard')
-                            .insert([
-                                { user_id: user.id, username: username, score: 50 }
-                            ]);
+                        await db.from('leaderboard').insert([{ user_id: user.id, username: username, score: 50 }]);
                     }
                     
                     alert("Punti salvati con successo! Ricarico la classifica...");
-                    // Ricarichiamo la classifica per farti vedere subito al primo posto!
                     caricaClassifica();
                 } else {
                     alert("Ottimo! Ma per salvare i punti e scalare la classifica devi prima registrarti o accedere.");
                 }
-                // --- FINE SALVATAGGIO PUNTI ---
+
+                // Timbro la memoria del telefono: l'utente ha giocato oggi!
+                localStorage.setItem('dataUltimoGiocoBandiera', oggi);
 
             } else {
                 btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
                 btn.classList.add('bg-red-500', 'text-white');
                 alert("Sbagliato! La risposta corretta era Norvegia.");
+                
+                // Timbro la memoria del telefono anche se ha sbagliato (nessun secondo tentativo!)
+                localStorage.setItem('dataUltimoGiocoBandiera', oggi);
             }
         }
     </script>
@@ -178,12 +197,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-      // 1. Collega il database (usiamo 'db' per evitare il conflitto di nomi!)
-      const supabaseUrl = 'https://rwkfnkqdsdokjxzwfddg.supabase.co'; // IL TUO URL GIA' INSERITO
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; // <-- INCOLLA QUI LA TUA PUBLISHABLE KEY
+      // INCOLLA QUI SOTTO IL TUO VERO URL E LA TUA VERA PUBLISHABLE KEY
+      const supabaseUrl = 'https://rwkfnkqdsdokjxzwfddg.supabase.co'; 
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; 
       const db = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-      // 2. Logica di Autenticazione
       async function registrati() {
           const email = document.getElementById('email-input').value;
           const password = document.getElementById('password-input').value;
@@ -208,7 +226,7 @@
 
       async function esci() {
           await db.auth.signOut();
-          window.location.reload(); // Ricarica la pagina per far sparire la sessione
+          window.location.reload(); 
       }
 
       function mostraErroreAuth(messaggio) {
@@ -217,7 +235,6 @@
           p.classList.remove('hidden');
       }
 
-      // 3. Ascolta i cambiamenti (quando un utente entra o esce)
       db.auth.onAuthStateChange((event, session) => {
           if (session) {
               document.getElementById('auth-section').classList.add('hidden');
@@ -229,7 +246,6 @@
           }
       });
 
-      // 4. Scarica e mostra la classifica
       async function caricaClassifica() {
         const { data, error } = await db
           .from('leaderboard')
