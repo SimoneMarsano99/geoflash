@@ -10,42 +10,58 @@
     <!-- LIBRERIA PER I CORIANDOLI -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-slate-100 text-slate-800 font-sans antialiased">
+
+    <!-- NOTIFICHE TOAST (Alternativa moderna agli alert) -->
+    <div id="toast" class="fixed top-5 right-5 z-50 transform transition-all duration-300 translate-y-[-100px] opacity-0 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-xl flex items-center gap-3 text-sm font-semibold pointer-events-none">
+        <span id="toast-msg"></span>
+    </div>
 
     <!-- HEADER E BREAKING NEWS -->
-    <header class="bg-blue-900 text-white text-center py-4 shadow-md">
-        <h1 class="text-4xl font-extrabold tracking-tight">GeoFlash🌍</h1>
+    <header class="bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-950 text-white text-center py-6 shadow-lg">
+        <h1 class="text-4xl md:text-5xl font-black tracking-tight flex items-center justify-center gap-2">
+            GeoFlash<span class="text-3xl">🌍</span>
+        </h1>
         <p class="text-sm font-light text-blue-200 mt-1">Le tue notizie in 1 minuto. La tua sfida quotidiana.</p>
     </header>
-    <div class="bg-red-600 text-white text-center py-2 px-4 text-sm font-bold animate-pulse">
-        ⚡ FLASH: Trovato accordo storico sul clima a Parigi. Mercati in rialzo.
+
+    <div class="bg-red-600 text-white text-center py-2.5 px-4 text-xs md:text-sm font-bold tracking-wide uppercase flex items-center justify-center gap-2">
+        <span class="animate-ping inline-flex h-2 w-2 rounded-full bg-white opacity-75"></span>
+        <span>⚡ FLASH: Trovato accordo storico sul clima a Parigi. Mercati in rialzo.</span>
     </div>
 
     <main class="max-w-4xl mx-auto p-4 md:p-6 space-y-8">
 
         <!-- SEZIONE NOTIZIE -->
         <section>
-            <h2 class="text-2xl font-bold border-b-2 border-emerald-500 pb-2 mb-4 text-blue-900">Il Diario di Oggi</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-white p-4 rounded-lg shadow border-t-4 border-yellow-400">
-                    <h3 class="font-bold text-lg mb-2">☕ Mattina</h3>
-                    <ul class="space-y-2 text-sm text-gray-700">
+            <div class="flex items-center gap-2 mb-4 border-b-2 border-emerald-500 pb-2">
+                <span class="text-xl">📰</span>
+                <h2 class="text-2xl font-bold text-slate-900">Il Diario di Oggi</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <!-- Mattina -->
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 border-t-4 border-t-amber-400 hover:shadow-md transition">
+                    <h3 class="font-bold text-lg mb-3 text-slate-800 flex items-center gap-2">☕ Mattina</h3>
+                    <ul class="space-y-2.5 text-sm text-slate-600">
                         <li>• Il governo vara il nuovo decreto sulle startup digitali.</li>
                         <li>• Serie A: Il Napoli vince al 90' e vola in testa.</li>
                         <li>• Lanciata la nuova missione SpaceX verso Marte.</li>
                     </ul>
                 </div>
-                <div class="bg-white p-4 rounded-lg shadow border-t-4 border-orange-400">
-                    <h3 class="font-bold text-lg mb-2">☀️ Pomeriggio</h3>
-                    <ul class="space-y-2 text-sm text-gray-700">
+                <!-- Pomeriggio -->
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 border-t-4 border-t-orange-500 hover:shadow-md transition">
+                    <h3 class="font-bold text-lg mb-3 text-slate-800 flex items-center gap-2">☀️ Pomeriggio</h3>
+                    <ul class="space-y-2.5 text-sm text-slate-600">
                         <li>• Disoccupazione in calo dello 0.5% nell'ultimo trimestre.</li>
                         <li>• Fiera del Libro a Torino: record di presenze.</li>
                         <li>• Scoperto un nuovo esopianeta simile alla Terra.</li>
                     </ul>
                 </div>
-                <div class="bg-white p-4 rounded-lg shadow border-t-4 border-blue-800">
-                    <h3 class="font-bold text-lg mb-2">🌙 Sera</h3>
-                    <ul class="space-y-2 text-sm text-gray-700">
+                <!-- Sera -->
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 border-t-4 border-t-indigo-600 hover:shadow-md transition">
+                    <h3 class="font-bold text-lg mb-3 text-slate-800 flex items-center gap-2">🌙 Sera</h3>
+                    <ul class="space-y-2.5 text-sm text-slate-600">
                         <li>• Wall Street chiude in positivo trainata dal tech.</li>
                         <li>• L'Italia vince l'oro agli Europei di scherma.</li>
                         <li>• Previsioni meteo: pioggia in arrivo al Nord.</li>
@@ -55,80 +71,124 @@
         </section>
 
         <!-- SEZIONE GIOCHI -->
-        <section class="bg-emerald-50 p-6 rounded-xl border border-emerald-200">
-            <h2 class="text-2xl font-bold text-emerald-800 mb-6 text-center">🎯 La Sfida del Giorno</h2>
+        <section class="bg-emerald-50/70 p-6 rounded-2xl border border-emerald-200/80 shadow-sm">
+            <h2 class="text-2xl font-black text-emerald-900 mb-6 text-center tracking-tight">🎯 La Sfida del Giorno</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Gioco 1: Bandiera -->
-                <div class="bg-white p-5 rounded-lg shadow text-center">
-                    <h3 class="font-bold text-gray-600 mb-4">Bandiera del Giorno</h3>
-                    
-                    <img src="https://flagcdn.com/w320/no.png" alt="Bandiera da indovinare" class="h-24 mx-auto mb-6 border border-gray-200 shadow-sm rounded">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 text-center flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full uppercase">Quiz 1</span>
+                            <span class="text-xs font-semibold text-slate-400">+50 pt</span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 mb-4 text-lg">Bandiera del Giorno</h3>
+                        
+                        <div class="h-28 flex items-center justify-center mb-6">
+                            <img src="https://flagcdn.com/w320/no.png" alt="Bandiera da indovinare" class="h-24 border border-slate-200 shadow-sm rounded object-cover">
+                        </div>
+                    </div>
                     
                     <div class="grid grid-cols-2 gap-2" id="flag-buttons">
-                        <button onclick="checkFlag(this, false)" class="bg-gray-100 hover:bg-gray-200 py-2 rounded font-medium transition">Svezia</button>
-                        <button onclick="checkFlag(this, true)" class="bg-gray-100 hover:bg-gray-200 py-2 rounded font-medium transition">Norvegia</button>
-                        <button onclick="checkFlag(this, false)" class="bg-gray-100 hover:bg-gray-200 py-2 rounded font-medium transition">Finlandia</button>
-                        <button onclick="checkFlag(this, false)" class="bg-gray-100 hover:bg-gray-200 py-2 rounded font-medium transition">Islanda</button>
+                        <button onclick="checkFlag(this, false)" class="bg-slate-100 hover:bg-slate-200 py-2.5 px-3 rounded-lg font-medium text-slate-700 transition active:scale-95">Svezia</button>
+                        <button onclick="checkFlag(this, true)" class="bg-slate-100 hover:bg-slate-200 py-2.5 px-3 rounded-lg font-medium text-slate-700 transition active:scale-95">Norvegia</button>
+                        <button onclick="checkFlag(this, false)" class="bg-slate-100 hover:bg-slate-200 py-2.5 px-3 rounded-lg font-medium text-slate-700 transition active:scale-95">Finlandia</button>
+                        <button onclick="checkFlag(this, false)" class="bg-slate-100 hover:bg-slate-200 py-2.5 px-3 rounded-lg font-medium text-slate-700 transition active:scale-95">Islanda</button>
                     </div>
                 </div>
 
                 <!-- Gioco 2: Luogo -->
-                <div class="bg-white p-5 rounded-lg shadow text-center">
-                    <h3 class="font-bold text-gray-600 mb-4">Luogo Misterioso</h3>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 text-center flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full uppercase">Quiz 2</span>
+                            <span class="text-xs font-semibold text-slate-400">+100 pt</span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 mb-4 text-lg">Luogo Misterioso</h3>
+                        
+                        <div class="h-28 mb-4 overflow-hidden rounded-lg border border-slate-200 shadow-sm">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Mont_st_michel_aerial.jpg" alt="Luogo Misterioso" class="w-full h-full object-cover">
+                        </div>
+                    </div>
                     
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Mont_st_michel_aerial.jpg" alt="Luogo Misterioso" class="w-full h-36 object-cover rounded-lg mb-4 shadow-sm border border-gray-200">
-                    
-                    <input type="text" id="luogo-input" placeholder="Dove ci troviamo?" class="w-full border p-2 rounded mb-2 text-sm">
-                    <button id="luogo-btn" onclick="checkLuogo(this)" class="w-full bg-emerald-600 text-white py-2 rounded font-bold hover:bg-emerald-700 transition">Indovina (100 pt)</button>
+                    <div>
+                        <input type="text" id="luogo-input" placeholder="Dove ci troviamo? (es. nome luogo)" class="w-full border border-slate-300 p-2.5 rounded-lg mb-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <button id="luogo-btn" onclick="checkLuogo(this)" class="w-full bg-emerald-600 text-white py-2.5 rounded-lg font-bold hover:bg-emerald-700 transition active:scale-95 shadow-sm">Indovina</button>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- CLASSIFICA E PREMIO -->
-        <section class="bg-white p-6 rounded-lg shadow-lg border-2 border-yellow-400">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold text-gray-800">🏆 Lega di Ottobre</h2>
-                <span class="bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded uppercase tracking-wide">In palio: Buono Amazon 10€</span>
+        <section class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6 border-b border-slate-100 pb-4">
+                <div>
+                    <h2 class="text-2xl font-black text-slate-900 flex items-center gap-2">🏆 Lega di Ottobre</h2>
+                    <p class="text-xs text-slate-500 mt-0.5">I 10 migliori esploratori del mese</p>
+                </div>
+                <span class="bg-amber-100 text-amber-900 border border-amber-300 text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
+                    🎁 In palio: Buono Amazon 10€
+                </span>
             </div>
             
-            <ul id="lista-classifica" class="w-full mt-4">
-                <li class="text-center text-gray-500 py-4">Caricamento classifica in corso...</li>
+            <ul id="lista-classifica" class="w-full divide-y divide-slate-100">
+                <li class="text-center text-slate-400 py-6 text-sm">Caricamento classifica in corso...</li>
             </ul>
 
             <!-- ZONA AUTENTICAZIONE -->
-            <div id="auth-section" class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <h3 class="font-bold text-gray-700 mb-3 text-center">Crea un account per salvare i punti!</h3>
-                <input type="email" id="email-input" placeholder="La tua email" class="w-full border p-2 rounded mb-2 text-sm">
-                <input type="password" id="password-input" placeholder="Scegli una password (min 6 caratteri)" class="w-full border p-2 rounded mb-3 text-sm">
-                <div class="flex gap-2">
-                    <button onclick="registrati()" class="w-1/2 bg-emerald-600 text-white py-2 rounded font-bold hover:bg-emerald-700 transition">Registrati</button>
-                    <button onclick="accedi()" class="w-1/2 bg-blue-600 text-white py-2 rounded font-bold hover:bg-blue-700 transition">Accedi</button>
+            <div id="auth-section" class="mt-8 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                <h3 class="font-bold text-slate-800 mb-1 text-center text-base">Crea un account per scalare la classifica!</h3>
+                <p class="text-xs text-slate-500 text-center mb-4">Accedi prima di rispondere per non perdere i punti guadagnati.</p>
+                <div class="space-y-2 max-w-sm mx-auto">
+                    <input type="email" id="email-input" placeholder="La tua email" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <input type="password" id="password-input" placeholder="Password (min 6 caratteri)" class="w-full border border-slate-300 p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <div class="flex gap-2 pt-1">
+                        <button onclick="registrati()" class="w-1/2 bg-emerald-600 text-white py-2 rounded-lg font-bold hover:bg-emerald-700 transition text-sm">Registrati</button>
+                        <button onclick="accedi()" class="w-1/2 bg-blue-600 text-white py-2 rounded-lg font-bold hover:bg-blue-700 transition text-sm">Accedi</button>
+                    </div>
+                    <p id="auth-msg" class="text-xs text-red-500 mt-2 text-center hidden"></p>
                 </div>
-                <p id="auth-msg" class="text-sm text-red-500 mt-2 text-center hidden"></p>
             </div>
 
             <!-- ZONA UTENTE CONNESSO -->
-            <div id="user-section" class="mt-6 bg-emerald-100 p-4 rounded-lg border border-emerald-300 hidden text-center">
-                <p class="font-bold text-emerald-800">Benvenuto in GeoFlash!</p>
-                <p id="user-email" class="text-sm text-emerald-700 mb-2"></p>
-                <button onclick="esci()" class="text-sm text-red-600 font-semibold hover:underline">Esci dall'account</button>
+            <div id="user-section" class="mt-8 bg-emerald-50 p-5 rounded-xl border border-emerald-200 hidden text-center">
+                <p class="font-bold text-emerald-900 text-base">Benvenuto su GeoFlash!</p>
+                <p id="user-email" class="text-xs text-emerald-700 mb-3"></p>
+                <button onclick="esci()" class="text-xs text-red-600 font-bold hover:underline bg-white px-3 py-1 rounded-md border border-red-200 shadow-sm">Esci dall'account</button>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-gray-800 text-white text-center py-6 mt-8">
-        <p class="text-sm">© 2026 GeoFlash. Tutti i diritti riservati.</p>
+    <footer class="bg-slate-900 text-slate-400 text-center py-6 mt-12 text-xs border-t border-slate-800">
+        <p>© 2026 GeoFlash. Tutti i diritti riservati.</p>
     </footer>
 
     <!-- SCRIPT PRINCIPALE -->
     <script>
         // --- 1. CONFIGURAZIONE DATABASE ---
         const supabaseUrl = 'https://rwkfnkqdsdokjxzwfddg.supabase.co'; 
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; // <-- INSERISCI LA TUA CHIAVE QUI
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; // <-- INSERISCI LA TUA CHIAVE ANON QUI
         const db = window.supabase.createClient(supabaseUrl, supabaseKey);
 
+        // Helper notifica toast
+        function mostraToast(messaggio, tipo = 'info') {
+            const toast = document.getElementById('toast');
+            const msg = document.getElementById('toast-msg');
+            msg.innerText = messaggio;
+
+            if (tipo === 'success') {
+                toast.className = "fixed top-5 right-5 z-50 transform transition-all duration-300 translate-y-0 opacity-100 bg-emerald-700 text-white px-5 py-3 rounded-xl shadow-xl flex items-center gap-3 text-sm font-semibold";
+            } else if (tipo === 'error') {
+                toast.className = "fixed top-5 right-5 z-50 transform transition-all duration-300 translate-y-0 opacity-100 bg-rose-700 text-white px-5 py-3 rounded-xl shadow-xl flex items-center gap-3 text-sm font-semibold";
+            } else {
+                toast.className = "fixed top-5 right-5 z-50 transform transition-all duration-300 translate-y-0 opacity-100 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-xl flex items-center gap-3 text-sm font-semibold";
+            }
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-[-100px]', 'opacity-0');
+            }, 3500);
+        }
 
         // --- 2. CONTROLLO GIOCATE ODIERNE AL CARICAMENTO ---
         window.addEventListener('load', () => {
@@ -138,7 +198,7 @@
                 let buttons = document.querySelectorAll('#flag-buttons button');
                 buttons.forEach(b => {
                     b.disabled = true;
-                    b.classList.add('opacity-50', 'cursor-not-allowed');
+                    b.classList.add('opacity-40', 'cursor-not-allowed');
                 });
             }
 
@@ -147,46 +207,41 @@
                 const inputLuogo = document.getElementById('luogo-input');
                 if(btnLuogo && inputLuogo) {
                     btnLuogo.disabled = true;
-                    btnLuogo.classList.add('opacity-50', 'cursor-not-allowed');
+                    btnLuogo.classList.add('opacity-40', 'cursor-not-allowed');
                     inputLuogo.disabled = true;
                 }
             }
         });
 
-
         // --- 3. LOGICA GIOCO 1: BANDIERA ---
         async function checkFlag(btn, isCorrect) {
             const oggi = new Date().toDateString();
             if (localStorage.getItem('dataUltimoGiocoBandiera') === oggi) {
-                alert("Hai già giocato oggi! Torna domani.");
+                mostraToast("Hai già giocato oggi! Torna domani.", 'error');
                 return; 
             }
 
             let buttons = document.querySelectorAll('#flag-buttons button');
             buttons.forEach(b => b.disabled = true); 
 
-            if(isCorrect) {
-                // LANCIA I CORIANDOLI!
+            if (isCorrect) {
                 confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
-                
-                btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
-                btn.classList.add('bg-green-500', 'text-white');
-                
+                btn.classList.remove('bg-slate-100', 'hover:bg-slate-200');
+                btn.classList.add('bg-emerald-600', 'text-white');
                 await salvaPunti(50);
             } else {
-                btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
-                btn.classList.add('bg-red-500', 'text-white');
-                alert("Sbagliato! La risposta corretta era Norvegia.");
+                btn.classList.remove('bg-slate-100', 'hover:bg-slate-200');
+                btn.classList.add('bg-rose-600', 'text-white');
+                mostraToast("Sbagliato! La risposta corretta era Norvegia.", 'error');
             }
             localStorage.setItem('dataUltimoGiocoBandiera', oggi);
         }
-
 
         // --- 4. LOGICA GIOCO 2: LUOGO MISTERIOSO ---
         async function checkLuogo(btn) {
             const oggi = new Date().toDateString();
             if (localStorage.getItem('dataUltimoGiocoLuogo') === oggi) {
-                alert("Hai già tentato di indovinare il luogo oggi!");
+                mostraToast("Hai già tentato di indovinare il luogo oggi!", 'error');
                 return; 
             }
 
@@ -195,7 +250,7 @@
             
             btn.disabled = true;
             input.disabled = true;
-            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            btn.classList.add('opacity-40', 'cursor-not-allowed');
 
             const soluzioni = ["mont saint michel", "mont saint-michel", "mont st michel", "mont-saint-michel"];
             
@@ -206,24 +261,20 @@
                 }
             }
 
-            if(isCorrect) {
-                // LANCIA I CORIANDOLI!
+            if (isCorrect) {
                 confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
-
                 btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
-                btn.classList.add('bg-green-500');
+                btn.classList.add('bg-emerald-700');
                 btn.innerText = "Esatto!";
-                
                 await salvaPunti(100);
             } else {
                 btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
-                btn.classList.add('bg-red-500');
+                btn.classList.add('bg-rose-600');
                 btn.innerText = "Sbagliato!";
-                alert("Peccato! Il luogo misterioso era Mont Saint-Michel.");
+                mostraToast("Peccato! Il luogo era Mont Saint-Michel.", 'error');
             }
             localStorage.setItem('dataUltimoGiocoLuogo', oggi);
         }
-
 
         // --- 5. FUNZIONE SALVA PUNTI SUL DATABASE ---
         async function salvaPunti(puntiDaAggiungere) {
@@ -246,90 +297,102 @@
                     await db.from('leaderboard').insert([{ user_id: user.id, username: username, score: puntiDaAggiungere }]);
                 }
                 
-                // Ritardiamo l'alert per far godere l'animazione dei coriandoli!
                 setTimeout(() => {
-                    alert("Punti salvati con successo! Ricarico la classifica...");
+                    mostraToast(`+${puntiDaAggiungere} pt salvati! Classifica aggiornata.`, 'success');
                     caricaClassifica();
-                }, 800);
+                }, 400);
                 
             } else {
                 setTimeout(() => {
-                    alert("Ottimo! Ma per salvare i punti e scalare la classifica devi prima registrarti o accedere.");
-                }, 800);
+                    mostraToast("Ottimo! Ma registrati o accedi per registrare i tuoi punti nella classifica.", 'info');
+                }, 400);
             }
         }
 
-
         // --- 6. LOGICA AUTENTICAZIONE UTENTI ---
         async function registrati() {
-          const email = document.getElementById('email-input').value;
-          const password = document.getElementById('password-input').value;
-          const { data, error } = await db.auth.signUp({ email, password });
-          if (error) mostraErroreAuth("Errore: " + error.message);
-          else mostraErroreAuth("Registrazione completata! Benvenuto.");
+            const email = document.getElementById('email-input').value;
+            const password = document.getElementById('password-input').value;
+            if (!email || !password) {
+                mostraErroreAuth("Inserisci sia email che password.");
+                return;
+            }
+            const { data, error } = await db.auth.signUp({ email, password });
+            if (error) mostraErroreAuth("Errore: " + error.message);
+            else mostraToast("Registrazione completata! Benvenuto.", 'success');
         }
 
         async function accedi() {
-          const email = document.getElementById('email-input').value;
-          const password = document.getElementById('password-input').value;
-          const { data, error } = await db.auth.signInWithPassword({ email, password });
-          if (error) mostraErroreAuth("Credenziali errate. Riprova.");
+            const email = document.getElementById('email-input').value;
+            const password = document.getElementById('password-input').value;
+            if (!email || !password) {
+                mostraErroreAuth("Inserisci sia email che password.");
+                return;
+            }
+            const { data, error } = await db.auth.signInWithPassword({ email, password });
+            if (error) mostraErroreAuth("Credenziali errate o account non verificato.");
+            else mostraToast("Accesso eseguito con successo!", 'success');
         }
 
         async function esci() {
-          await db.auth.signOut();
-          window.location.reload(); 
+            await db.auth.signOut();
+            window.location.reload(); 
         }
 
         function mostraErroreAuth(messaggio) {
-          const p = document.getElementById('auth-msg');
-          p.innerText = messaggio; p.classList.remove('hidden');
+            const p = document.getElementById('auth-msg');
+            p.innerText = messaggio; 
+            p.classList.remove('hidden');
         }
 
         db.auth.onAuthStateChange((event, session) => {
-          if (session) {
-              document.getElementById('auth-section').classList.add('hidden');
-              document.getElementById('user-section').classList.remove('hidden');
-              document.getElementById('user-email').innerText = session.user.email;
-          } else {
-              document.getElementById('auth-section').classList.remove('hidden');
-              document.getElementById('user-section').classList.add('hidden');
-          }
+            if (session) {
+                document.getElementById('auth-section').classList.add('hidden');
+                document.getElementById('user-section').classList.remove('hidden');
+                document.getElementById('user-email').innerText = session.user.email;
+            } else {
+                document.getElementById('auth-section').classList.remove('hidden');
+                document.getElementById('user-section').classList.add('hidden');
+            }
         });
-
 
         // --- 7. CARICAMENTO CLASSIFICA ---
         async function caricaClassifica() {
-        const { data, error } = await db
-          .from('leaderboard')
-          .select('username, score')
-          .order('score', { ascending: false })
-          .limit(10);
+            const { data, error } = await db
+                .from('leaderboard')
+                .select('username, score')
+                .order('score', { ascending: false })
+                .limit(10);
 
-        if (error) {
-          document.getElementById('lista-classifica').innerHTML = '<li class="text-red-500 text-center py-4">Errore nel caricamento della classifica.</li>';
-          return;
+            const listaHtml = document.getElementById('lista-classifica');
+
+            if (error) {
+                listaHtml.innerHTML = '<li class="text-rose-500 text-center py-4 text-sm font-medium">Errore nel caricamento della classifica.</li>';
+                return;
+            }
+
+            if (listaHtml) {
+                listaHtml.innerHTML = ''; 
+                if (!data || data.length === 0) {
+                    listaHtml.innerHTML = '<li class="text-center text-slate-400 py-6 text-sm font-medium">Nessun giocatore in classifica. Diventa il primo!</li>';
+                } else {
+                    data.forEach((giocatore, index) => {
+                        const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
+                        listaHtml.innerHTML += `
+                            <li class="flex justify-between items-center py-3 px-2">
+                                <span class="font-semibold text-slate-800 text-sm flex items-center gap-2">
+                                    <span class="w-6 text-center">${medal}</span>
+                                    <span>${giocatore.username}</span>
+                                </span>
+                                <span class="text-emerald-600 font-extrabold text-sm">${giocatore.score} pt</span>
+                            </li>
+                        `;
+                    });
+                }
+            }
         }
 
-        const listaHtml = document.getElementById('lista-classifica');
-        if (listaHtml) {
-          listaHtml.innerHTML = ''; 
-          if (data.length === 0) {
-              listaHtml.innerHTML = '<li class="text-center text-gray-500 py-4 font-medium">Nessun giocatore in classifica. Diventa il primo!</li>';
-          } else {
-              data.forEach((giocatore, index) => {
-                listaHtml.innerHTML += `
-                  <li class="flex justify-between items-center bg-gray-50 p-3 rounded-lg mb-2 border border-gray-200 shadow-sm">
-                    <span class="font-bold text-gray-700">${index + 1}. ${giocatore.username}</span>
-                    <span class="text-emerald-600 font-extrabold">${giocatore.score} pt</span>
-                  </li>
-                `;
-              });
-          }
-        }
-      }
-
-      caricaClassifica();
+        caricaClassifica();
     </script>
 </body>
 </html>
