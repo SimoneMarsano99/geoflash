@@ -25,6 +25,10 @@
         }
     </script>
 
+    <!-- LEAFLET.JS (MAPPA SATELLITARE SENZA NOMI) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
     <!-- SDK SUPABASE & CONFETTI -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -40,6 +44,8 @@
             50% { transform: scale(1.15); filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.8)); }
         }
         .flame-anim { animation: flame-pulse 2s infinite ease-in-out; }
+        /* Ottimizzazione contenitore mappa Leaflet */
+        .leaflet-container { background-color: #020617; }
     </style>
     <!-- VERCEL ANALYTICS PER SITI STATICI -->
     <script>
@@ -223,7 +229,7 @@
                                 <span class="text-xs font-extrabold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-lg">+50 PT</span>
                             </div>
 
-                            <div class="bg-slate-950/60 rounded-xl p-4 border border-slate-800/80 flex items-center justify-center mb-4 h-32">
+                            <div class="bg-slate-950/60 rounded-xl p-4 border border-slate-800/80 flex items-center justify-center mb-4 h-36">
                                 <img id="flag-img" src="" alt="Bandiera da indovinare" class="h-16 max-w-full rounded shadow-md border border-slate-700/50 object-cover">
                             </div>
                         </div>
@@ -231,7 +237,7 @@
                         <div class="grid grid-cols-2 gap-2" id="flag-buttons"></div>
                     </div>
 
-                    <!-- GIOCO 2: LUOGO MISTERIOSO -->
+                    <!-- GIOCO 2: LUOGO MISTERIOSO (MAPPA SATELLITARE LEAFLET) -->
                     <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 flex flex-col justify-between shadow-lg">
                         <div>
                             <div class="flex items-center justify-between mb-3">
@@ -241,15 +247,17 @@
                                 <span class="text-xs font-extrabold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-lg whitespace-nowrap shrink-0">+100 PT</span>
                             </div>
 
-                            <div class="rounded-xl overflow-hidden border border-slate-800/80 mb-4 h-32 relative">
-                                <img id="luogo-img" src="" alt="Luogo Misterioso" class="w-full h-full object-cover">
-                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent"></div>
-                                <span class="absolute bottom-1.5 left-2.5 text-[10px] text-slate-300 font-medium">Scatta la memoria visiva...</span>
+                            <div class="rounded-xl overflow-hidden border border-slate-800/80 mb-4 h-36 relative shadow-inner">
+                                <div id="satellite-map" class="w-full h-full z-0 bg-slate-950"></div>
+                                <div class="absolute inset-0 pointer-events-none ring-1 ring-inset ring-slate-800/60 rounded-xl z-10"></div>
+                                <span class="absolute bottom-1.5 left-2.5 text-[10px] text-white/90 font-medium bg-slate-950/80 px-2 py-0.5 rounded backdrop-blur-sm z-10 border border-slate-800 shadow">
+                                    🛰️ Vista Satellitare
+                                </span>
                             </div>
                         </div>
 
                         <div class="space-y-2">
-                            <input type="text" id="luogo-input" placeholder="Nome del luogo..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="w-full bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 p-2.5 rounded-xl text-xs focus:outline-none focus:border-emerald-500 transition">
+                            <input type="text" id="luogo-input" placeholder="Nome del luogo o monumento..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="w-full bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 p-2.5 rounded-xl text-xs focus:outline-none focus:border-emerald-500 transition">
                             <button id="luogo-btn" onclick="checkLuogo(this)" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-2.5 rounded-xl font-bold transition active:scale-95 text-xs shadow-lg shadow-emerald-950/50">Invia risposta</button>
                         </div>
                     </div>
@@ -264,7 +272,7 @@
                                 <span class="text-xs font-extrabold bg-purple-500/15 text-purple-400 border border-purple-500/30 px-2 py-0.5 rounded-lg">+75 PT</span>
                             </div>
 
-                            <div class="bg-slate-950/60 rounded-xl p-3.5 border border-slate-800/80 mb-4 flex flex-col justify-center h-32">
+                            <div class="bg-slate-950/60 rounded-xl p-3.5 border border-slate-800/80 mb-4 flex flex-col justify-center h-36">
                                 <span class="text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-1">Domanda del Giorno</span>
                                 <p id="trivia-testo" class="text-xs text-slate-200 font-semibold leading-relaxed"></p>
                             </div>
@@ -412,306 +420,306 @@
             }, 3500);
         }
 
-        // === ARCHIVIO SFIDE AUTOMATICHE (60 GIORNI) ===
+        // === ARCHIVIO SFIDE AUTOMATICHE (60 GIORNI CON COORDINATE SATELLITARI) ===
         const ARCHIVIO_SFIDE = [
           {
             bandiera: { codice: "no", nome: "Norvegia", opzioni: ["Svezia", "Norvegia", "Finlandia", "Islanda"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Mont_st_michel_aerial.jpg", nome: "Mont Saint-Michel", alias: ["mont saint michel", "mont st michel", "mont-saint-michel"] },
+            luogo: { coords: [48.6360, -1.5115], zoom: 16, nome: "Mont Saint-Michel", alias: ["mont saint michel", "mont st michel", "mont-saint-michel", "saint-michel"] },
             trivia: { d: "Qual è l'unico continente al mondo a non avere alcun vulcano attivo sul suo territorio?", r: "Australia", opz: ["Australia", "Antartide", "Europa", "Africa"] }
           },
           {
             bandiera: { codice: "jp", nome: "Giappone", opzioni: ["Giappone", "Corea del Sud", "Bangladesh", "Palau"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/640px-Kheops-Pyramid.jpg", nome: "Piramidi di Giza", alias: ["piramidi di giza", "giza", "piramide di cheope", "piramidi"] },
+            luogo: { coords: [29.9792, 31.1342], zoom: 16, nome: "Piramidi di Giza", alias: ["piramidi di giza", "giza", "piramide di cheope", "piramidi"] },
             trivia: { d: "Qual è la capitale dello stato di Washington negli USA?", r: "Olympia", opz: ["Seattle", "Olympia", "Spokane", "Tacoma"] }
           },
           {
             bandiera: { codice: "is", nome: "Islanda", opzioni: ["Norvegia", "Islanda", "Finlandia", "Danimarca"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Christ_the_Redeemer_-_Cristo_Redentor.jpg/640px-Christ_the_Redeemer_-_Cristo_Redentor.jpg", nome: "Cristo Redentore", alias: ["cristo redentore", "cristo redentor", "rio de janeiro", "corcovado"] },
+            luogo: { coords: [-22.9519, -43.2105], zoom: 17, nome: "Cristo Redentore", alias: ["cristo redentore", "cristo redentor", "rio de janeiro", "corcovado"] },
             trivia: { d: "Qual è il fiume più lungo d'Europa?", r: "Volga", opz: ["Danubio", "Volga", "Reno", "Dnepr"] }
           },
           {
             bandiera: { codice: "ca", nome: "Canada", opzioni: ["Canada", "Perù", "Austria", "Svizzera"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/640px-Colosseo_2020.jpg", nome: "Colosseo", alias: ["colosseo", "anfiteatro flavio", "roma"] },
+            luogo: { coords: [41.8902, 12.4922], zoom: 17, nome: "Colosseo", alias: ["colosseo", "anfiteatro flavio", "roma"] },
             trivia: { d: "In quale nazione si trova il deserto di Atacama?", r: "Cile", opz: ["Perù", "Bolivia", "Cile", "Argentina"] }
           },
           {
             bandiera: { codice: "za", nome: "Sudafrica", opzioni: ["Namibia", "Sudafrica", "Zimbabwe", "Kenya"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Taj_Mahal%2C_Agra%2C_India_edit3.jpg/640px-Taj_Mahal%2C_Agra%2C_India_edit3.jpg", nome: "Taj Mahal", alias: ["taj mahal", "agra"] },
+            luogo: { coords: [27.1751, 78.0421], zoom: 17, nome: "Taj Mahal", alias: ["taj mahal", "agra"] },
             trivia: { d: "Qual è l'unico continente senza deserti estesi?", r: "Europa", opz: ["Europa", "Oceania", "Sud America", "Nord America"] }
           },
           {
             bandiera: { codice: "ar", nome: "Argentina", opzioni: ["Uruguay", "Argentina", "Guatemala", "Nicaragua"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Machu_Picchu%2C_Peru.jpg/640px-Machu_Picchu%2C_Peru.jpg", nome: "Machu Picchu", alias: ["machu picchu", "peru", "cusco"] },
+            luogo: { coords: [-13.1631, -72.5450], zoom: 16, nome: "Machu Picchu", alias: ["machu picchu", "peru", "cusco"] },
             trivia: { d: "Quale stretto separa la Spagna dal Marocco?", r: "Stretto di Gibilterra", opz: ["Messina", "Bosforo", "Stretto di Gibilterra", "Dardanelli"] }
           },
           {
             bandiera: { codice: "kr", nome: "Corea del Sud", opzioni: ["Corea del Sud", "Giappone", "Taiwan", "Laos"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg/640px-Tour_Eiffel_Wikimedia_Commons.jpg", nome: "Torre Eiffel", alias: ["torre eiffel", "eiffel", "paris", "parigi"] },
+            luogo: { coords: [48.8584, 2.2945], zoom: 17, nome: "Torre Eiffel", alias: ["torre eiffel", "eiffel", "paris", "parigi"] },
             trivia: { d: "Qual è la capitale dell'Australia?", r: "Canberra", opz: ["Sydney", "Melbourne", "Canberra", "Brisbane"] }
           },
           {
             bandiera: { codice: "br", nome: "Brasile", opzioni: ["Brasile", "Portogallo", "Capo Verde", "Bolivia"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/The_Great_Wall_of_China_at_Jinshanling-edit.jpg/640px-The_Great_Wall_of_China_at_Jinshanling-edit.jpg", nome: "Grande Muraglia", alias: ["grande muraglia", "muraglia cinese", "great wall"] },
+            luogo: { coords: [40.4319, 116.5704], zoom: 16, nome: "Grande Muraglia", alias: ["grande muraglia", "muraglia cinese", "great wall"] },
             trivia: { d: "Quale lago è il più profondo del mondo?", r: "Lago Bajkal", opz: ["Lago Tanganica", "Lago Bajkal", "Lago Superiore", "Mar Caspio"] }
           },
           {
             bandiera: { codice: "eg", nome: "Egitto", opzioni: ["Siria", "Iraq", "Egitto", "Yemen"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/The_Parthenon_in_Athens.jpg/640px-The_Parthenon_in_Athens.jpg", nome: "Partenone", alias: ["partenone", "acropoli", "atene"] },
+            luogo: { coords: [37.9715, 23.7257], zoom: 17, nome: "Partenone", alias: ["partenone", "acropoli", "atene"] },
             trivia: { d: "Qual è l'isola più grande del Mar Mediterraneo?", r: "Sicilia", opz: ["Sardegna", "Cipro", "Sicilia", "Creta"] }
           },
           {
             bandiera: { codice: "mx", nome: "Messico", opzioni: ["Italia", "Messico", "Ungheria", "Irlanda"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Grand_Canyon_view_from_Desert_View_Point.jpg/640px-Grand_Canyon_view_from_Desert_View_Point.jpg", nome: "Grand Canyon", alias: ["grand canyon", "canyon"] },
+            luogo: { coords: [36.0544, -112.1401], zoom: 14, nome: "Grand Canyon", alias: ["grand canyon", "canyon"] },
             trivia: { d: "Quale paese confina sia con la Norvegia che con la Corea del Nord?", r: "Russia", opz: ["Cina", "Russia", "Mongolia", "Finlandia"] }
           },
           {
             bandiera: { codice: "ke", nome: "Kenya", opzioni: ["Uganda", "Kenya", "Sud Sudan", "Etiopia"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Clock_Tower_-_Palace_of_Westminster%2C_London_-_May_2007.jpg/640px-Clock_Tower_-_Palace_of_Westminster%2C_London_-_May_2007.jpg", nome: "Big Ben", alias: ["big ben", "westminster", "londra"] },
+            luogo: { coords: [51.5007, -0.1246], zoom: 17, nome: "Big Ben", alias: ["big ben", "westminster", "londra", "elizabeth tower"] },
             trivia: { d: "Qual è la capitale del Canada?", r: "Ottawa", opz: ["Toronto", "Montreal", "Vancouver", "Ottawa"] }
           },
           {
             bandiera: { codice: "nz", nome: "Nuova Zelanda", opzioni: ["Australia", "Nuova Zelanda", "Figi", "Tuvalu"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Sydney_Opera_House_-_Dec_2008.jpg/640px-Sydney_Opera_House_-_Dec_2008.jpg", nome: "Sydney Opera House", alias: ["opera house", "sydney opera house", "teatro dell'opera di sydney"] },
+            luogo: { coords: [-33.8568, 151.2153], zoom: 17, nome: "Sydney Opera House", alias: ["opera house", "sydney opera house", "teatro dell'opera di sydney"] },
             trivia: { d: "Quale catena montuosa separa l'Europa dall'Asia?", r: "Monti Urali", opz: ["Caucaso", "Monti Urali", "Alpi", "Carpazi"] }
           },
           {
             bandiera: { codice: "gr", nome: "Grecia", opzioni: ["Cipro", "Uruguay", "Grecia", "Finlandia"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Statue_of_Liberty_7.jpg/640px-Statue_of_Liberty_7.jpg", nome: "Statua della Libertà", alias: ["statua della liberta", "statua della libertà", "statue of liberty"] },
+            luogo: { coords: [40.6892, -74.0445], zoom: 17, nome: "Statua della Libertà", alias: ["statua della liberta", "statua della libertà", "statue of liberty", "new york"] },
             trivia: { d: "Qual è il punto più basso della superficie terrestre emersa?", r: "Mar Morto", opz: ["Fossa delle Marianne", "Mar Morto", "Depressione di Danakil", "Valle della Morte"] }
           },
           {
             bandiera: { codice: "in", nome: "India", opzioni: ["Niger", "India", "Irlanda", "Costa d'Avorio"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Sagrada_Familia_01.jpg/640px-Sagrada_Familia_01.jpg", nome: "Sagrada Família", alias: ["sagrada familia", "sagrada família", "barcellona"] },
+            luogo: { coords: [41.4036, 2.1744], zoom: 17, nome: "Sagrada Família", alias: ["sagrada familia", "sagrada família", "barcellona"] },
             trivia: { d: "Quanti fusi orari attraversa la Russia?", r: "11", opz: ["9", "11", "12", "7"] }
           },
           {
             bandiera: { codice: "tr", nome: "Turchia", opzioni: ["Tunisia", "Turchia", "Azerbaigian", "Algeria"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Hagia_Sophia_Mars_2013.jpg/640px-Hagia_Sophia_Mars_2013.jpg", nome: "Santa Sofia", alias: ["santa sofia", "hagia sophia", "istanbul"] },
+            luogo: { coords: [41.0086, 28.9802], zoom: 17, nome: "Santa Sofia", alias: ["santa sofia", "hagia sophia", "istanbul"] },
             trivia: { d: "Qual è la capitale della Svizzera?", r: "Berna", opz: ["Zurigo", "Ginevra", "Berna", "Basilea"] }
           },
           {
             bandiera: { codice: "se", nome: "Svezia", opzioni: ["Danimarca", "Ucraina", "Svezia", "Finlandia"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Stonehenge2007_07_18.jpg/640px-Stonehenge2007_07_18.jpg", nome: "Stonehenge", alias: ["stonehenge", "salisbury"] },
+            luogo: { coords: [51.1789, -1.8262], zoom: 17, nome: "Stonehenge", alias: ["stonehenge", "salisbury"] },
             trivia: { d: "Qual è la cascata con il salto ininterrotto più alto al mondo?", r: "Salto Angel", opz: ["Cascate Vittoria", "Cascate del Niagara", "Salto Angel", "Iguazú"] }
           },
           {
             bandiera: { codice: "cl", nome: "Cile", opzioni: ["Texas", "Repubblica Ceca", "Cile", "Filippine"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Chichen_Itza_3.jpg/640px-Chichen_Itza_3.jpg", nome: "Chichén Itzá", alias: ["chichen itza", "chichén itzá", "el castillo"] },
+            luogo: { coords: [20.6843, -88.5678], zoom: 17, nome: "Chichén Itzá", alias: ["chichen itza", "chichén itzá", "el castillo", "kukulkan"] },
             trivia: { d: "Qual è la capitale del Brasile?", r: "Brasilia", opz: ["Rio de Janeiro", "San Paolo", "Brasilia", "Salvador"] }
           },
           {
             bandiera: { codice: "pt", nome: "Portogallo", opzioni: ["Spagna", "Portogallo", "Brasile", "Madagascar"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Treasury_petra_crop.jpeg/640px-Treasury_petra_crop.jpeg", nome: "Petra", alias: ["petra", "al-khazneh", "il tesoro", "giordania"] },
+            luogo: { coords: [30.3285, 35.4444], zoom: 16, nome: "Petra", alias: ["petra", "al-khazneh", "il tesoro", "giordania"] },
             trivia: { d: "In quale oceano si trova la Fossa delle Marianne?", r: "Pacifico", opz: ["Atlantico", "Indiano", "Pacifico", "Artico"] }
           },
           {
             bandiera: { codice: "th", nome: "Thailandia", opzioni: ["Costa Rica", "Thailandia", "Laos", "Cambogia"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Burj_Khalifa.jpg/640px-Burj_Khalifa.jpg", nome: "Burj Khalifa", alias: ["burj khalifa", "dubai"] },
+            luogo: { coords: [25.1972, 55.2744], zoom: 17, nome: "Burj Khalifa", alias: ["burj khalifa", "dubai"] },
             trivia: { d: "Qual è il paese più piccolo del mondo per superficie?", r: "Città del Vaticano", opz: ["Monaco", "Nauru", "San Marino", "Città del Vaticano"] }
           },
           {
             bandiera: { codice: "fi", nome: "Finlandia", opzioni: ["Grecia", "Svezia", "Estonia", "Finlandia"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Leaning_Tower_of_Pisa.jpg/640px-Leaning_Tower_of_Pisa.jpg", nome: "Torre di Pisa", alias: ["torre di pisa", "pisa", "campanile del duomo"] },
+            luogo: { coords: [43.7230, 10.3966], zoom: 17, nome: "Torre di Pisa", alias: ["torre di pisa", "pisa", "campanile del duomo"] },
             trivia: { d: "Quale fiume bagna Baghdad?", r: "Tigri", opz: ["Eufrate", "Tigri", "Nilo", "Giordano"] }
           },
           {
             bandiera: { codice: "co", nome: "Colombia", opzioni: ["Ecuador", "Venezuela", "Colombia", "Romania"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Mount_Fuji_from_Lake_Kawaguchi.jpg/640px-Mount_Fuji_from_Lake_Kawaguchi.jpg", nome: "Monte Fuji", alias: ["monte fuji", "fujisan", "fuji"] },
+            luogo: { coords: [35.3606, 138.7274], zoom: 14, nome: "Monte Fuji", alias: ["monte fuji", "fujisan", "fuji"] },
             trivia: { d: "Quale stato confina unicamente con il Portogallo?", r: "Spagna", opz: ["Spagna", "Andorra", "Francia", "Marocco"] }
           },
           {
             bandiera: { codice: "ma", nome: "Marocco", opzioni: ["Turchia", "Marocco", "Tunisia", "Vietnam"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Angkor_Wat.jpg/640px-Angkor_Wat.jpg", nome: "Angkor Wat", alias: ["angkor wat", "angkor", "cambogia"] },
+            luogo: { coords: [13.4125, 103.8670], zoom: 16, nome: "Angkor Wat", alias: ["angkor wat", "angkor", "cambogia"] },
             trivia: { d: "Qual è la capitale della Nuova Zelanda?", r: "Wellington", opz: ["Auckland", "Christchurch", "Wellington", "Queenstown"] }
           },
           {
             bandiera: { codice: "vn", nome: "Vietnam", opzioni: ["Vietnam", "Cina", "Somalia", "Marocco"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Golden_Gate_Bridge_%282019%29.jpg/640px-Golden_Gate_Bridge_%282019%29.jpg", nome: "Golden Gate Bridge", alias: ["golden gate", "golden gate bridge", "san francisco"] },
+            luogo: { coords: [37.8199, -122.4783], zoom: 15, nome: "Golden Gate Bridge", alias: ["golden gate", "golden gate bridge", "san francisco"] },
             trivia: { d: "Quale deserto copre gran parte della Mongolia meridionale?", r: "Deserto del Gobi", opz: ["Taklamakan", "Deserto del Gobi", "Karakum", "Thar"] }
           },
           {
             bandiera: { codice: "cu", nome: "Cuba", opzioni: ["Porto Rico", "Cuba", "Filippine", "Cile"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Neuschwanstein_Castle_from_the_Marienbr%C3%BCcke.jpg/640px-Neuschwanstein_Castle_from_the_Marienbr%C3%BCcke.jpg", nome: "Castello di Neuschwanstein", alias: ["neuschwanstein", "castello di neuschwanstein", "baviera"] },
+            luogo: { coords: [47.5576, 10.7498], zoom: 16, nome: "Castello di Neuschwanstein", alias: ["neuschwanstein", "castello di neuschwanstein", "baviera"] },
             trivia: { d: "Qual è il secondo fiume più lungo al mondo?", r: "Rio delle Amazzoni", opz: ["Nilo", "Yangtze", "Rio delle Amazzoni", "Mississippi"] }
           },
           {
             bandiera: { codice: "ch", nome: "Svizzera", opzioni: ["Svizzera", "Danimarca", "Austria", "Georgia"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/RedSquare_SaintBasile_%28Moscou%29.jpg/640px-RedSquare_SaintBasile_%28Moscou%29.jpg", nome: "Cattedrale di San Basilio", alias: ["san basilio", "piazza rossa", "mosca"] },
+            luogo: { coords: [55.7525, 37.6231], zoom: 17, nome: "Piazza Rossa", alias: ["piazza rossa", "san basilio", "mosca", "kremlino", "cremlino"] },
             trivia: { d: "Qual è la capitale della Turchia?", r: "Ankara", opz: ["Istanbul", "Smirne", "Ankara", "Bursa"] }
           },
           {
             bandiera: { codice: "ng", nome: "Nigeria", opzioni: ["Ghana", "Nigeria", "Senegal", "Camerun"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Brandeburger_Tor_2019.jpg/640px-Brandeburger_Tor_2019.jpg", nome: "Porta di Brandeburgo", alias: ["porta di brandeburgo", "brandeburgo", "berlino"] },
+            luogo: { coords: [52.5163, 13.3777], zoom: 17, nome: "Porta di Brandeburgo", alias: ["porta di brandeburgo", "brandeburgo", "berlino"] },
             trivia: { d: "Quale isola appartiene politicamente alla Danimarca pur essendo in Nord America?", r: "Groenlandia", opz: ["Islanda", "Groenlandia", "Svalbard", "Terranova"] }
           },
           {
             bandiera: { codice: "dk", nome: "Danimarca", opzioni: ["Norvegia", "Inghilterra", "Danimarca", "Svizzera"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/White_House_South_Fa%C3%A7ade.jpg/640px-White_House_South_Fa%C3%A7ade.jpg", nome: "Casa Bianca", alias: ["casa bianca", "white house", "washington"] },
+            luogo: { coords: [38.8977, -77.0365], zoom: 17, nome: "Casa Bianca", alias: ["casa bianca", "white house", "washington"] },
             trivia: { d: "Qual è il lago d'acqua dolce più esteso per superficie?", r: "Lago Superiore", opz: ["Lago Vittoria", "Lago Superiore", "Lago Bajkal", "Lago Huron"] }
           },
           {
             bandiera: { codice: "pe", nome: "Perù", opzioni: ["Austria", "Perù", "Polonia", "Canada"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Prague_Castle__Hradcany__from_Charles_Bridge_tower.jpg/640px-Prague_Castle__Hradcany__from_Charles_Bridge_tower.jpg", nome: "Castello di Praga", alias: ["castello di praga", "praga", "hradcany"] },
+            luogo: { coords: [50.0911, 14.4016], zoom: 16, nome: "Castello di Praga", alias: ["castello di praga", "praga", "hradcany"] },
             trivia: { d: "Qual è la capitale dell'Islanda?", r: "Reykjavík", opz: ["Oslo", "Reykjavík", "Helsinki", "Bergen"] }
           },
           {
             bandiera: { codice: "sa", nome: "Arabia Saudita", opzioni: ["Arabia Saudita", "Emirati Arabi", "Oman", "Kuwait"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Uluru%2C_panoramio.jpg/640px-Uluru%2C_panoramio.jpg", nome: "Uluru", alias: ["uluru", "ayers rock", "australia"] },
+            luogo: { coords: [-25.3444, 131.0369], zoom: 15, nome: "Uluru", alias: ["uluru", "ayers rock", "australia"] },
             trivia: { d: "Qual è la vetta più alta dell'Africa?", r: "Kilimangiaro", opz: ["Monte Kenya", "Kilimangiaro", "Ruwenzori", "Atlante"] }
           },
           {
             bandiera: { codice: "ua", nome: "Ucraina", opzioni: ["Svezia", "Kazakistan", "Ucraina", "Bosnia"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Canal_Grande_Chiesa_della_Salute_e_Dogana_da_ponte_dell_Accademia.jpg/640px-Canal_Grande_Chiesa_della_Salute_e_Dogana_da_ponte_dell_Accademia.jpg", nome: "Canal Grande a Venezia", alias: ["venezia", "canal grande", "santa maria della salute"] },
+            luogo: { coords: [45.4340, 12.3388], zoom: 17, nome: "Piazza San Marco", alias: ["piazza san marco", "san marco", "venezia"] },
             trivia: { d: "Qual è la capitale del Sudafrica con sede del governo esecutivo?", r: "Pretoria", opz: ["Città del Capo", "Johannesburg", "Pretoria", "Bloemfontein"] }
           },
           {
             bandiera: { codice: "pl", nome: "Polonia", opzioni: ["Monaco", "Indonesia", "Polonia", "Malta"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Palace_of_Westminster_from_the_dome_on_Methodist_Central_Hall.jpg/640px-Palace_of_Westminster_from_the_dome_on_Methodist_Central_Hall.jpg", nome: "Palazzo di Westminster", alias: ["palazzo di westminster", "westminster", "parlamento di londra"] },
+            luogo: { coords: [51.4995, -0.1248], zoom: 17, nome: "Palazzo di Westminster", alias: ["palazzo di westminster", "westminster", "parlamento di londra"] },
             trivia: { d: "Quale nazione ha più isole al mondo?", r: "Svezia", opz: ["Norvegia", "Indonesia", "Filippine", "Svezia"] }
           },
           {
             bandiera: { codice: "ph", nome: "Filippine", opzioni: ["Repubblica Ceca", "Cuba", "Filippine", "Cile"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Petronas_Towers_2019.jpg/640px-Petronas_Towers_2019.jpg", nome: "Torri Petronas", alias: ["torri petronas", "petronas towers", "kuala lumpur"] },
+            luogo: { coords: [3.1578, 101.7119], zoom: 17, nome: "Torri Petronas", alias: ["torri petronas", "petronas towers", "kuala lumpur"] },
             trivia: { d: "Qual è la capitale dell'Egitto?", r: "Il Cairo", opz: ["Alessandria", "Giza", "Il Cairo", "Luxor"] }
           },
           {
             bandiera: { codice: "be", nome: "Belgio", opzioni: ["Germania", "Belgio", "Paesi Bassi", "Romania"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Marina_Bay_Sands_in_the_evening_-_20101120.jpg/640px-Marina_Bay_Sands_in_the_evening_-_20101120.jpg", nome: "Marina Bay Sands", alias: ["marina bay sands", "singapore", "marina bay"] },
+            luogo: { coords: [1.2838, 103.8591], zoom: 17, nome: "Marina Bay Sands", alias: ["marina bay sands", "singapore", "marina bay"] },
             trivia: { d: "Quale mare si trova tra l'Australia e la Nuova Zelanda?", r: "Mar di Tasman", opz: ["Mar dei Coralli", "Mar di Tasman", "Mar di Timor", "Mar di Giava"] }
           },
           {
             bandiera: { codice: "at", nome: "Austria", opzioni: ["Lettonia", "Austria", "Perù", "Libano"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Schloss_Sch%C3%B6nbrunn_Wien_2014.jpg/640px-Schloss_Sch%C3%B6nbrunn_Wien_2014.jpg", nome: "Castello di Schönbrunn", alias: ["schonbrunn", "schönbrunn", "vienna"] },
+            luogo: { coords: [48.1845, 16.3122], zoom: 16, nome: "Castello di Schönbrunn", alias: ["schonbrunn", "schönbrunn", "vienna"] },
             trivia: { d: "In quale continente si trova il Suriname?", r: "Sud America", opz: ["Africa", "Asia", "Sud America", "Nord America"] }
           },
           {
             bandiera: { codice: "ie", nome: "Irlanda", opzioni: ["Costa d'Avorio", "Italia", "Irlanda", "India"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Dubrovnik_Old_Town_panorama.jpg/640px-Dubrovnik_Old_Town_panorama.jpg", nome: "Dubrovnik", alias: ["dubrovnik", "ragusa", "mura di dubrovnik"] },
+            luogo: { coords: [42.6412, 18.1105], zoom: 16, nome: "Dubrovnik", alias: ["dubrovnik", "ragusa", "mura di dubrovnik"] },
             trivia: { d: "Qual è la capitale del Marocco?", r: "Rabat", opz: ["Casablanca", "Marrakech", "Fes", "Rabat"] }
           },
           {
             bandiera: { codice: "nl", nome: "Paesi Bassi", opzioni: ["Francia", "Lussemburgo", "Paesi Bassi", "Russia"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Budapest_Parliament_Middle.jpg/640px-Budapest_Parliament_Middle.jpg", nome: "Parlamento di Budapest", alias: ["parlamento di budapest", "budapest", "parlamento ungherese"] },
+            luogo: { coords: [47.5071, 19.0456], zoom: 17, nome: "Parlamento di Budapest", alias: ["parlamento di budapest", "budapest", "parlamento ungherese"] },
             trivia: { d: "Quale catena montuosa include il Monte Bianco?", r: "Alpi", opz: ["Pirenei", "Alpi", "Appennini", "Carpazi"] }
           },
           {
             bandiera: { codice: "cz", nome: "Repubblica Ceca", opzioni: ["Filippine", "Slovacchia", "Repubblica Ceca", "Cile"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Karluv_most.jpg/640px-Karluv_most.jpg", nome: "Ponte Carlo", alias: ["ponte carlo", "praga", "charles bridge"] },
+            luogo: { coords: [50.0865, 14.4114], zoom: 17, nome: "Ponte Carlo", alias: ["ponte carlo", "praga", "charles bridge"] },
             trivia: { d: "Qual è la capitale dell'Argentina?", r: "Buenos Aires", opz: ["Rosario", "Cordoba", "Buenos Aires", "Mendoza"] }
           },
           {
             bandiera: { codice: "ro", nome: "Romania", opzioni: ["Ciad", "Belgio", "Andorra", "Romania"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Bran_Castle_panorama.jpg/640px-Bran_Castle_panorama.jpg", nome: "Castello di Bran", alias: ["castello di bran", "castello di dracula", "bran", "transilvania"] },
+            luogo: { coords: [45.5152, 25.3672], zoom: 17, nome: "Castello di Bran", alias: ["castello di bran", "castello di dracula", "bran", "transilvania"] },
             trivia: { d: "Quale fiume attraversa Vienna, Bratislava, Budapest e Belgrado?", r: "Danubio", opz: ["Reno", "Danubio", "Elba", "Oder"] }
           },
           {
             bandiera: { codice: "hu", nome: "Ungheria", opzioni: ["Italia", "Tagikistan", "Ungheria", "Bulgaria"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Table_Mountain_Cape_Town_South_Africa.jpg/640px-Table_Mountain_Cape_Town_South_Africa.jpg", nome: "Table Mountain", alias: ["table mountain", "cape town", "città del capo"] },
+            luogo: { coords: [-33.9573, 18.4031], zoom: 15, nome: "Table Mountain", alias: ["table mountain", "cape town", "città del capo"] },
             trivia: { d: "Qual è la capitale del Portogallo?", r: "Lisbona", opz: ["Porto", "Coimbra", "Lisbona", "Faro"] }
           },
           {
             bandiera: { codice: "hr", nome: "Croazia", opzioni: ["Serbia", "Slovenia", "Croazia", "Slovacchia"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Hallgrimskirkja_2019.jpg/640px-Hallgrimskirkja_2019.jpg", nome: "Hallgrímskirkja", alias: ["hallgrimskirkja", "reykjavik", "chiesa di reykjavik"] },
+            luogo: { coords: [64.1420, -21.9271], zoom: 17, nome: "Hallgrímskirkja", alias: ["hallgrimskirkja", "reykjavik", "chiesa di reykjavik"] },
             trivia: { d: "Quale stato americano è il più vicino alla Russia?", r: "Alaska", opz: ["Hawaii", "Washington", "Alaska", "Oregon"] }
           },
           {
             bandiera: { codice: "sg", nome: "Singapore", opzioni: ["Indonesia", "Singapore", "Malesia", "Polonia"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Borobudur_Temple.jpg/640px-Borobudur_Temple.jpg", nome: "Tempio di Borobudur", alias: ["borobudur", "tempio di borobudur", "giava", "indonesia"] },
+            luogo: { coords: [-7.6079, 110.2038], zoom: 17, nome: "Tempio di Borobudur", alias: ["borobudur", "tempio di borobudur", "giava", "indonesia"] },
             trivia: { d: "Qual è la capitale della Norvegia?", r: "Oslo", opz: ["Bergen", "Trondheim", "Oslo", "Stavanger"] }
           },
           {
             bandiera: { codice: "my", nome: "Malesia", opzioni: ["Stati Uniti", "Liberia", "Malesia", "Filippine"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Miraflores_Locks_Panama_Canal.jpg/640px-Miraflores_Locks_Panama_Canal.jpg", nome: "Canale di Panama", alias: ["canale di panama", "chiuse di miraflores", "panama"] },
+            luogo: { coords: [9.0801, -79.5925], zoom: 15, nome: "Canale di Panama", alias: ["canale di panama", "chiuse di miraflores", "panama"] },
             trivia: { d: "Quale vulcano distrusse Pompei ed Ercolano?", r: "Vesuvio", opz: ["Etna", "Stromboli", "Vesuvio", "Vulcano"] }
           },
           {
             bandiera: { codice: "uy", nome: "Uruguay", opzioni: ["Argentina", "Grecia", "Uruguay", "Guatemala"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Sigiriya_Lion_Rock.jpg/640px-Sigiriya_Lion_Rock.jpg", nome: "Fortezza di Sigiriya", alias: ["sigiriya", "roccia del leone", "sri lanka"] },
+            luogo: { coords: [7.9570, 80.7603], zoom: 16, nome: "Fortezza di Sigiriya", alias: ["sigiriya", "roccia del leone", "sri lanka"] },
             trivia: { d: "Qual è la capitale della Colombia?", r: "Bogotà", opz: ["Medellín", "Cali", "Bogotà", "Cartagena"] }
           },
           {
             bandiera: { codice: "et", nome: "Etiopia", opzioni: ["Ghana", "Bolivia", "Etiopia", "Senegal"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Church_of_Saint_George%2C_Lalibela.jpg/640px-Church_of_Saint_George%2C_Lalibela.jpg", nome: "Chiese di Lalibela", alias: ["lalibela", "san giorgio lalibela", "etiopia"] },
+            luogo: { coords: [12.0319, 39.0411], zoom: 17, nome: "Chiese di Lalibela", alias: ["lalibela", "san giorgio lalibela", "etiopia"] },
             trivia: { d: "Quale nazione ospita la Foresta Nera?", r: "Germania", opz: ["Austria", "Germania", "Svizzera", "Francia"] }
           },
           {
             bandiera: { codice: "id", nome: "Indonesia", opzioni: ["Polonia", "Monaco", "Indonesia", "Singapore"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Arenal_Volcano_Costa_Rica.jpg/640px-Arenal_Volcano_Costa_Rica.jpg", nome: "Vulcano Arenal", alias: ["arenal", "vulcano arenal", "costa rica"] },
+            luogo: { coords: [10.4633, -84.7032], zoom: 14, nome: "Vulcano Arenal", alias: ["arenal", "vulcano arenal", "costa rica"] },
             trivia: { d: "Qual è la capitale della Polonia?", r: "Varsavia", opz: ["Cracovia", "Danzica", "Varsavia", "Breslavia"] }
           },
           {
             bandiera: { codice: "pa", nome: "Panama", opzioni: ["Repubblica Dominicana", "Panama", "Costa Rica", "Porto Rico"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Tallinn_view.jpg/640px-Tallinn_view.jpg", nome: "Città Vecchia di Tallinn", alias: ["tallinn", "citta vecchia di tallinn", "estonia"] },
+            luogo: { coords: [59.4370, 24.7536], zoom: 16, nome: "Città Vecchia di Tallinn", alias: ["tallinn", "citta vecchia di tallinn", "estonia"] },
             trivia: { d: "Quale nazione ha come capitale Nairobi?", r: "Kenya", opz: ["Tanzania", "Uganda", "Kenya", "Ruanda"] }
           },
           {
             bandiera: { codice: "np", nome: "Nepal", opzioni: ["Bhutan", "Nepal", "Tibet", "India"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg/640px-Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg", nome: "Monte Everest", alias: ["everest", "monte everest", "sagarmatha", "chomolungma"] },
+            luogo: { coords: [27.9881, 86.9250], zoom: 13, nome: "Monte Everest", alias: ["everest", "monte everest", "sagarmatha", "chomolungma"] },
             trivia: { d: "Qual è l'altopiano più alto del mondo?", r: "Altopiano del Tibet", opz: ["Altopiano del Deccan", "Altiplano andino", "Altopiano del Tibet", "Etiopico"] }
           },
           {
             bandiera: { codice: "lk", nome: "Sri Lanka", opzioni: ["India", "Sri Lanka", "Maldive", "Seychelles"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Fort_Saint_Elmo_Valletta.jpg/640px-Fort_Saint_Elmo_Valletta.jpg", nome: "Forte Sant'Elmo (La Valletta)", alias: ["forte sant elmo", "la valletta", "forte sant'elmo", "malta"] },
+            luogo: { coords: [35.8978, 14.5126], zoom: 16, nome: "Forte Sant'Elmo (La Valletta)", alias: ["forte sant elmo", "la valletta", "forte sant'elmo", "malta"] },
             trivia: { d: "In quale città scorre il fiume Tamigi?", r: "Londra", opz: ["Dublino", "Edimburgo", "Londra", "Manchester"] }
           },
           {
             bandiera: { codice: "qa", nome: "Qatar", opzioni: ["Bahrein", "Qatar", "Emirati Arabi", "Kuwait"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Grand_Place_Brussels.jpg/640px-Grand_Place_Brussels.jpg", nome: "Grand-Place di Bruxelles", alias: ["grand place", "bruxelles", "grand-place"] },
+            luogo: { coords: [50.8467, 4.3524], zoom: 17, nome: "Grand-Place di Bruxelles", alias: ["grand place", "bruxelles", "grand-place"] },
             trivia: { d: "Qual è la capitale del Cile?", r: "Santiago", opz: ["Valparaíso", "Concepción", "Santiago", "Antofagasta"] }
           },
           {
             bandiera: { codice: "cr", nome: "Costa Rica", opzioni: ["Thailandia", "Costa Rica", "Colombia", "Guatemala"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Blue_Lagoon_Iceland.jpg/640px-Blue_Lagoon_Iceland.jpg", nome: "Laguna Blu (Blue Lagoon)", alias: ["blue lagoon", "laguna blu", "islanda"] },
+            luogo: { coords: [63.8804, -22.4495], zoom: 16, nome: "Laguna Blu (Blue Lagoon)", alias: ["blue lagoon", "laguna blu", "islanda"] },
             trivia: { d: "Qual è il punto più a sud del continente africano?", r: "Capo Agulhas", opz: ["Capo di Buona Speranza", "Capo Agulhas", "Capo Guardafui", "Capo Blanco"] }
           },
           {
             bandiera: { codice: "ge", nome: "Georgia", opzioni: ["Inghilterra", "Malta", "Georgia", "Svizzera"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Helsinki_Cathedral.jpg/640px-Helsinki_Cathedral.jpg", nome: "Cattedrale di Helsinki", alias: ["cattedrale di helsinki", "helsinki", "finlandia"] },
+            luogo: { coords: [60.1695, 24.9523], zoom: 17, nome: "Cattedrale di Helsinki", alias: ["cattedrale di helsinki", "helsinki", "finlandia"] },
             trivia: { d: "Qual è la capitale dell'Austria?", r: "Vienna", opz: ["Salisburgo", "Innsbruck", "Graz", "Vienna"] }
           },
           {
             bandiera: { codice: "md", nome: "Moldavia", opzioni: ["Romania", "Andorra", "Moldavia", "Ciad"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Iguazu_Falls_from_the_Argentine_side.jpg/640px-Iguazu_Falls_from_the_Argentine_side.jpg", nome: "Cascate dell'Iguazú", alias: ["iguazu", "cascate dell'iguazu", "cascate di iguazu"] },
+            luogo: { coords: [-25.6953, -54.4367], zoom: 15, nome: "Cascate dell'Iguazú", alias: ["iguazu", "cascate dell'iguazu", "cascate di iguazu"] },
             trivia: { d: "Quale paese sudamericano ha due capitali?", r: "Bolivia", opz: ["Ecuador", "Bolivia", "Paraguay", "Perù"] }
           },
           {
             bandiera: { codice: "ee", nome: "Estonia", opzioni: ["Finlandia", "Lettonia", "Estonia", "Lituania"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Narikala_Fortress_Tbilisi.jpg/640px-Narikala_Fortress_Tbilisi.jpg", nome: "Fortezza di Narikala (Tbilisi)", alias: ["narikala", "tbilisi", "georgia"] },
+            luogo: { coords: [41.6938, 44.8015], zoom: 17, nome: "Fortezza di Narikala (Tbilisi)", alias: ["narikala", "tbilisi", "georgia"] },
             trivia: { d: "Qual è il secondo paese più esteso al mondo per superficie?", r: "Canada", opz: ["Cina", "Stati Uniti", "Canada", "Brasile"] }
           },
           {
             bandiera: { codice: "mt", nome: "Malta", opzioni: ["Polonia", "Malta", "Inghilterra", "Georgia"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/El_Capitolio_Havana.jpg/640px-El_Capitolio_Havana.jpg", nome: "El Capitolio (L'Avana)", alias: ["capitolio", "el capitolio", "l'avana", "cuba"] },
+            luogo: { coords: [23.1353, -82.3590], zoom: 17, nome: "El Capitolio (L'Avana)", alias: ["capitolio", "el capitolio", "l'avana", "cuba"] },
             trivia: { d: "Qual è la capitale della Repubblica Ceca?", r: "Praga", opz: ["Brno", "Ostrava", "Plzeň", "Praga"] }
           },
           {
             bandiera: { codice: "sn", nome: "Senegal", opzioni: ["Mali", "Senegal", "Ghana", "Guinea"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Piazza_San_Pietro%2C_Citt%C3%A0_del_Vaticano.jpg/640px-Piazza_San_Pietro%2C_Citt%C3%A0_del_Vaticano.jpg", nome: "Piazza San Pietro", alias: ["piazza san pietro", "san pietro", "vaticano", "roma"] },
+            luogo: { coords: [41.9022, 12.4568], zoom: 17, nome: "Piazza San Pietro", alias: ["piazza san pietro", "san pietro", "vaticano", "roma"] },
             trivia: { d: "Qual è il fiume più lungo d'Italia?", r: "Po", opz: ["Adige", "Tevere", "Po", "Arno"] }
           },
           {
             bandiera: { codice: "az", nome: "Azerbaigian", opzioni: ["Azerbaigian", "Turchia", "Iran", "Kazakistan"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Atomium_Brussels.jpg/640px-Atomium_Brussels.jpg", nome: "Atomium di Bruxelles", alias: ["atomium", "bruxelles", "atomium di bruxelles"] },
+            luogo: { coords: [50.8949, 4.3415], zoom: 17, nome: "Atomium di Bruxelles", alias: ["atomium", "bruxelles", "atomium di bruxelles"] },
             trivia: { d: "Qual è la capitale dell'Ungheria?", r: "Budapest", opz: ["Debrecen", "Szeged", "Budapest", "Miskolc"] }
           },
           {
             bandiera: { codice: "al", nome: "Albania", opzioni: ["Montenegro", "Albania", "Macedonia del Nord", "Serbia"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Jemaa_el-Fnaa_Marrakech.jpg/640px-Jemaa_el-Fnaa_Marrakech.jpg", nome: "Piazza Jemaa el-Fna (Marrakech)", alias: ["jemaa el fna", "marrakech", "jemaa el-fna"] },
+            luogo: { coords: [31.6258, -7.9891], zoom: 17, nome: "Piazza Jemaa el-Fna (Marrakech)", alias: ["jemaa el fna", "marrakech", "jemaa el-fna"] },
             trivia: { d: "Quale stretto collega il Mar Nero al Mar di Marmara?", r: "Bosforo", opz: ["Dardanelli", "Bosforo", "Kerch", "Messina"] }
           },
           {
             bandiera: { codice: "lu", nome: "Lussemburgo", opzioni: ["Paesi Bassi", "Francia", "Lussemburgo", "Belgio"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/The_Pearl-Qatar_aerial.jpg/640px-The_Pearl-Qatar_aerial.jpg", nome: "The Pearl-Qatar", alias: ["the pearl", "the pearl-qatar", "doha", "qatar"] },
+            luogo: { coords: [25.3213, 51.5310], zoom: 16, nome: "The Pearl-Qatar", alias: ["the pearl", "the pearl-qatar", "doha", "qatar"] },
             trivia: { d: "Qual è la capitale dell'Arabia Saudita?", r: "Riad", opz: ["Gedda", "La Mecca", "Medina", "Riad"] }
           },
           {
             bandiera: { codice: "bg", nome: "Bulgaria", opzioni: ["Ungheria", "Bulgaria", "Italia", "Iran"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Trinity_College_Dublin_Long_Room.jpg/640px-Trinity_College_Dublin_Long_Room.jpg", nome: "Trinity College (Dublino)", alias: ["trinity college", "long room", "dublino", "irlanda"] },
+            luogo: { coords: [53.3438, -6.2546], zoom: 17, nome: "Trinity College (Dublino)", alias: ["trinity college", "long room", "dublino", "irlanda"] },
             trivia: { d: "Quale isola è divisa tra Indonesia, Malesia e Brunei?", r: "Borneo", opz: ["Sumatra", "Giava", "Borneo", "Nuova Guinea"] }
           },
           {
             bandiera: { codice: "rs", nome: "Serbia", opzioni: ["Slovacchia", "Slovenia", "Russia", "Serbia"] },
-            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Triumphal_Arch_Chisinau.jpg/640px-Triumphal_Arch_Chisinau.jpg", nome: "Arco di Trionfo di Chișinău", alias: ["chisinau", "arco di trionfo", "moldavia"] },
+            luogo: { coords: [47.0245, 28.8322], zoom: 17, nome: "Arco di Trionfo di Chișinău", alias: ["chisinau", "arco di trionfo", "moldavia"] },
             trivia: { d: "Qual è la capitale dell'Irlanda?", r: "Dublino", opz: ["Belfast", "Cork", "Galway", "Dublino"] }
           }
         ];
@@ -720,6 +728,39 @@
         const giorniDaEpoca = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
         const indiceOggi = giorniDaEpoca % ARCHIVIO_SFIDE.length;
         const SFIDA_DEL_GIORNO = ARCHIVIO_SFIDE[indiceOggi];
+
+        // --- GESTIONE MAPPA SATELLITARE LEAFLET ---
+        let mappaSatellitare = null;
+
+        function inizializzaMappaSatellitare() {
+            const mapContainer = document.getElementById('satellite-map');
+            if (!mapContainer || typeof L === 'undefined') return;
+
+            const [lat, lng] = SFIDA_DEL_GIORNO.luogo.coords;
+            const zoomLevel = SFIDA_DEL_GIORNO.luogo.zoom || 16;
+
+            if (mappaSatellitare) {
+                mappaSatellitare.setView([lat, lng], zoomLevel);
+                return;
+            }
+
+            // Inizializza la vista satellitare muta (senza etichette)
+            mappaSatellitare = L.map('satellite-map', {
+                center: [lat, lng],
+                zoom: zoomLevel,
+                zoomControl: true,
+                attributionControl: false
+            });
+
+            // Tile Esri World Imagery ad altissima definizione
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                maxZoom: 19
+            }).addTo(mappaSatellitare);
+
+            setTimeout(() => {
+                mappaSatellitare.invalidateSize();
+            }, 300);
+        }
 
         // --- INIZIALIZZAZIONE COMPONENTI DEI GIOCHI ---
         function inizializzaSfideDelGiorno() {
@@ -734,11 +775,8 @@
                 }).join('');
             }
 
-            // 2. Luogo Misterioso
-            const luogoImg = document.getElementById('luogo-img');
-            if (luogoImg) {
-                luogoImg.src = SFIDA_DEL_GIORNO.luogo.img;
-            }
+            // 2. Luogo Misterioso (Caricamento Leaflet)
+            inizializzaMappaSatellitare();
 
             // 3. Trivia
             const triviaTesto = document.getElementById('trivia-testo');
@@ -966,7 +1004,7 @@
             localStorage.setItem('dataUltimoGiocoBandiera', oggi);
         }
 
-        // --- LOGICA GIOCO 2: LUOGO MISTERIOSO ---
+        // --- LOGICA GIOCO 2: LUOGO MISTERIOSO (CON ALIAS) ---
         async function checkLuogo(btn) {
             const oggi = new Date().toDateString();
             if (localStorage.getItem('dataUltimoGiocoLuogo') === oggi) {
@@ -985,7 +1023,7 @@
             let isCorrect = false;
 
             for (let sol of soluzioni) {
-                if (rispostaUtente.includes(sol)) {
+                if (rispostaUtente.includes(sol.toLowerCase())) {
                     isCorrect = true; 
                     break;
                 }
