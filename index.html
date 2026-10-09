@@ -7,6 +7,8 @@
     <link rel="icon" type="image/png" href="favicon.png.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- LIBRERIA PER I CORIANDOLI -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
@@ -61,7 +63,6 @@
                 <div class="bg-white p-5 rounded-lg shadow text-center">
                     <h3 class="font-bold text-gray-600 mb-4">Bandiera del Giorno</h3>
                     
-                    <!-- Immagine vera della bandiera -->
                     <img src="https://flagcdn.com/w320/no.png" alt="Bandiera da indovinare" class="h-24 mx-auto mb-6 border border-gray-200 shadow-sm rounded">
                     
                     <div class="grid grid-cols-2 gap-2" id="flag-buttons">
@@ -76,7 +77,6 @@
                 <div class="bg-white p-5 rounded-lg shadow text-center">
                     <h3 class="font-bold text-gray-600 mb-4">Luogo Misterioso</h3>
                     
-                    <!-- Immagine vera di Mont Saint-Michel -->
                     <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Mont_st_michel_aerial.jpg" alt="Luogo Misterioso" class="w-full h-36 object-cover rounded-lg mb-4 shadow-sm border border-gray-200">
                     
                     <input type="text" id="luogo-input" placeholder="Dove ci troviamo?" class="w-full border p-2 rounded mb-2 text-sm">
@@ -89,7 +89,7 @@
         <section class="bg-white p-6 rounded-lg shadow-lg border-2 border-yellow-400">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold text-gray-800">🏆 Lega di Ottobre</h2>
-                <span class="bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded uppercase tracking-wide">In palio: Buono Amazon 10€</span>
+                <span class="bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded uppercase tracking-wide">In palio: Buono Amazon 50€</span>
             </div>
             
             <ul id="lista-classifica" class="w-full mt-4">
@@ -125,9 +125,8 @@
     <!-- SCRIPT PRINCIPALE -->
     <script>
         // --- 1. CONFIGURAZIONE DATABASE ---
-        // INSERISCI LA TUA CHIAVE MANTENENDO GLI APICI SINGOLI!
         const supabaseUrl = 'https://rwkfnkqdsdokjxzwfddg.supabase.co'; 
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; 
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; // <-- INSERISCI LA TUA CHIAVE QUI
         const db = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 
@@ -167,9 +166,12 @@
             buttons.forEach(b => b.disabled = true); 
 
             if(isCorrect) {
+                // LANCIA I CORIANDOLI!
+                confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+                
                 btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
                 btn.classList.add('bg-green-500', 'text-white');
-                alert("Esatto! Sto salvando i tuoi 50 punti...");
+                
                 await salvaPunti(50);
             } else {
                 btn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
@@ -205,10 +207,13 @@
             }
 
             if(isCorrect) {
+                // LANCIA I CORIANDOLI!
+                confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+
                 btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
                 btn.classList.add('bg-green-500');
                 btn.innerText = "Esatto!";
-                alert("Bravissimo! Sto salvando i tuoi 100 punti...");
+                
                 await salvaPunti(100);
             } else {
                 btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
@@ -241,10 +246,16 @@
                     await db.from('leaderboard').insert([{ user_id: user.id, username: username, score: puntiDaAggiungere }]);
                 }
                 
-                alert("Punti salvati con successo! Ricarico la classifica...");
-                caricaClassifica();
+                // Ritardiamo l'alert per far godere l'animazione dei coriandoli!
+                setTimeout(() => {
+                    alert("Punti salvati con successo! Ricarico la classifica...");
+                    caricaClassifica();
+                }, 800);
+                
             } else {
-                alert("Ottimo! Ma per salvare i punti e scalare la classifica devi prima registrarti o accedere.");
+                setTimeout(() => {
+                    alert("Ottimo! Ma per salvare i punti e scalare la classifica devi prima registrarti o accedere.");
+                }, 800);
             }
         }
 
