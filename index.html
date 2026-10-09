@@ -29,7 +29,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <!-- INCOLLA QUI LO SCRIPT DI GOOGLE ADSENSE QUANDO ATTIVO -->
+    <!-- SCRIPT GOOGLE ADSENSE -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9236303488934991"
      crossorigin="anonymous"></script>
 
@@ -94,21 +94,9 @@
         <span class="truncate">Spazio: la navicella Crew Dragon della NASA rientra con successo sulla Terra dopo 237 giorni in orbita.</span>
     </div>
 
-    <!-- WRAPPER LAYOUT (BANNER SX - CONTENUTO CENTRALE - BANNER DX) -->
+    <!-- WRAPPER LAYOUT -->
     <div class="max-w-[1550px] mx-auto px-2 sm:px-4 flex justify-center gap-6 my-6 flex-1 w-full">
 
-        <!-- 1. BANNER LATERALE SINISTRO (SKYSCRAPER DESKTOP) -->
-        <aside class="!hidden w-[160px] shrink-0">
-            <div class="sticky top-24 bg-slate-900/60 border border-dashed border-slate-800 rounded-2xl p-2 text-center h-[600px] flex flex-col justify-between shadow-lg">
-                <span class="text-[9px] font-bold uppercase tracking-widest text-slate-500 block">Annuncio</span>
-                <div class="flex-1 my-2 bg-slate-950/70 border border-slate-800/50 rounded-xl flex items-center justify-center text-[11px] text-slate-400 px-2 font-medium">
-                    Banner Skyscraper<br>160x600<br>(Google AdSense)
-                </div>
-                <span class="text-[9px] text-slate-600">GeoFlash Sponsor</span>
-            </div>
-        </aside>
-
-        <!-- CONTENUTO CENTRALE -->
         <main class="w-full max-w-4xl space-y-10">
 
             <!-- NOTIZIE: IL DIARIO DI OGGI -->
@@ -126,35 +114,32 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                     
-                    <!-- 1. MATTINA (Sempre attiva) -->
+                    <!-- 1. MATTINA -->
                     <div id="card-mattina" class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 hover:border-amber-500/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-sm font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-lg">☕ Mattina</span>
-                            <span class="text-xs text-slate-500">08:00</span>
+                        <div id="mattina-aperto">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-sm font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-lg">☕ Mattina</span>
+                                <span class="text-xs text-slate-500">08:00</span>
+                            </div>
+                            <ul class="space-y-3.5 text-sm text-slate-300">
+                                <li class="flex items-start gap-2.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+                                    <span>Assegnato a Oslo il Nobel per la Pace 2026 all'attivista Navi Pillay.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+                                    <span>Ondata di maltempo in Italia: allerta su Lazio e Campania, nubifragi al Centro-Sud.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+                                    <span>Manovra di bilancio: vertice di maggioranza al MEF per il taglio del cuneo fiscale.</span>
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="space-y-3.5 text-sm text-slate-300">
-                            <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
-                            <span>Assegnato a Oslo il Nobel per la Pace 2026 all'attivista Navi Pillay.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
-                            <span>Ondata di maltempo in Italia: allerta su Lazio e Campania, nubifragi al Centro-Sud.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
-                            <span>Manovra di bilancio: vertice di maggioranza al MEF per il taglio del cuneo fiscale.</span>
-                        </li>
-                            <li class="flex items-start gap-2.5">
-                                <span class="h-1.5 w-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
-                                <span>Lanciata con successo la nuova missione SpaceX per Marte.</span>
-                            </li>
-                        </ul>
                     </div>
 
-                    <!-- 2. POMERIGGIO (Sbloccata alle 14:00) -->
+                    <!-- 2. POMERIGGIO -->
                     <div id="card-pomeriggio" class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 transition-all duration-300 shadow-xl flex flex-col justify-between">
-                        <!-- Stato Sbloccato -->
                         <div id="pomeriggio-aperto" class="space-y-4">
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-sm font-bold text-orange-400 bg-orange-400/10 border border-orange-400/20 px-3 py-1 rounded-lg">☀️ Pomeriggio</span>
@@ -162,20 +147,19 @@
                             </div>
                             <ul class="space-y-3.5 text-sm text-slate-300">
                                 <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
-                            <span>Sicilia: violenta doppia tromba marina a Marsala, scoperchiate strutture e danni sul litorale.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
-                            <span>Maxi furto in Toscana: rubate 30.000 bottiglie di vino da collezione per 5 milioni di euro.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
-                            <span>Borsa e carburanti: mercati europei stabili, cala il prezzo medio del gasolio alla pompa.</span>
-                        </li>
+                                    <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
+                                    <span>Sicilia: violenta doppia tromba marina a Marsala, scoperchiate strutture e danni sul litorale.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
+                                    <span>Maxi furto in Toscana: rubate 30.000 bottiglie di vino da collezione per 5 milioni di euro.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
+                                    <span>Borsa e carburanti: mercati europei stabili, cala il prezzo medio del gasolio alla pompa.</span>
+                                </li>
                             </ul>
                         </div>
-                        <!-- Stato In Arrivo -->
                         <div id="pomeriggio-bloccato" class="hidden text-center py-8">
                             <span class="text-3xl block mb-2 opacity-50">☀️</span>
                             <span class="text-xs font-bold text-orange-300 uppercase tracking-wider block mb-1">Pomeriggio</span>
@@ -184,9 +168,8 @@
                         </div>
                     </div>
 
-                    <!-- 3. SERA (Sbloccata alle 20:00) -->
+                    <!-- 3. SERA -->
                     <div id="card-sera" class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 transition-all duration-300 shadow-xl flex flex-col justify-between">
-                        <!-- Stato Sbloccato -->
                         <div id="sera-aperto" class="space-y-4">
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-sm font-bold text-indigo-400 bg-indigo-400/10 border border-indigo-400/20 px-3 py-1 rounded-lg">🌙 Sera</span>
@@ -194,20 +177,19 @@
                             </div>
                             <ul class="space-y-3.5 text-sm text-slate-300">
                                 <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
-                            <span>Borse europee in chiusura: Piazza Affari chiude in lieve rialzo (+0,4%) trainata da banche ed energia.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
-                            <span>Maltempo in attenuazione al Centro: la Protezione Civile riduce l'allerta per la notte.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
-                            <span>Nations League e anticipi di campionato: riflettori puntati sulle gare serali del weekend.</span>
-                        </li>
+                                    <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
+                                    <span>Borse europee in chiusura: Piazza Affari chiude in lieve rialzo (+0,4%) trainata da banche ed energia.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
+                                    <span>Maltempo in attenuazione al Centro: la Protezione Civile riduce l'allerta per la notte.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
+                                    <span>Nations League e anticipi di campionato: riflettori puntati sulle gare serali del weekend.</span>
+                                </li>
                             </ul>
                         </div>
-                        <!-- Stato In Arrivo -->
                         <div id="sera-bloccato" class="hidden text-center py-8">
                             <span class="text-3xl block mb-2 opacity-50">🌙</span>
                             <span class="text-xs font-bold text-indigo-300 uppercase tracking-wider block mb-1">Sera</span>
@@ -216,14 +198,6 @@
                         </div>
                     </div>
 
-                </div>
-            </section>
-
-            <!-- 2. BANNER PUBBLICITARIO CENTRALE (LEADERBOARD) -->
-            <section class="hidden w-full bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-4 text-center">
-                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500 block mb-1">Annuncio Pubblicitario</span>
-                <div class="min-h-[90px] bg-slate-950/60 rounded-xl flex items-center justify-center text-xs text-slate-500 border border-slate-800/40">
-                    <span>Spazio Banner Centrale (Leaderboard 728x90 / Responsive)</span>
                 </div>
             </section>
 
@@ -250,16 +224,11 @@
                             </div>
 
                             <div class="bg-slate-950/60 rounded-xl p-4 border border-slate-800/80 flex items-center justify-center mb-4 h-32">
-                                <img src="https://flagcdn.com/w320/no.png" alt="Bandiera da indovinare" class="h-16 max-w-full rounded shadow-md border border-slate-700/50 object-cover">
+                                <img id="flag-img" src="" alt="Bandiera da indovinare" class="h-16 max-w-full rounded shadow-md border border-slate-700/50 object-cover">
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-2" id="flag-buttons">
-                            <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Svezia</button>
-                            <button onclick="checkFlag(this, true)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Norvegia</button>
-                            <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Finlandia</button>
-                            <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Islanda</button>
-                        </div>
+                        <div class="grid grid-cols-2 gap-2" id="flag-buttons"></div>
                     </div>
 
                     <!-- GIOCO 2: LUOGO MISTERIOSO -->
@@ -273,7 +242,7 @@
                             </div>
 
                             <div class="rounded-xl overflow-hidden border border-slate-800/80 mb-4 h-32 relative">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Mont_st_michel_aerial.jpg" alt="Luogo Misterioso" class="w-full h-full object-cover">
+                                <img id="luogo-img" src="" alt="Luogo Misterioso" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent"></div>
                                 <span class="absolute bottom-1.5 left-2.5 text-[10px] text-slate-300 font-medium">Scatta la memoria visiva...</span>
                             </div>
@@ -297,18 +266,11 @@
 
                             <div class="bg-slate-950/60 rounded-xl p-3.5 border border-slate-800/80 mb-4 flex flex-col justify-center h-32">
                                 <span class="text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-1">Domanda del Giorno</span>
-                                <p class="text-xs text-slate-200 font-semibold leading-relaxed">
-                                    Qual è l'unico continente al mondo a non avere alcun vulcano attivo sul suo territorio?
-                                </p>
+                                <p id="trivia-testo" class="text-xs text-slate-200 font-semibold leading-relaxed"></p>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-2" id="trivia-buttons">
-                            <button onclick="checkTrivia(this, true)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Australia</button>
-                            <button onclick="checkTrivia(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Antartide</button>
-                            <button onclick="checkTrivia(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Europa</button>
-                            <button onclick="checkTrivia(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Africa</button>
-                        </div>
+                        <div class="grid grid-cols-2 gap-2" id="trivia-buttons"></div>
                     </div>
 
                 </div>
@@ -376,26 +338,7 @@
 
             </section>
 
-            <!-- 3. BANNER PUBBLICITARIO A FONDO PAGINA -->
-            <section class="hidden w-full bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-4 text-center mt-6">
-                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500 block mb-1">Annuncio Pubblicitario</span>
-                <div class="min-h-[90px] md:min-h-[120px] bg-slate-950/60 rounded-xl flex items-center justify-center text-xs text-slate-500 border border-slate-800/40">
-                    <span>Spazio Banner Fondo Pagina (Billboard / Leaderboard 728x90 o 970x90)</span>
-                </div>
-            </section>
-
         </main>
-
-        <!-- 4. BANNER LATERALE DESTRO (SKYSCRAPER DESKTOP) -->
-        <aside class="!hidden w-[160px] shrink-0">
-            <div class="sticky top-24 bg-slate-900/60 border border-dashed border-slate-800 rounded-2xl p-2 text-center h-[600px] flex flex-col justify-between shadow-lg">
-                <span class="text-[9px] font-bold uppercase tracking-widest text-slate-500 block">Annuncio</span>
-                <div class="flex-1 my-2 bg-slate-950/70 border border-slate-800/50 rounded-xl flex items-center justify-center text-[11px] text-slate-400 px-2 font-medium">
-                    Banner Skyscraper<br>160x600<br>(Google AdSense)
-                </div>
-                <span class="text-[9px] text-slate-600">GeoFlash Sponsor</span>
-            </div>
-        </aside>
 
     </div>
 
@@ -469,6 +412,346 @@
             }, 3500);
         }
 
+        // === ARCHIVIO SFIDE AUTOMATICHE (60 GIORNI) ===
+        const ARCHIVIO_SFIDE = [
+          {
+            bandiera: { codice: "no", nome: "Norvegia", opzioni: ["Svezia", "Norvegia", "Finlandia", "Islanda"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Mont_st_michel_aerial.jpg", nome: "Mont Saint-Michel", alias: ["mont saint michel", "mont st michel", "mont-saint-michel"] },
+            trivia: { d: "Qual è l'unico continente al mondo a non avere alcun vulcano attivo sul suo territorio?", r: "Australia", opz: ["Australia", "Antartide", "Europa", "Africa"] }
+          },
+          {
+            bandiera: { codice: "jp", nome: "Giappone", opzioni: ["Giappone", "Corea del Sud", "Bangladesh", "Palau"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/640px-Kheops-Pyramid.jpg", nome: "Piramidi di Giza", alias: ["piramidi di giza", "giza", "piramide di cheope", "piramidi"] },
+            trivia: { d: "Qual è la capitale dello stato di Washington negli USA?", r: "Olympia", opz: ["Seattle", "Olympia", "Spokane", "Tacoma"] }
+          },
+          {
+            bandiera: { codice: "is", nome: "Islanda", opzioni: ["Norvegia", "Islanda", "Finlandia", "Danimarca"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Christ_the_Redeemer_-_Cristo_Redentor.jpg/640px-Christ_the_Redeemer_-_Cristo_Redentor.jpg", nome: "Cristo Redentore", alias: ["cristo redentore", "cristo redentor", "rio de janeiro", "corcovado"] },
+            trivia: { d: "Qual è il fiume più lungo d'Europa?", r: "Volga", opz: ["Danubio", "Volga", "Reno", "Dnepr"] }
+          },
+          {
+            bandiera: { codice: "ca", nome: "Canada", opzioni: ["Canada", "Perù", "Austria", "Svizzera"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/640px-Colosseo_2020.jpg", nome: "Colosseo", alias: ["colosseo", "anfiteatro flavio", "roma"] },
+            trivia: { d: "In quale nazione si trova il deserto di Atacama?", r: "Cile", opz: ["Perù", "Bolivia", "Cile", "Argentina"] }
+          },
+          {
+            bandiera: { codice: "za", nome: "Sudafrica", opzioni: ["Namibia", "Sudafrica", "Zimbabwe", "Kenya"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Taj_Mahal%2C_Agra%2C_India_edit3.jpg/640px-Taj_Mahal%2C_Agra%2C_India_edit3.jpg", nome: "Taj Mahal", alias: ["taj mahal", "agra"] },
+            trivia: { d: "Qual è l'unico continente senza deserti estesi?", r: "Europa", opz: ["Europa", "Oceania", "Sud America", "Nord America"] }
+          },
+          {
+            bandiera: { codice: "ar", nome: "Argentina", opzioni: ["Uruguay", "Argentina", "Guatemala", "Nicaragua"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Machu_Picchu%2C_Peru.jpg/640px-Machu_Picchu%2C_Peru.jpg", nome: "Machu Picchu", alias: ["machu picchu", "peru", "cusco"] },
+            trivia: { d: "Quale stretto separa la Spagna dal Marocco?", r: "Stretto di Gibilterra", opz: ["Messina", "Bosforo", "Stretto di Gibilterra", "Dardanelli"] }
+          },
+          {
+            bandiera: { codice: "kr", nome: "Corea del Sud", opzioni: ["Corea del Sud", "Giappone", "Taiwan", "Laos"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg/640px-Tour_Eiffel_Wikimedia_Commons.jpg", nome: "Torre Eiffel", alias: ["torre eiffel", "eiffel", "paris", "parigi"] },
+            trivia: { d: "Qual è la capitale dell'Australia?", r: "Canberra", opz: ["Sydney", "Melbourne", "Canberra", "Brisbane"] }
+          },
+          {
+            bandiera: { codice: "br", nome: "Brasile", opzioni: ["Brasile", "Portogallo", "Capo Verde", "Bolivia"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/The_Great_Wall_of_China_at_Jinshanling-edit.jpg/640px-The_Great_Wall_of_China_at_Jinshanling-edit.jpg", nome: "Grande Muraglia", alias: ["grande muraglia", "muraglia cinese", "great wall"] },
+            trivia: { d: "Quale lago è il più profondo del mondo?", r: "Lago Bajkal", opz: ["Lago Tanganica", "Lago Bajkal", "Lago Superiore", "Mar Caspio"] }
+          },
+          {
+            bandiera: { codice: "eg", nome: "Egitto", opzioni: ["Siria", "Iraq", "Egitto", "Yemen"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/The_Parthenon_in_Athens.jpg/640px-The_Parthenon_in_Athens.jpg", nome: "Partenone", alias: ["partenone", "acropoli", "atene"] },
+            trivia: { d: "Qual è l'isola più grande del Mar Mediterraneo?", r: "Sicilia", opz: ["Sardegna", "Cipro", "Sicilia", "Creta"] }
+          },
+          {
+            bandiera: { codice: "mx", nome: "Messico", opzioni: ["Italia", "Messico", "Ungheria", "Irlanda"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Grand_Canyon_view_from_Desert_View_Point.jpg/640px-Grand_Canyon_view_from_Desert_View_Point.jpg", nome: "Grand Canyon", alias: ["grand canyon", "canyon"] },
+            trivia: { d: "Quale paese confina sia con la Norvegia che con la Corea del Nord?", r: "Russia", opz: ["Cina", "Russia", "Mongolia", "Finlandia"] }
+          },
+          {
+            bandiera: { codice: "ke", nome: "Kenya", opzioni: ["Uganda", "Kenya", "Sud Sudan", "Etiopia"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Clock_Tower_-_Palace_of_Westminster%2C_London_-_May_2007.jpg/640px-Clock_Tower_-_Palace_of_Westminster%2C_London_-_May_2007.jpg", nome: "Big Ben", alias: ["big ben", "westminster", "londra"] },
+            trivia: { d: "Qual è la capitale del Canada?", r: "Ottawa", opz: ["Toronto", "Montreal", "Vancouver", "Ottawa"] }
+          },
+          {
+            bandiera: { codice: "nz", nome: "Nuova Zelanda", opzioni: ["Australia", "Nuova Zelanda", "Figi", "Tuvalu"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Sydney_Opera_House_-_Dec_2008.jpg/640px-Sydney_Opera_House_-_Dec_2008.jpg", nome: "Sydney Opera House", alias: ["opera house", "sydney opera house", "teatro dell'opera di sydney"] },
+            trivia: { d: "Quale catena montuosa separa l'Europa dall'Asia?", r: "Monti Urali", opz: ["Caucaso", "Monti Urali", "Alpi", "Carpazi"] }
+          },
+          {
+            bandiera: { codice: "gr", nome: "Grecia", opzioni: ["Cipro", "Uruguay", "Grecia", "Finlandia"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Statue_of_Liberty_7.jpg/640px-Statue_of_Liberty_7.jpg", nome: "Statua della Libertà", alias: ["statua della liberta", "statua della libertà", "statue of liberty"] },
+            trivia: { d: "Qual è il punto più basso della superficie terrestre emersa?", r: "Mar Morto", opz: ["Fossa delle Marianne", "Mar Morto", "Depressione di Danakil", "Valle della Morte"] }
+          },
+          {
+            bandiera: { codice: "in", nome: "India", opzioni: ["Niger", "India", "Irlanda", "Costa d'Avorio"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Sagrada_Familia_01.jpg/640px-Sagrada_Familia_01.jpg", nome: "Sagrada Família", alias: ["sagrada familia", "sagrada família", "barcellona"] },
+            trivia: { d: "Quanti fusi orari attraversa la Russia?", r: "11", opz: ["9", "11", "12", "7"] }
+          },
+          {
+            bandiera: { codice: "tr", nome: "Turchia", opzioni: ["Tunisia", "Turchia", "Azerbaigian", "Algeria"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Hagia_Sophia_Mars_2013.jpg/640px-Hagia_Sophia_Mars_2013.jpg", nome: "Santa Sofia", alias: ["santa sofia", "hagia sophia", "istanbul"] },
+            trivia: { d: "Qual è la capitale della Svizzera?", r: "Berna", opz: ["Zurigo", "Ginevra", "Berna", "Basilea"] }
+          },
+          {
+            bandiera: { codice: "se", nome: "Svezia", opzioni: ["Danimarca", "Ucraina", "Svezia", "Finlandia"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Stonehenge2007_07_18.jpg/640px-Stonehenge2007_07_18.jpg", nome: "Stonehenge", alias: ["stonehenge", "salisbury"] },
+            trivia: { d: "Qual è la cascata con il salto ininterrotto più alto al mondo?", r: "Salto Angel", opz: ["Cascate Vittoria", "Cascate del Niagara", "Salto Angel", "Iguazú"] }
+          },
+          {
+            bandiera: { codice: "cl", nome: "Cile", opzioni: ["Texas", "Repubblica Ceca", "Cile", "Filippine"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Chichen_Itza_3.jpg/640px-Chichen_Itza_3.jpg", nome: "Chichén Itzá", alias: ["chichen itza", "chichén itzá", "el castillo"] },
+            trivia: { d: "Qual è la capitale del Brasile?", r: "Brasilia", opz: ["Rio de Janeiro", "San Paolo", "Brasilia", "Salvador"] }
+          },
+          {
+            bandiera: { codice: "pt", nome: "Portogallo", opzioni: ["Spagna", "Portogallo", "Brasile", "Madagascar"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Treasury_petra_crop.jpeg/640px-Treasury_petra_crop.jpeg", nome: "Petra", alias: ["petra", "al-khazneh", "il tesoro", "giordania"] },
+            trivia: { d: "In quale oceano si trova la Fossa delle Marianne?", r: "Pacifico", opz: ["Atlantico", "Indiano", "Pacifico", "Artico"] }
+          },
+          {
+            bandiera: { codice: "th", nome: "Thailandia", opzioni: ["Costa Rica", "Thailandia", "Laos", "Cambogia"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Burj_Khalifa.jpg/640px-Burj_Khalifa.jpg", nome: "Burj Khalifa", alias: ["burj khalifa", "dubai"] },
+            trivia: { d: "Qual è il paese più piccolo del mondo per superficie?", r: "Città del Vaticano", opz: ["Monaco", "Nauru", "San Marino", "Città del Vaticano"] }
+          },
+          {
+            bandiera: { codice: "fi", nome: "Finlandia", opzioni: ["Grecia", "Svezia", "Estonia", "Finlandia"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Leaning_Tower_of_Pisa.jpg/640px-Leaning_Tower_of_Pisa.jpg", nome: "Torre di Pisa", alias: ["torre di pisa", "pisa", "campanile del duomo"] },
+            trivia: { d: "Quale fiume bagna Baghdad?", r: "Tigri", opz: ["Eufrate", "Tigri", "Nilo", "Giordano"] }
+          },
+          {
+            bandiera: { codice: "co", nome: "Colombia", opzioni: ["Ecuador", "Venezuela", "Colombia", "Romania"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Mount_Fuji_from_Lake_Kawaguchi.jpg/640px-Mount_Fuji_from_Lake_Kawaguchi.jpg", nome: "Monte Fuji", alias: ["monte fuji", "fujisan", "fuji"] },
+            trivia: { d: "Quale stato confina unicamente con il Portogallo?", r: "Spagna", opz: ["Spagna", "Andorra", "Francia", "Marocco"] }
+          },
+          {
+            bandiera: { codice: "ma", nome: "Marocco", opzioni: ["Turchia", "Marocco", "Tunisia", "Vietnam"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Angkor_Wat.jpg/640px-Angkor_Wat.jpg", nome: "Angkor Wat", alias: ["angkor wat", "angkor", "cambogia"] },
+            trivia: { d: "Qual è la capitale della Nuova Zelanda?", r: "Wellington", opz: ["Auckland", "Christchurch", "Wellington", "Queenstown"] }
+          },
+          {
+            bandiera: { codice: "vn", nome: "Vietnam", opzioni: ["Vietnam", "Cina", "Somalia", "Marocco"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Golden_Gate_Bridge_%282019%29.jpg/640px-Golden_Gate_Bridge_%282019%29.jpg", nome: "Golden Gate Bridge", alias: ["golden gate", "golden gate bridge", "san francisco"] },
+            trivia: { d: "Quale deserto copre gran parte della Mongolia meridionale?", r: "Deserto del Gobi", opz: ["Taklamakan", "Deserto del Gobi", "Karakum", "Thar"] }
+          },
+          {
+            bandiera: { codice: "cu", nome: "Cuba", opzioni: ["Porto Rico", "Cuba", "Filippine", "Cile"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Neuschwanstein_Castle_from_the_Marienbr%C3%BCcke.jpg/640px-Neuschwanstein_Castle_from_the_Marienbr%C3%BCcke.jpg", nome: "Castello di Neuschwanstein", alias: ["neuschwanstein", "castello di neuschwanstein", "baviera"] },
+            trivia: { d: "Qual è il secondo fiume più lungo al mondo?", r: "Rio delle Amazzoni", opz: ["Nilo", "Yangtze", "Rio delle Amazzoni", "Mississippi"] }
+          },
+          {
+            bandiera: { codice: "ch", nome: "Svizzera", opzioni: ["Svizzera", "Danimarca", "Austria", "Georgia"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/RedSquare_SaintBasile_%28Moscou%29.jpg/640px-RedSquare_SaintBasile_%28Moscou%29.jpg", nome: "Cattedrale di San Basilio", alias: ["san basilio", "piazza rossa", "mosca"] },
+            trivia: { d: "Qual è la capitale della Turchia?", r: "Ankara", opz: ["Istanbul", "Smirne", "Ankara", "Bursa"] }
+          },
+          {
+            bandiera: { codice: "ng", nome: "Nigeria", opzioni: ["Ghana", "Nigeria", "Senegal", "Camerun"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Brandeburger_Tor_2019.jpg/640px-Brandeburger_Tor_2019.jpg", nome: "Porta di Brandeburgo", alias: ["porta di brandeburgo", "brandeburgo", "berlino"] },
+            trivia: { d: "Quale isola appartiene politicamente alla Danimarca pur essendo in Nord America?", r: "Groenlandia", opz: ["Islanda", "Groenlandia", "Svalbard", "Terranova"] }
+          },
+          {
+            bandiera: { codice: "dk", nome: "Danimarca", opzioni: ["Norvegia", "Inghilterra", "Danimarca", "Svizzera"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/White_House_South_Fa%C3%A7ade.jpg/640px-White_House_South_Fa%C3%A7ade.jpg", nome: "Casa Bianca", alias: ["casa bianca", "white house", "washington"] },
+            trivia: { d: "Qual è il lago d'acqua dolce più esteso per superficie?", r: "Lago Superiore", opz: ["Lago Vittoria", "Lago Superiore", "Lago Bajkal", "Lago Huron"] }
+          },
+          {
+            bandiera: { codice: "pe", nome: "Perù", opzioni: ["Austria", "Perù", "Polonia", "Canada"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Prague_Castle__Hradcany__from_Charles_Bridge_tower.jpg/640px-Prague_Castle__Hradcany__from_Charles_Bridge_tower.jpg", nome: "Castello di Praga", alias: ["castello di praga", "praga", "hradcany"] },
+            trivia: { d: "Qual è la capitale dell'Islanda?", r: "Reykjavík", opz: ["Oslo", "Reykjavík", "Helsinki", "Bergen"] }
+          },
+          {
+            bandiera: { codice: "sa", nome: "Arabia Saudita", opzioni: ["Arabia Saudita", "Emirati Arabi", "Oman", "Kuwait"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Uluru%2C_panoramio.jpg/640px-Uluru%2C_panoramio.jpg", nome: "Uluru", alias: ["uluru", "ayers rock", "australia"] },
+            trivia: { d: "Qual è la vetta più alta dell'Africa?", r: "Kilimangiaro", opz: ["Monte Kenya", "Kilimangiaro", "Ruwenzori", "Atlante"] }
+          },
+          {
+            bandiera: { codice: "ua", nome: "Ucraina", opzioni: ["Svezia", "Kazakistan", "Ucraina", "Bosnia"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Canal_Grande_Chiesa_della_Salute_e_Dogana_da_ponte_dell_Accademia.jpg/640px-Canal_Grande_Chiesa_della_Salute_e_Dogana_da_ponte_dell_Accademia.jpg", nome: "Canal Grande a Venezia", alias: ["venezia", "canal grande", "santa maria della salute"] },
+            trivia: { d: "Qual è la capitale del Sudafrica con sede del governo esecutivo?", r: "Pretoria", opz: ["Città del Capo", "Johannesburg", "Pretoria", "Bloemfontein"] }
+          },
+          {
+            bandiera: { codice: "pl", nome: "Polonia", opzioni: ["Monaco", "Indonesia", "Polonia", "Malta"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Palace_of_Westminster_from_the_dome_on_Methodist_Central_Hall.jpg/640px-Palace_of_Westminster_from_the_dome_on_Methodist_Central_Hall.jpg", nome: "Palazzo di Westminster", alias: ["palazzo di westminster", "westminster", "parlamento di londra"] },
+            trivia: { d: "Quale nazione ha più isole al mondo?", r: "Svezia", opz: ["Norvegia", "Indonesia", "Filippine", "Svezia"] }
+          },
+          {
+            bandiera: { codice: "ph", nome: "Filippine", opzioni: ["Repubblica Ceca", "Cuba", "Filippine", "Cile"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Petronas_Towers_2019.jpg/640px-Petronas_Towers_2019.jpg", nome: "Torri Petronas", alias: ["torri petronas", "petronas towers", "kuala lumpur"] },
+            trivia: { d: "Qual è la capitale dell'Egitto?", r: "Il Cairo", opz: ["Alessandria", "Giza", "Il Cairo", "Luxor"] }
+          },
+          {
+            bandiera: { codice: "be", nome: "Belgio", opzioni: ["Germania", "Belgio", "Paesi Bassi", "Romania"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Marina_Bay_Sands_in_the_evening_-_20101120.jpg/640px-Marina_Bay_Sands_in_the_evening_-_20101120.jpg", nome: "Marina Bay Sands", alias: ["marina bay sands", "singapore", "marina bay"] },
+            trivia: { d: "Quale mare si trova tra l'Australia e la Nuova Zelanda?", r: "Mar di Tasman", opz: ["Mar dei Coralli", "Mar di Tasman", "Mar di Timor", "Mar di Giava"] }
+          },
+          {
+            bandiera: { codice: "at", nome: "Austria", opzioni: ["Lettonia", "Austria", "Perù", "Libano"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Schloss_Sch%C3%B6nbrunn_Wien_2014.jpg/640px-Schloss_Sch%C3%B6nbrunn_Wien_2014.jpg", nome: "Castello di Schönbrunn", alias: ["schonbrunn", "schönbrunn", "vienna"] },
+            trivia: { d: "In quale continente si trova il Suriname?", r: "Sud America", opz: ["Africa", "Asia", "Sud America", "Nord America"] }
+          },
+          {
+            bandiera: { codice: "ie", nome: "Irlanda", opzioni: ["Costa d'Avorio", "Italia", "Irlanda", "India"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Dubrovnik_Old_Town_panorama.jpg/640px-Dubrovnik_Old_Town_panorama.jpg", nome: "Dubrovnik", alias: ["dubrovnik", "ragusa", "mura di dubrovnik"] },
+            trivia: { d: "Qual è la capitale del Marocco?", r: "Rabat", opz: ["Casablanca", "Marrakech", "Fes", "Rabat"] }
+          },
+          {
+            bandiera: { codice: "nl", nome: "Paesi Bassi", opzioni: ["Francia", "Lussemburgo", "Paesi Bassi", "Russia"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Budapest_Parliament_Middle.jpg/640px-Budapest_Parliament_Middle.jpg", nome: "Parlamento di Budapest", alias: ["parlamento di budapest", "budapest", "parlamento ungherese"] },
+            trivia: { d: "Quale catena montuosa include il Monte Bianco?", r: "Alpi", opz: ["Pirenei", "Alpi", "Appennini", "Carpazi"] }
+          },
+          {
+            bandiera: { codice: "cz", nome: "Repubblica Ceca", opzioni: ["Filippine", "Slovacchia", "Repubblica Ceca", "Cile"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Karluv_most.jpg/640px-Karluv_most.jpg", nome: "Ponte Carlo", alias: ["ponte carlo", "praga", "charles bridge"] },
+            trivia: { d: "Qual è la capitale dell'Argentina?", r: "Buenos Aires", opz: ["Rosario", "Cordoba", "Buenos Aires", "Mendoza"] }
+          },
+          {
+            bandiera: { codice: "ro", nome: "Romania", opzioni: ["Ciad", "Belgio", "Andorra", "Romania"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Bran_Castle_panorama.jpg/640px-Bran_Castle_panorama.jpg", nome: "Castello di Bran", alias: ["castello di bran", "castello di dracula", "bran", "transilvania"] },
+            trivia: { d: "Quale fiume attraversa Vienna, Bratislava, Budapest e Belgrado?", r: "Danubio", opz: ["Reno", "Danubio", "Elba", "Oder"] }
+          },
+          {
+            bandiera: { codice: "hu", nome: "Ungheria", opzioni: ["Italia", "Tagikistan", "Ungheria", "Bulgaria"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Table_Mountain_Cape_Town_South_Africa.jpg/640px-Table_Mountain_Cape_Town_South_Africa.jpg", nome: "Table Mountain", alias: ["table mountain", "cape town", "città del capo"] },
+            trivia: { d: "Qual è la capitale del Portogallo?", r: "Lisbona", opz: ["Porto", "Coimbra", "Lisbona", "Faro"] }
+          },
+          {
+            bandiera: { codice: "hr", nome: "Croazia", opzioni: ["Serbia", "Slovenia", "Croazia", "Slovacchia"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Hallgrimskirkja_2019.jpg/640px-Hallgrimskirkja_2019.jpg", nome: "Hallgrímskirkja", alias: ["hallgrimskirkja", "reykjavik", "chiesa di reykjavik"] },
+            trivia: { d: "Quale stato americano è il più vicino alla Russia?", r: "Alaska", opz: ["Hawaii", "Washington", "Alaska", "Oregon"] }
+          },
+          {
+            bandiera: { codice: "sg", nome: "Singapore", opzioni: ["Indonesia", "Singapore", "Malesia", "Polonia"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Borobudur_Temple.jpg/640px-Borobudur_Temple.jpg", nome: "Tempio di Borobudur", alias: ["borobudur", "tempio di borobudur", "giava", "indonesia"] },
+            trivia: { d: "Qual è la capitale della Norvegia?", r: "Oslo", opz: ["Bergen", "Trondheim", "Oslo", "Stavanger"] }
+          },
+          {
+            bandiera: { codice: "my", nome: "Malesia", opzioni: ["Stati Uniti", "Liberia", "Malesia", "Filippine"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Miraflores_Locks_Panama_Canal.jpg/640px-Miraflores_Locks_Panama_Canal.jpg", nome: "Canale di Panama", alias: ["canale di panama", "chiuse di miraflores", "panama"] },
+            trivia: { d: "Quale vulcano distrusse Pompei ed Ercolano?", r: "Vesuvio", opz: ["Etna", "Stromboli", "Vesuvio", "Vulcano"] }
+          },
+          {
+            bandiera: { codice: "uy", nome: "Uruguay", opzioni: ["Argentina", "Grecia", "Uruguay", "Guatemala"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Sigiriya_Lion_Rock.jpg/640px-Sigiriya_Lion_Rock.jpg", nome: "Fortezza di Sigiriya", alias: ["sigiriya", "roccia del leone", "sri lanka"] },
+            trivia: { d: "Qual è la capitale della Colombia?", r: "Bogotà", opz: ["Medellín", "Cali", "Bogotà", "Cartagena"] }
+          },
+          {
+            bandiera: { codice: "et", nome: "Etiopia", opzioni: ["Ghana", "Bolivia", "Etiopia", "Senegal"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Church_of_Saint_George%2C_Lalibela.jpg/640px-Church_of_Saint_George%2C_Lalibela.jpg", nome: "Chiese di Lalibela", alias: ["lalibela", "san giorgio lalibela", "etiopia"] },
+            trivia: { d: "Quale nazione ospita la Foresta Nera?", r: "Germania", opz: ["Austria", "Germania", "Svizzera", "Francia"] }
+          },
+          {
+            bandiera: { codice: "id", nome: "Indonesia", opzioni: ["Polonia", "Monaco", "Indonesia", "Singapore"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Arenal_Volcano_Costa_Rica.jpg/640px-Arenal_Volcano_Costa_Rica.jpg", nome: "Vulcano Arenal", alias: ["arenal", "vulcano arenal", "costa rica"] },
+            trivia: { d: "Qual è la capitale della Polonia?", r: "Varsavia", opz: ["Cracovia", "Danzica", "Varsavia", "Breslavia"] }
+          },
+          {
+            bandiera: { codice: "pa", nome: "Panama", opzioni: ["Repubblica Dominicana", "Panama", "Costa Rica", "Porto Rico"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Tallinn_view.jpg/640px-Tallinn_view.jpg", nome: "Città Vecchia di Tallinn", alias: ["tallinn", "citta vecchia di tallinn", "estonia"] },
+            trivia: { d: "Quale nazione ha come capitale Nairobi?", r: "Kenya", opz: ["Tanzania", "Uganda", "Kenya", "Ruanda"] }
+          },
+          {
+            bandiera: { codice: "np", nome: "Nepal", opzioni: ["Bhutan", "Nepal", "Tibet", "India"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg/640px-Mount_Everest_as_seen_from_Drukair2_PLW_edit.jpg", nome: "Monte Everest", alias: ["everest", "monte everest", "sagarmatha", "chomolungma"] },
+            trivia: { d: "Qual è l'altopiano più alto del mondo?", r: "Altopiano del Tibet", opz: ["Altopiano del Deccan", "Altiplano andino", "Altopiano del Tibet", "Etiopico"] }
+          },
+          {
+            bandiera: { codice: "lk", nome: "Sri Lanka", opzioni: ["India", "Sri Lanka", "Maldive", "Seychelles"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Fort_Saint_Elmo_Valletta.jpg/640px-Fort_Saint_Elmo_Valletta.jpg", nome: "Forte Sant'Elmo (La Valletta)", alias: ["forte sant elmo", "la valletta", "forte sant'elmo", "malta"] },
+            trivia: { d: "In quale città scorre il fiume Tamigi?", r: "Londra", opz: ["Dublino", "Edimburgo", "Londra", "Manchester"] }
+          },
+          {
+            bandiera: { codice: "qa", nome: "Qatar", opzioni: ["Bahrein", "Qatar", "Emirati Arabi", "Kuwait"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Grand_Place_Brussels.jpg/640px-Grand_Place_Brussels.jpg", nome: "Grand-Place di Bruxelles", alias: ["grand place", "bruxelles", "grand-place"] },
+            trivia: { d: "Qual è la capitale del Cile?", r: "Santiago", opz: ["Valparaíso", "Concepción", "Santiago", "Antofagasta"] }
+          },
+          {
+            bandiera: { codice: "cr", nome: "Costa Rica", opzioni: ["Thailandia", "Costa Rica", "Colombia", "Guatemala"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Blue_Lagoon_Iceland.jpg/640px-Blue_Lagoon_Iceland.jpg", nome: "Laguna Blu (Blue Lagoon)", alias: ["blue lagoon", "laguna blu", "islanda"] },
+            trivia: { d: "Qual è il punto più a sud del continente africano?", r: "Capo Agulhas", opz: ["Capo di Buona Speranza", "Capo Agulhas", "Capo Guardafui", "Capo Blanco"] }
+          },
+          {
+            bandiera: { codice: "ge", nome: "Georgia", opzioni: ["Inghilterra", "Malta", "Georgia", "Svizzera"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Helsinki_Cathedral.jpg/640px-Helsinki_Cathedral.jpg", nome: "Cattedrale di Helsinki", alias: ["cattedrale di helsinki", "helsinki", "finlandia"] },
+            trivia: { d: "Qual è la capitale dell'Austria?", r: "Vienna", opz: ["Salisburgo", "Innsbruck", "Graz", "Vienna"] }
+          },
+          {
+            bandiera: { codice: "md", nome: "Moldavia", opzioni: ["Romania", "Andorra", "Moldavia", "Ciad"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Iguazu_Falls_from_the_Argentine_side.jpg/640px-Iguazu_Falls_from_the_Argentine_side.jpg", nome: "Cascate dell'Iguazú", alias: ["iguazu", "cascate dell'iguazu", "cascate di iguazu"] },
+            trivia: { d: "Quale paese sudamericano ha due capitali?", r: "Bolivia", opz: ["Ecuador", "Bolivia", "Paraguay", "Perù"] }
+          },
+          {
+            bandiera: { codice: "ee", nome: "Estonia", opzioni: ["Finlandia", "Lettonia", "Estonia", "Lituania"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Narikala_Fortress_Tbilisi.jpg/640px-Narikala_Fortress_Tbilisi.jpg", nome: "Fortezza di Narikala (Tbilisi)", alias: ["narikala", "tbilisi", "georgia"] },
+            trivia: { d: "Qual è il secondo paese più esteso al mondo per superficie?", r: "Canada", opz: ["Cina", "Stati Uniti", "Canada", "Brasile"] }
+          },
+          {
+            bandiera: { codice: "mt", nome: "Malta", opzioni: ["Polonia", "Malta", "Inghilterra", "Georgia"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/El_Capitolio_Havana.jpg/640px-El_Capitolio_Havana.jpg", nome: "El Capitolio (L'Avana)", alias: ["capitolio", "el capitolio", "l'avana", "cuba"] },
+            trivia: { d: "Qual è la capitale della Repubblica Ceca?", r: "Praga", opz: ["Brno", "Ostrava", "Plzeň", "Praga"] }
+          },
+          {
+            bandiera: { codice: "sn", nome: "Senegal", opzioni: ["Mali", "Senegal", "Ghana", "Guinea"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Piazza_San_Pietro%2C_Citt%C3%A0_del_Vaticano.jpg/640px-Piazza_San_Pietro%2C_Citt%C3%A0_del_Vaticano.jpg", nome: "Piazza San Pietro", alias: ["piazza san pietro", "san pietro", "vaticano", "roma"] },
+            trivia: { d: "Qual è il fiume più lungo d'Italia?", r: "Po", opz: ["Adige", "Tevere", "Po", "Arno"] }
+          },
+          {
+            bandiera: { codice: "az", nome: "Azerbaigian", opzioni: ["Azerbaigian", "Turchia", "Iran", "Kazakistan"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Atomium_Brussels.jpg/640px-Atomium_Brussels.jpg", nome: "Atomium di Bruxelles", alias: ["atomium", "bruxelles", "atomium di bruxelles"] },
+            trivia: { d: "Qual è la capitale dell'Ungheria?", r: "Budapest", opz: ["Debrecen", "Szeged", "Budapest", "Miskolc"] }
+          },
+          {
+            bandiera: { codice: "al", nome: "Albania", opzioni: ["Montenegro", "Albania", "Macedonia del Nord", "Serbia"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Jemaa_el-Fnaa_Marrakech.jpg/640px-Jemaa_el-Fnaa_Marrakech.jpg", nome: "Piazza Jemaa el-Fna (Marrakech)", alias: ["jemaa el fna", "marrakech", "jemaa el-fna"] },
+            trivia: { d: "Quale stretto collega il Mar Nero al Mar di Marmara?", r: "Bosforo", opz: ["Dardanelli", "Bosforo", "Kerch", "Messina"] }
+          },
+          {
+            bandiera: { codice: "lu", nome: "Lussemburgo", opzioni: ["Paesi Bassi", "Francia", "Lussemburgo", "Belgio"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/The_Pearl-Qatar_aerial.jpg/640px-The_Pearl-Qatar_aerial.jpg", nome: "The Pearl-Qatar", alias: ["the pearl", "the pearl-qatar", "doha", "qatar"] },
+            trivia: { d: "Qual è la capitale dell'Arabia Saudita?", r: "Riad", opz: ["Gedda", "La Mecca", "Medina", "Riad"] }
+          },
+          {
+            bandiera: { codice: "bg", nome: "Bulgaria", opzioni: ["Ungheria", "Bulgaria", "Italia", "Iran"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Trinity_College_Dublin_Long_Room.jpg/640px-Trinity_College_Dublin_Long_Room.jpg", nome: "Trinity College (Dublino)", alias: ["trinity college", "long room", "dublino", "irlanda"] },
+            trivia: { d: "Quale isola è divisa tra Indonesia, Malesia e Brunei?", r: "Borneo", opz: ["Sumatra", "Giava", "Borneo", "Nuova Guinea"] }
+          },
+          {
+            bandiera: { codice: "rs", nome: "Serbia", opzioni: ["Slovacchia", "Slovenia", "Russia", "Serbia"] },
+            luogo: { img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Triumphal_Arch_Chisinau.jpg/640px-Triumphal_Arch_Chisinau.jpg", nome: "Arco di Trionfo di Chișinău", alias: ["chisinau", "arco di trionfo", "moldavia"] },
+            trivia: { d: "Qual è la capitale dell'Irlanda?", r: "Dublino", opz: ["Belfast", "Cork", "Galway", "Dublino"] }
+          }
+        ];
+
+        // --- CALCOLO SFIDA DEL GIORNO AUTOMATICA ---
+        const giorniDaEpoca = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+        const indiceOggi = giorniDaEpoca % ARCHIVIO_SFIDE.length;
+        const SFIDA_DEL_GIORNO = ARCHIVIO_SFIDE[indiceOggi];
+
+        // --- INIZIALIZZAZIONE COMPONENTI DEI GIOCHI ---
+        function inizializzaSfideDelGiorno() {
+            // 1. Bandiera
+            const flagImg = document.getElementById('flag-img');
+            const flagBtnContainer = document.getElementById('flag-buttons');
+            if (flagImg && flagBtnContainer) {
+                flagImg.src = `https://flagcdn.com/w320/${SFIDA_DEL_GIORNO.bandiera.codice}.png`;
+                flagBtnContainer.innerHTML = SFIDA_DEL_GIORNO.bandiera.opzioni.map(opz => {
+                    const corretta = opz === SFIDA_DEL_GIORNO.bandiera.nome;
+                    return `<button onclick="checkFlag(this, ${corretta})" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">${opz}</button>`;
+                }).join('');
+            }
+
+            // 2. Luogo Misterioso
+            const luogoImg = document.getElementById('luogo-img');
+            if (luogoImg) {
+                luogoImg.src = SFIDA_DEL_GIORNO.luogo.img;
+            }
+
+            // 3. Trivia
+            const triviaTesto = document.getElementById('trivia-testo');
+            const triviaBtnContainer = document.getElementById('trivia-buttons');
+            if (triviaTesto && triviaBtnContainer) {
+                triviaTesto.innerText = SFIDA_DEL_GIORNO.trivia.d;
+                triviaBtnContainer.innerHTML = SFIDA_DEL_GIORNO.trivia.opz.map(opz => {
+                    const corretta = opz === SFIDA_DEL_GIORNO.trivia.r;
+                    return `<button onclick="checkTrivia(this, ${corretta})" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">${opz}</button>`;
+                }).join('');
+            }
+        }
+
         // --- GESTIONE AUTOMATICA ORARIO NOTIZIE ---
         function aggiornaStatoNotizie() {
             const ora = new Date().getHours();
@@ -481,7 +764,6 @@
             const seraAperto = document.getElementById('sera-aperto');
             const seraBloccato = document.getElementById('sera-bloccato');
 
-            // Controllo Pomeriggio (sbloccato dalle 14 in poi)
             if (ora < 14) {
                 pomAperto.classList.add('hidden');
                 pomBloccato.classList.remove('hidden');
@@ -493,7 +775,6 @@
                 cardPomeriggio.classList.add('hover:border-orange-500/40', 'group', 'hover:-translate-y-1');
             }
 
-            // Controllo Sera (sbloccato dalle 20 in poi)
             if (ora < 20) {
                 seraAperto.classList.add('hidden');
                 seraBloccato.classList.remove('hidden');
@@ -620,6 +901,7 @@
         // --- CONTROLLO GIOCATE ODIERNE AL CARICAMENTO ---
         window.addEventListener('load', () => {
             const oggi = new Date().toDateString(); 
+            inizializzaSfideDelGiorno();
             aggiornaVisualizzazioneStreak();
             controllaConsensoCookie();
             aggiornaStatoNotizie();
@@ -679,7 +961,7 @@
             } else {
                 btn.classList.remove('bg-slate-800', 'hover:bg-slate-700');
                 btn.classList.add('bg-rose-600', 'text-white', 'border-rose-500');
-                toast("Sbagliato! La risposta corretta era Norvegia.", '❌');
+                toast(`Sbagliato! La risposta corretta era ${SFIDA_DEL_GIORNO.bandiera.nome}.`, '❌');
             }
             localStorage.setItem('dataUltimoGiocoBandiera', oggi);
         }
@@ -699,7 +981,7 @@
             input.disabled = true;
             btn.classList.add('opacity-40', 'cursor-not-allowed');
 
-            const soluzioni = ["mont saint michel", "mont saint-michel", "mont st michel", "mont-saint-michel"];
+            const soluzioni = SFIDA_DEL_GIORNO.luogo.alias;
             let isCorrect = false;
 
             for (let sol of soluzioni) {
@@ -725,7 +1007,7 @@
                 btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
                 btn.classList.add('bg-rose-600');
                 btn.innerText = "Sbagliato!";
-                toast("Peccato! Il luogo era Mont Saint-Michel.", '❌');
+                toast(`Peccato! Il luogo era ${SFIDA_DEL_GIORNO.luogo.nome}.`, '❌');
             }
             localStorage.setItem('dataUltimoGiocoLuogo', oggi);
         }
@@ -755,13 +1037,12 @@
             } else {
                 btn.classList.remove('bg-slate-800', 'hover:bg-slate-700');
                 btn.classList.add('bg-rose-600', 'text-white', 'border-rose-500');
-                buttons[0].classList.add('bg-purple-700', 'text-white');
-                toast("Peccato! La risposta corretta era Australia.", '❌');
+                toast(`Peccato! La risposta corretta era ${SFIDA_DEL_GIORNO.trivia.r}.`, '❌');
             }
             localStorage.setItem('dataUltimoGiocoTrivia', oggi);
         }
 
-       // --- SALVATAGGIO PUNTI & STREAK SU SUPABASE ---
+        // --- SALVATAGGIO PUNTI & STREAK SU SUPABASE ---
         async function salvaPunti(puntiDaAggiungere) {
             const { data: sessionData } = await db.auth.getSession();
             const session = sessionData.session;
@@ -786,7 +1067,7 @@
                     await db.from('leaderboard').insert([{ 
                         user_id: user.id, 
                         username: username, 
-                        score: puntiDaAggiungere,
+                        score: puntiDaAggiungere, 
                         streak: streakAttuale
                     }]);
                 }
@@ -838,7 +1119,6 @@
                 document.getElementById('user-section').classList.remove('hidden');
                 document.getElementById('user-email').innerText = session.user.email;
 
-                // Sincronizza la streak salvata su Supabase su questo dispositivo
                 const { data: profilo } = await db
                     .from('leaderboard')
                     .select('streak')
@@ -903,47 +1183,46 @@
         }
 
         caricaClassifica();
-        // CARICAMENTO AUTOMATICO NOTIZIE DA SUPABASE
-    async function caricaNotizieAutomatiche() {
-      try {
-        // Usiamo db o supabase a seconda del nome che hai dato alla variabile client
-        const client = typeof db !== 'undefined' ? db : (typeof supabase !== 'undefined' ? supabase : null);
-        if (!client) {
-          console.warn("Client Supabase non trovato per le notizie.");
-          return;
-        }
 
-        const { data: news, error } = await client.from('daily_news').select('*');
-        if (error || !news) {
-          console.error("Errore nel recupero notizie:", error);
-          return;
-        }
+        // --- CARICAMENTO AUTOMATICO NOTIZIE DA SUPABASE ---
+        async function caricaNotizieAutomatiche() {
+            try {
+                const client = typeof db !== 'undefined' ? db : (typeof supabase !== 'undefined' ? supabase : null);
+                if (!client) {
+                    console.warn("Client Supabase non trovato per le notizie.");
+                    return;
+                }
 
-        news.forEach(entry => {
-          const contenitore = document.getElementById(`${entry.slot}-aperto`);
-          if (contenitore && entry.items && Array.isArray(entry.items)) {
-            const ul = contenitore.querySelector('ul');
-            if (ul) {
-              ul.innerHTML = entry.items.map(notizia => `
-                <li class="flex items-start gap-2.5">
-                  <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 mt-2 shrink-0"></span>
-                  <span class="text-slate-200 text-xs sm:text-sm leading-relaxed">${notizia}</span>
-                </li>
-              `).join('');
+                const { data: news, error } = await client.from('daily_news').select('*');
+                if (error || !news) {
+                    console.error("Errore nel recupero notizie:", error);
+                    return;
+                }
+
+                news.forEach(entry => {
+                    const contenitore = document.getElementById(`${entry.slot}-aperto`);
+                    if (contenitore && entry.items && Array.isArray(entry.items)) {
+                        const ul = contenitore.querySelector('ul');
+                        if (ul) {
+                            ul.innerHTML = entry.items.map(notizia => `
+                                <li class="flex items-start gap-2.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 mt-2 shrink-0"></span>
+                                    <span class="text-slate-200 text-xs sm:text-sm leading-relaxed">${notizia}</span>
+                                </li>
+                            `).join('');
+                        }
+                    }
+                });
+            } catch (err) {
+                console.error("Eccezione durante il caricamento notizie:", err);
             }
-          }
-        });
-      } catch (err) {
-        console.error("Eccezione durante il caricamento notizie:", err);
-      }
-    }
+        }
 
-    // Esegui la lettura non appena la pagina è pronta
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', caricaNotizieAutomatiche);
-    } else {
-      caricaNotizieAutomatiche();
-    }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', caricaNotizieAutomatiche);
+        } else {
+            caricaNotizieAutomatiche();
+        }
     </script>
 </body>
 </html>
