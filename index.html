@@ -72,7 +72,7 @@
                     </div>
                 </div>
 
-                <!-- BADGE PREMIO MENSILE (Visibile su schermi medi/grandi) -->
+                <!-- BADGE PREMIO MENSILE -->
                 <div class="hidden md:flex items-center gap-2 bg-gradient-to-r from-amber-500/10 to-yellow-500/10 border border-amber-500/30 px-3 py-1.5 rounded-xl">
                     <span class="text-lg">🏆</span>
                     <span class="text-xs font-bold text-amber-300">Buono Amazon 10€ in palio</span>
@@ -88,7 +88,7 @@
     </div>
 
     <!-- CONTENUTO PRINCIPALE -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex-1 space-y-12">
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex-1 space-y-10">
 
         <!-- 1. NOTIZIE: IL DIARIO DI OGGI -->
         <section>
@@ -172,61 +172,96 @@
             </div>
         </section>
 
-        <!-- 2. SEZIONE GIOCHI: SFIDA DEL GIORNO -->
+        <!-- BANNER ADSENSE PLACEHOLDER (Ad alta monetizzazione prima dei giochi) -->
+        <div class="w-full bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-4 text-center">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-1">Pubblicità Sponsor</span>
+            <div class="h-20 bg-slate-950/60 rounded-xl flex items-center justify-center text-xs text-slate-500">
+                Spazio Banner Google AdSense (Leaderboard 728x90 / Mobile Responsive)
+            </div>
+        </div>
+
+        <!-- 2. SEZIONE GIOCHI: TRIS DI SFIDE DEL GIORNO -->
         <section class="rounded-3xl p-6 sm:p-8 bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800/80 shadow-2xl relative overflow-hidden">
             <div class="absolute -top-24 -right-24 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
             <div class="text-center max-w-xl mx-auto mb-8">
-                <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-2">Quiz Giornalieri</span>
-                <h2 class="text-3xl font-black text-white tracking-tight">🎯 La Sfida del Giorno</h2>
-                <p class="text-sm text-slate-400 mt-1">Gioca ogni giorno per proteggere la tua fiamma 🔥 ed ottenere bonus streak cumulativi!</p>
+                <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-2">3 Sfide Quotidiane</span>
+                <h2 class="text-3xl font-black text-white tracking-tight">🎯 Il Tris del Giorno</h2>
+                <p class="text-sm text-slate-400 mt-1">Completa tutte e 3 le prove per massimizzare il punteggio e proteggere la tua fiamma streak 🔥!</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+            <!-- GRIGLIA A 3 GIOCHI -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
                 
                 <!-- GIOCO 1: BANDIERA -->
-                <div class="bg-slate-900/90 rounded-2xl p-6 border border-slate-800 flex flex-col justify-between shadow-lg">
+                <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 flex flex-col justify-between shadow-lg">
                     <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="font-bold text-white text-lg flex items-center gap-2">
-                                <span>🚩</span> Bandiera del Giorno
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-white text-base flex items-center gap-1.5">
+                                <span>🚩</span> Bandiera
                             </h3>
-                            <span class="text-xs font-extrabold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-lg">+50 PT</span>
+                            <span class="text-xs font-extrabold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-lg">+50 PT</span>
                         </div>
 
-                        <div class="bg-slate-950/60 rounded-xl p-5 border border-slate-800/80 flex items-center justify-center mb-6 h-36">
-                            <img src="https://flagcdn.com/w320/no.png" alt="Bandiera da indovinare" class="h-20 max-w-full rounded shadow-md border border-slate-700/50 object-cover">
+                        <div class="bg-slate-950/60 rounded-xl p-4 border border-slate-800/80 flex items-center justify-center mb-4 h-32">
+                            <img src="https://flagcdn.com/w320/no.png" alt="Bandiera da indovinare" class="h-16 max-w-full rounded shadow-md border border-slate-700/50 object-cover">
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-2.5" id="flag-buttons">
-                        <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-3 px-4 rounded-xl font-semibold transition active:scale-95 text-sm border border-slate-700/50">Svezia</button>
-                        <button onclick="checkFlag(this, true)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-3 px-4 rounded-xl font-semibold transition active:scale-95 text-sm border border-slate-700/50">Norvegia</button>
-                        <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-3 px-4 rounded-xl font-semibold transition active:scale-95 text-sm border border-slate-700/50">Finlandia</button>
-                        <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-3 px-4 rounded-xl font-semibold transition active:scale-95 text-sm border border-slate-700/50">Islanda</button>
+                    <div class="grid grid-cols-2 gap-2" id="flag-buttons">
+                        <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Svezia</button>
+                        <button onclick="checkFlag(this, true)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Norvegia</button>
+                        <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Finlandia</button>
+                        <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Islanda</button>
                     </div>
                 </div>
 
                 <!-- GIOCO 2: LUOGO MISTERIOSO -->
-                <div class="bg-slate-900/90 rounded-2xl p-6 border border-slate-800 flex flex-col justify-between shadow-lg">
+                <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 flex flex-col justify-between shadow-lg">
                     <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="font-bold text-white text-lg flex items-center gap-2">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-white text-base flex items-center gap-1.5">
                                 <span>📍</span> Luogo Misterioso
                             </h3>
-                            <span class="text-xs font-extrabold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-lg">+100 PT</span>
+                            <span class="text-xs font-extrabold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-lg">+100 PT</span>
                         </div>
 
-                        <div class="rounded-xl overflow-hidden border border-slate-800/80 mb-5 h-36 relative group">
+                        <div class="rounded-xl overflow-hidden border border-slate-800/80 mb-4 h-32 relative">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Mont_st_michel_aerial.jpg" alt="Luogo Misterioso" class="w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent"></div>
-                            <span class="absolute bottom-2 left-3 text-[11px] text-slate-300 font-medium">Scatta la memoria visiva...</span>
+                            <span class="absolute bottom-1.5 left-2.5 text-[10px] text-slate-300 font-medium">Scatta la memoria visiva...</span>
                         </div>
                     </div>
 
-                    <div class="space-y-2.5">
-                        <input type="text" id="luogo-input" placeholder="Scrivi il nome del luogo..." class="w-full bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 p-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 transition">
-                        <button id="luogo-btn" onclick="checkLuogo(this)" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-3 rounded-xl font-bold transition active:scale-95 text-sm shadow-lg shadow-emerald-950/50">Invia risposta</button>
+                    <div class="space-y-2">
+                        <input type="text" id="luogo-input" placeholder="Nome del luogo..." class="w-full bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 p-2.5 rounded-xl text-xs focus:outline-none focus:border-emerald-500 transition">
+                        <button id="luogo-btn" onclick="checkLuogo(this)" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-2.5 rounded-xl font-bold transition active:scale-95 text-xs shadow-lg shadow-emerald-950/50">Invia risposta</button>
+                    </div>
+                </div>
+
+                <!-- GIOCO 3: TRIVIA / QUIZ CULTURA GEOGRAFICA -->
+                <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 flex flex-col justify-between shadow-lg">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-white text-base flex items-center gap-1.5">
+                                <span>🧠</span> Trivia Express
+                            </h3>
+                            <span class="text-xs font-extrabold bg-purple-500/15 text-purple-400 border border-purple-500/30 px-2 py-0.5 rounded-lg">+75 PT</span>
+                        </div>
+
+                        <div class="bg-slate-950/60 rounded-xl p-3.5 border border-slate-800/80 mb-4 flex flex-col justify-center h-32">
+                            <span class="text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-1">Domanda del Giorno</span>
+                            <p class="text-xs text-slate-200 font-semibold leading-relaxed">
+                                Qual è l'unico continente al mondo a non avere alcun vulcano attivo sul suo territorio?
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2" id="trivia-buttons">
+                        <button onclick="checkTrivia(this, true)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Australia</button>
+                        <button onclick="checkTrivia(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Antartide</button>
+                        <button onclick="checkTrivia(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Europa</button>
+                        <button onclick="checkTrivia(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Africa</button>
                     </div>
                 </div>
 
@@ -342,7 +377,6 @@
             let streak = ottieniStreak();
 
             if (!ultimoAccessoStr) {
-                // Primo giorno in assoluto
                 streak = 1;
                 localStorage.setItem('geoflash_streak', streak);
                 localStorage.setItem('geoflash_ultimo_accesso', oggiStr);
@@ -353,12 +387,10 @@
                 const diffGiorni = Math.floor(diffTempo / (1000 * 60 * 60 * 24));
 
                 if (diffGiorni === 1) {
-                    // È il giorno successivo consecutivo!
                     streak += 1;
                     localStorage.setItem('geoflash_streak', streak);
-                    toast(`Streak aumentata! 🔥 ${streak} giorni di fila! (+${streak * 10} pt bonus)`, '🔥');
+                    toast(`Streak aumentata! 🔥 ${streak} giorni di fila!`, '🔥');
                 } else if (diffGiorni > 1) {
-                    // Ha saltato uno o più giorni: la streak riparte da 1
                     streak = 1;
                     localStorage.setItem('geoflash_streak', streak);
                     toast(`Hai saltato dei giorni! Streak ripartita da 1 🔥`, '⚠️');
@@ -375,6 +407,7 @@
             const oggi = new Date().toDateString(); 
             aggiornaVisualizzazioneStreak();
 
+            // Blocco Gioco 1: Bandiera
             if (localStorage.getItem('dataUltimoGiocoBandiera') === oggi) {
                 let buttons = document.querySelectorAll('#flag-buttons button');
                 buttons.forEach(b => {
@@ -383,6 +416,7 @@
                 });
             }
 
+            // Blocco Gioco 2: Luogo
             if (localStorage.getItem('dataUltimoGiocoLuogo') === oggi) {
                 const btnLuogo = document.getElementById('luogo-btn');
                 const inputLuogo = document.getElementById('luogo-input');
@@ -392,13 +426,22 @@
                     inputLuogo.disabled = true;
                 }
             }
+
+            // Blocco Gioco 3: Trivia
+            if (localStorage.getItem('dataUltimoGiocoTrivia') === oggi) {
+                let buttons = document.querySelectorAll('#trivia-buttons button');
+                buttons.forEach(b => {
+                    b.disabled = true;
+                    b.classList.add('opacity-40', 'cursor-not-allowed');
+                });
+            }
         });
 
         // --- 3. LOGICA GIOCO 1: BANDIERA ---
         async function checkFlag(btn, isCorrect) {
             const oggi = new Date().toDateString();
             if (localStorage.getItem('dataUltimoGiocoBandiera') === oggi) {
-                toast("Hai già giocato oggi! Torna domani.", '⏳');
+                toast("Hai già risposto alla bandiera oggi! Torna domani.", '⏳');
                 return; 
             }
 
@@ -410,11 +453,11 @@
                 const bonusStreak = streakAttuale * 10;
                 const totalePunti = 50 + bonusStreak;
 
-                confetti({ particleCount: 160, spread: 80, origin: { y: 0.6 } });
+                confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
                 btn.classList.remove('bg-slate-800', 'hover:bg-slate-700');
                 btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-500');
 
-                toast(`Risposta esatta! +50 pt (+${bonusStreak} pt bonus streak 🔥)`, '🎉');
+                toast(`Bandiera esatta! +50 pt (+${bonusStreak} bonus streak 🔥)`, '🎉');
                 await salvaPunti(totalePunti);
             } else {
                 btn.classList.remove('bg-slate-800', 'hover:bg-slate-700');
@@ -428,7 +471,7 @@
         async function checkLuogo(btn) {
             const oggi = new Date().toDateString();
             if (localStorage.getItem('dataUltimoGiocoLuogo') === oggi) {
-                toast("Hai già risposto oggi! Torna domani.", '⏳');
+                toast("Hai già risposto al luogo oggi! Torna domani.", '⏳');
                 return; 
             }
 
@@ -459,7 +502,7 @@
                 btn.classList.add('bg-emerald-500');
                 btn.innerText = `Esatto! (+${totalePunti} pt)`;
 
-                toast(`Grandioso! +100 pt (+${bonusStreak} pt bonus streak 🔥)`, '🏰');
+                toast(`Grandioso! +100 pt (+${bonusStreak} bonus streak 🔥)`, '🏰');
                 await salvaPunti(totalePunti);
             } else {
                 btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
@@ -470,7 +513,40 @@
             localStorage.setItem('dataUltimoGiocoLuogo', oggi);
         }
 
-        // --- 5. SALVATAGGIO PUNTI SU SUPABASE ---
+        // --- 5. LOGICA GIOCO 3: TRIVIA EXPRESS ---
+        async function checkTrivia(btn, isCorrect) {
+            const oggi = new Date().toDateString();
+            if (localStorage.getItem('dataUltimoGiocoTrivia') === oggi) {
+                toast("Hai già risposto alla domanda di oggi! Torna domani.", '⏳');
+                return;
+            }
+
+            let buttons = document.querySelectorAll('#trivia-buttons button');
+            buttons.forEach(b => b.disabled = true);
+
+            if (isCorrect) {
+                const streakAttuale = calcolaESalvaStreak();
+                const bonusStreak = streakAttuale * 10;
+                const totalePunti = 75 + bonusStreak;
+
+                confetti({ particleCount: 160, spread: 80, origin: { y: 0.6 } });
+                btn.classList.remove('bg-slate-800', 'hover:bg-slate-700');
+                btn.classList.add('bg-purple-600', 'text-white', 'border-purple-500');
+
+                toast(`Trivia corretto! +75 pt (+${bonusStreak} bonus streak 🔥)`, '🧠');
+                await salvaPunti(totalePunti);
+            } else {
+                btn.classList.remove('bg-slate-800', 'hover:bg-slate-700');
+                btn.classList.add('bg-rose-600', 'text-white', 'border-rose-500');
+                
+                // Evidenzia la corretta per trasparenza
+                buttons[0].classList.add('bg-purple-700', 'text-white');
+                toast("Peccato! La risposta corretta era Australia.", '❌');
+            }
+            localStorage.setItem('dataUltimoGiocoTrivia', oggi);
+        }
+
+        // --- 6. SALVATAGGIO PUNTI SU SUPABASE ---
         async function salvaPunti(puntiDaAggiungere) {
             const { data: sessionData } = await db.auth.getSession();
             const session = sessionData.session;
@@ -502,7 +578,7 @@
             }
         }
 
-        // --- 6. AUTENTICAZIONE UTENTI ---
+        // --- 7. AUTENTICAZIONE UTENTI ---
         async function registrati() {
             const email = document.getElementById('email-input').value;
             const password = document.getElementById('password-input').value;
@@ -543,7 +619,7 @@
             }
         });
 
-        // --- 7. CARICAMENTO CLASSIFICA CON STILE MODERNO ---
+        // --- 8. CARICAMENTO CLASSIFICA CON STILE MODERNO ---
         async function caricaClassifica() {
             const listaHtml = document.getElementById('lista-classifica');
             const { data, error } = await db
