@@ -903,6 +903,47 @@
         }
 
         caricaClassifica();
+        // CARICAMENTO AUTOMATICO NOTIZIE DA SUPABASE
+    async function caricaNotizieAutomatiche() {
+      try {
+        // Usiamo db o supabase a seconda del nome che hai dato alla variabile client
+        const client = typeof db !== 'undefined' ? db : (typeof supabase !== 'undefined' ? supabase : null);
+        if (!client) {
+          console.warn("Client Supabase non trovato per le notizie.");
+          return;
+        }
+
+        const { data: news, error } = await client.from('daily_news').select('*');
+        if (error || !news) {
+          console.error("Errore nel recupero notizie:", error);
+          return;
+        }
+
+        news.forEach(entry => {
+          const contenitore = document.getElementById(`${entry.slot}-aperto`);
+          if (contenitore && entry.items && Array.isArray(entry.items)) {
+            const ul = contenitore.querySelector('ul');
+            if (ul) {
+              ul.innerHTML = entry.items.map(notizia => `
+                <li class="flex items-start gap-2.5">
+                  <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 mt-2 shrink-0"></span>
+                  <span class="text-slate-200 text-xs sm:text-sm leading-relaxed">${notizia}</span>
+                </li>
+              `).join('');
+            }
+          }
+        });
+      } catch (err) {
+        console.error("Eccezione durante il caricamento notizie:", err);
+      }
+    }
+
+    // Esegui la lettura non appena la pagina è pronta
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', caricaNotizieAutomatiche);
+    } else {
+      caricaNotizieAutomatiche();
+    }
     </script>
 </body>
 </html>
