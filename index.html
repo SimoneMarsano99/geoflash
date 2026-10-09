@@ -53,7 +53,7 @@
 
     <!-- NAVBAR PREMIUM CON STREAK COUNTER -->
     <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur sticky top-0 z-40">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-18 py-3.5 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-18 py-3.5 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-400 flex items-center justify-center text-xl shadow-lg shadow-emerald-500/20">
                     🌍
@@ -92,250 +92,285 @@
         <span class="truncate">Accordo storico sul clima a Parigi raggiunto questa mattina. Mercati in rialzo globale.</span>
     </div>
 
-    <!-- CONTENUTO PRINCIPALE -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex-1 space-y-10">
+    <!-- WRAPPER CON LAYOUT 3 COLONNE (BANNER SX - CONTENUTO CENTRALE - BANNER DX) -->
+    <div class="max-w-[1550px] mx-auto px-2 sm:px-4 flex justify-center gap-6 my-6 flex-1 w-full">
 
-        <!-- 1. NOTIZIE: IL DIARIO DI OGGI -->
-        <section>
-            <div class="flex items-center justify-between mb-5">
-                <div>
-                    <h2 class="text-2xl font-black text-white flex items-center gap-2.5">
-                        <span class="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 text-lg">📰</span>
-                        Il Diario di Oggi
-                    </h2>
-                    <p class="text-xs text-slate-400 mt-0.5">Tutto quello che è successo nelle ultime 24 ore</p>
+        <!-- 1. BANNER LATERALE SINISTRO (SKYSCRAPER DESKTOP) -->
+        <aside class="hidden xl:block w-[160px] shrink-0">
+            <div class="sticky top-24 bg-slate-900/60 border border-dashed border-slate-800 rounded-2xl p-2 text-center h-[600px] flex flex-col justify-between shadow-lg">
+                <span class="text-[9px] font-bold uppercase tracking-widest text-slate-500 block">Annuncio</span>
+                <div class="flex-1 my-2 bg-slate-950/70 border border-slate-800/50 rounded-xl flex items-center justify-center text-[11px] text-slate-400 px-2 font-medium">
+                    Banner Skyscraper<br>160x600<br>(Google AdSense)
                 </div>
-                <span class="text-xs font-medium text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1 rounded-full">3 min di lettura</span>
+                <span class="text-[9px] text-slate-600">GeoFlash Sponsor</span>
             </div>
+        </aside>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <!-- Mattina -->
-                <div class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 hover:border-amber-500/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-sm font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-lg">☕ Mattina</span>
-                        <span class="text-xs text-slate-500">08:00</span>
-                    </div>
-                    <ul class="space-y-3.5 text-sm text-slate-300">
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
-                            <span>Il governo vara il nuovo decreto sulle startup digitali.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
-                            <span>Serie A: Il Napoli vince al 90' e vola in vetta.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
-                            <span>Lanciata con successo la nuova missione SpaceX per Marte.</span>
-                        </li>
-                    </ul>
-                </div>
+        <!-- CONTENUTO PRINCIPALE DEL SITO -->
+        <main class="w-full max-w-4xl space-y-10">
 
-                <!-- Pomeriggio -->
-                <div class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 hover:border-orange-500/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-sm font-bold text-orange-400 bg-orange-400/10 border border-orange-400/20 px-3 py-1 rounded-lg">☀️ Pomeriggio</span>
-                        <span class="text-xs text-slate-500">14:30</span>
-                    </div>
-                    <ul class="space-y-3.5 text-sm text-slate-300">
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
-                            <span>Disoccupazione in calo dello 0.5% nell'ultimo trimestre.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
-                            <span>Fiera del Libro a Torino: record assoluto di presenze.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
-                            <span>Scoperto un nuovo esopianeta roccioso simile alla Terra.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Sera -->
-                <div class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 hover:border-indigo-500/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-sm font-bold text-indigo-400 bg-indigo-400/10 border border-indigo-400/20 px-3 py-1 rounded-lg">🌙 Sera</span>
-                        <span class="text-xs text-slate-500">20:45</span>
-                    </div>
-                    <ul class="space-y-3.5 text-sm text-slate-300">
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
-                            <span>Wall Street chiude in positivo trainata dal settore tech.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
-                            <span>L'Italia vince l'oro agli Europei di scherma.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
-                            <span>Previsioni meteo: piogge autunnali in arrivo al Nord.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- BANNER ADSENSE DISPLAY -->
-        <section class="w-full bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-4 text-center">
-            <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500 block mb-1">Annuncio Pubblicitario</span>
-            <div class="min-h-[90px] bg-slate-950/60 rounded-xl flex items-center justify-center text-xs text-slate-500 border border-slate-800/40">
-                <span>Spazio Riservato a Google AdSense (Banner Leaderboard 728x90 / Responsive)</span>
-            </div>
-        </section>
-
-        <!-- 2. SEZIONE GIOCHI: TRIS DI SFIDE DEL GIORNO -->
-        <section class="rounded-3xl p-6 sm:p-8 bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800/80 shadow-2xl relative overflow-hidden">
-            <div class="absolute -top-24 -right-24 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-            <div class="text-center max-w-xl mx-auto mb-8">
-                <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-2">3 Sfide Quotidiane</span>
-                <h2 class="text-3xl font-black text-white tracking-tight">🎯 Il Tris del Giorno</h2>
-                <p class="text-sm text-slate-400 mt-1">Completa tutte e 3 le prove per massimizzare il punteggio e proteggere la tua fiamma streak 🔥!</p>
-            </div>
-
-            <!-- GRIGLIA A 3 GIOCHI -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-                
-                <!-- GIOCO 1: BANDIERA -->
-                <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 flex flex-col justify-between shadow-lg">
+            <!-- NOTIZIE: IL DIARIO DI OGGI -->
+            <section>
+                <div class="flex items-center justify-between mb-5">
                     <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <h3 class="font-bold text-white text-base flex items-center gap-1.5">
-                                <span>🚩</span> Bandiera
-                            </h3>
-                            <span class="text-xs font-extrabold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-lg">+50 PT</span>
-                        </div>
-
-                        <div class="bg-slate-950/60 rounded-xl p-4 border border-slate-800/80 flex items-center justify-center mb-4 h-32">
-                            <img src="https://flagcdn.com/w320/no.png" alt="Bandiera da indovinare" class="h-16 max-w-full rounded shadow-md border border-slate-700/50 object-cover">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-2" id="flag-buttons">
-                        <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Svezia</button>
-                        <button onclick="checkFlag(this, true)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Norvegia</button>
-                        <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Finlandia</button>
-                        <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Islanda</button>
-                    </div>
-                </div>
-
-                <!-- GIOCO 2: LUOGO MISTERIOSO -->
-                <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 flex flex-col justify-between shadow-lg">
-                    <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <h3 class="font-bold text-white text-base flex items-center gap-1.5">
-                                <span>📍</span> Luogo Misterioso
-                            </h3>
-                            <span class="text-xs font-extrabold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-lg">+100 PT</span>
-                        </div>
-
-                        <div class="rounded-xl overflow-hidden border border-slate-800/80 mb-4 h-32 relative">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Mont_st_michel_aerial.jpg" alt="Luogo Misterioso" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent"></div>
-                            <span class="absolute bottom-1.5 left-2.5 text-[10px] text-slate-300 font-medium">Scatta la memoria visiva...</span>
-                        </div>
-                    </div>
-
-                    <div class="space-y-2">
-                        <input type="text" id="luogo-input" placeholder="Nome del luogo..." class="w-full bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 p-2.5 rounded-xl text-xs focus:outline-none focus:border-emerald-500 transition">
-                        <button id="luogo-btn" onclick="checkLuogo(this)" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-2.5 rounded-xl font-bold transition active:scale-95 text-xs shadow-lg shadow-emerald-950/50">Invia risposta</button>
-                    </div>
-                </div>
-
-                <!-- GIOCO 3: TRIVIA / QUIZ CULTURA GEOGRAFICA -->
-                <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 flex flex-col justify-between shadow-lg">
-                    <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <h3 class="font-bold text-white text-base flex items-center gap-1.5">
-                                <span>🧠</span> Trivia Express
-                            </h3>
-                            <span class="text-xs font-extrabold bg-purple-500/15 text-purple-400 border border-purple-500/30 px-2 py-0.5 rounded-lg">+75 PT</span>
-                        </div>
-
-                        <div class="bg-slate-950/60 rounded-xl p-3.5 border border-slate-800/80 mb-4 flex flex-col justify-center h-32">
-                            <span class="text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-1">Domanda del Giorno</span>
-                            <p class="text-xs text-slate-200 font-semibold leading-relaxed">
-                                Qual è l'unico continente al mondo a non avere alcun vulcano attivo sul suo territorio?
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-2" id="trivia-buttons">
-                        <button onclick="checkTrivia(this, true)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Australia</button>
-                        <button onclick="checkTrivia(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Antartide</button>
-                        <button onclick="checkTrivia(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Europa</button>
-                        <button onclick="checkTrivia(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Africa</button>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 3. CLASSIFICA & AUTENTICAZIONE -->
-        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            
-            <!-- LISTA CLASSIFICA (2 Colonne) -->
-            <div class="lg:col-span-2 rounded-3xl p-6 sm:p-7 bg-slate-900/90 border border-slate-800 shadow-xl">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6 border-b border-slate-800 pb-4">
-                    <div>
-                        <h2 class="text-xl font-black text-white flex items-center gap-2">
-                            <span>🏆</span> Top 10 Lega Mensile
+                        <h2 class="text-2xl font-black text-white flex items-center gap-2.5">
+                            <span class="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 text-lg">📰</span>
+                            Il Diario di Oggi
                         </h2>
-                        <p class="text-xs text-slate-400 mt-0.5">Punteggio aggiornato in tempo reale con Supabase</p>
+                        <p class="text-xs text-slate-400 mt-0.5">Tutto quello che è successo nelle ultime 24 ore</p>
                     </div>
-                    <span class="text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full">
-                        Premio in palio: Buono 10€
-                    </span>
+                    <span class="text-xs font-medium text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1 rounded-full">3 min di lettura</span>
                 </div>
 
-                <ul id="lista-classifica" class="space-y-2">
-                    <li class="text-center text-slate-500 py-8 text-sm">Caricamento classifica in corso...</li>
-                </ul>
-            </div>
-
-            <!-- CARD ACCESSO / UTENTE (1 Colonna) -->
-            <div class="rounded-3xl p-6 sm:p-7 bg-slate-900/90 border border-slate-800 shadow-xl flex flex-col justify-between">
-                
-                <!-- STATO NON CONNESSO -->
-                <div id="auth-section">
-                    <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl mb-4">
-                        🔐
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <!-- Mattina -->
+                    <div class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 hover:border-amber-500/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-lg">☕ Mattina</span>
+                            <span class="text-xs text-slate-500">08:00</span>
+                        </div>
+                        <ul class="space-y-3.5 text-sm text-slate-300">
+                            <li class="flex items-start gap-2.5">
+                                <span class="h-1.5 w-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+                                <span>Il governo vara il nuovo decreto sulle startup digitali.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="h-1.5 w-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+                                <span>Serie A: Il Napoli vince al 90' e vola in vetta.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="h-1.5 w-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+                                <span>Lanciata con successo la nuova missione SpaceX per Marte.</span>
+                            </li>
+                        </ul>
                     </div>
-                    <h3 class="text-lg font-bold text-white mb-1">Salva i tuoi Punti</h3>
-                    <p class="text-xs text-slate-400 mb-5 leading-relaxed">Crea o accedi al tuo account GeoFlash per registrare i punti vinti oggi nella classifica.</p>
 
-                    <div class="space-y-3">
-                        <input type="email" id="email-input" placeholder="La tua email" class="w-full bg-slate-950 border border-slate-800 text-white placeholder-slate-500 p-3 rounded-xl text-xs focus:outline-none focus:border-indigo-500">
-                        <input type="password" id="password-input" placeholder="Password (min 6 caratteri)" class="w-full bg-slate-950 border border-slate-800 text-white placeholder-slate-500 p-3 rounded-xl text-xs focus:outline-none focus:border-indigo-500">
-                        
-                        <div class="grid grid-cols-2 gap-2 pt-1">
-                            <button onclick="registrati()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 rounded-xl text-xs font-bold border border-slate-700 transition">Registrati</button>
-                            <button onclick="accedi()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-2.5 rounded-xl text-xs font-bold transition shadow-md shadow-indigo-950">Accedi</button>
+                    <!-- Pomeriggio -->
+                    <div class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 hover:border-orange-500/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm font-bold text-orange-400 bg-orange-400/10 border border-orange-400/20 px-3 py-1 rounded-lg">☀️ Pomeriggio</span>
+                            <span class="text-xs text-slate-500">14:30</span>
+                        </div>
+                        <ul class="space-y-3.5 text-sm text-slate-300">
+                            <li class="flex items-start gap-2.5">
+                                <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
+                                <span>Disoccupazione in calo dello 0.5% nell'ultimo trimestre.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
+                                <span>Fiera del Libro a Torino: record assoluto di presenze.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
+                                <span>Scoperto un nuovo esopianeta roccioso simile alla Terra.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Sera -->
+                    <div class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 hover:border-indigo-500/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm font-bold text-indigo-400 bg-indigo-400/10 border border-indigo-400/20 px-3 py-1 rounded-lg">🌙 Sera</span>
+                            <span class="text-xs text-slate-500">20:45</span>
+                        </div>
+                        <ul class="space-y-3.5 text-sm text-slate-300">
+                            <li class="flex items-start gap-2.5">
+                                <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
+                                <span>Wall Street chiude in positivo trainata dal settore tech.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
+                                <span>L'Italia vince l'oro agli Europei di scherma.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
+                                <span>Previsioni meteo: piogge autunnali in arrivo al Nord.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. BANNER PUBBLICITARIO CENTRALE (LEADERBOARD) -->
+            <section class="w-full bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-4 text-center">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500 block mb-1">Annuncio Pubblicitario</span>
+                <div class="min-h-[90px] bg-slate-950/60 rounded-xl flex items-center justify-center text-xs text-slate-500 border border-slate-800/40">
+                    <span>Spazio Banner Centrale (Leaderboard 728x90 / Responsive)</span>
+                </div>
+            </section>
+
+            <!-- SEZIONE GIOCHI: TRIS DI SFIDE DEL GIORNO -->
+            <section class="rounded-3xl p-6 sm:p-8 bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800/80 shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-24 -right-24 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="text-center max-w-xl mx-auto mb-8">
+                    <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-2">3 Sfide Quotidiane</span>
+                    <h2 class="text-3xl font-black text-white tracking-tight">🎯 Il Tris del Giorno</h2>
+                    <p class="text-sm text-slate-400 mt-1">Completa tutte e 3 le prove per massimizzare il punteggio e proteggere la tua fiamma streak 🔥!</p>
+                </div>
+
+                <!-- GRIGLIA A 3 GIOCHI -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+                    
+                    <!-- GIOCO 1: BANDIERA -->
+                    <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 flex flex-col justify-between shadow-lg">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="font-bold text-white text-base flex items-center gap-1.5">
+                                    <span>🚩</span> Bandiera
+                                </h3>
+                                <span class="text-xs font-extrabold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-lg">+50 PT</span>
+                            </div>
+
+                            <div class="bg-slate-950/60 rounded-xl p-4 border border-slate-800/80 flex items-center justify-center mb-4 h-32">
+                                <img src="https://flagcdn.com/w320/no.png" alt="Bandiera da indovinare" class="h-16 max-w-full rounded shadow-md border border-slate-700/50 object-cover">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2" id="flag-buttons">
+                            <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Svezia</button>
+                            <button onclick="checkFlag(this, true)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Norvegia</button>
+                            <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Finlandia</button>
+                            <button onclick="checkFlag(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Islanda</button>
                         </div>
                     </div>
-                    <p id="auth-msg" class="text-xs text-rose-400 mt-3 text-center hidden"></p>
-                </div>
 
-                <!-- STATO CONNESSO -->
-                <div id="user-section" class="hidden text-center py-4">
-                    <div class="w-14 h-14 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center text-2xl mb-3">
-                        👤
+                    <!-- GIOCO 2: LUOGO MISTERIOSO -->
+                    <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 flex flex-col justify-between shadow-lg">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="font-bold text-white text-base flex items-center gap-1.5">
+                                    <span>📍</span> Luogo Misterioso
+                                </h3>
+                                <span class="text-xs font-extrabold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-lg">+100 PT</span>
+                            </div>
+
+                            <div class="rounded-xl overflow-hidden border border-slate-800/80 mb-4 h-32 relative">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Mont_st_michel_aerial.jpg" alt="Luogo Misterioso" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent"></div>
+                                <span class="absolute bottom-1.5 left-2.5 text-[10px] text-slate-300 font-medium">Scatta la memoria visiva...</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <input type="text" id="luogo-input" placeholder="Nome del luogo..." class="w-full bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 p-2.5 rounded-xl text-xs focus:outline-none focus:border-emerald-500 transition">
+                            <button id="luogo-btn" onclick="checkLuogo(this)" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-2.5 rounded-xl font-bold transition active:scale-95 text-xs shadow-lg shadow-emerald-950/50">Invia risposta</button>
+                        </div>
                     </div>
-                    <p class="text-xs uppercase font-extrabold tracking-widest text-emerald-400">Account Connesso</p>
-                    <p id="user-email" class="font-bold text-white text-sm my-1 truncate px-2"></p>
-                    <p class="text-xs text-slate-400 mb-6">I tuoi punti e le tue streak vengono salvati nel database.</p>
-                    <button onclick="esci()" class="bg-rose-500/10 border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 text-xs font-bold px-4 py-2 rounded-xl transition">
-                        Disconnetti account
-                    </button>
+
+                    <!-- GIOCO 3: TRIVIA / QUIZ CULTURA GEOGRAFICA -->
+                    <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 flex flex-col justify-between shadow-lg">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="font-bold text-white text-base flex items-center gap-1.5">
+                                    <span>🧠</span> Trivia Express
+                                </h3>
+                                <span class="text-xs font-extrabold bg-purple-500/15 text-purple-400 border border-purple-500/30 px-2 py-0.5 rounded-lg">+75 PT</span>
+                            </div>
+
+                            <div class="bg-slate-950/60 rounded-xl p-3.5 border border-slate-800/80 mb-4 flex flex-col justify-center h-32">
+                                <span class="text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-1">Domanda del Giorno</span>
+                                <p class="text-xs text-slate-200 font-semibold leading-relaxed">
+                                    Qual è l'unico continente al mondo a non avere alcun vulcano attivo sul suo territorio?
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2" id="trivia-buttons">
+                            <button onclick="checkTrivia(this, true)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Australia</button>
+                            <button onclick="checkTrivia(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Antartide</button>
+                            <button onclick="checkTrivia(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Europa</button>
+                            <button onclick="checkTrivia(this, false)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-2 rounded-xl font-semibold transition active:scale-95 text-xs border border-slate-700/50">Africa</button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- CLASSIFICA & AUTENTICAZIONE -->
+            <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- LISTA CLASSIFICA (2 Colonne) -->
+                <div class="lg:col-span-2 rounded-3xl p-6 sm:p-7 bg-slate-900/90 border border-slate-800 shadow-xl">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6 border-b border-slate-800 pb-4">
+                        <div>
+                            <h2 class="text-xl font-black text-white flex items-center gap-2">
+                                <span>🏆</span> Top 10 Lega Mensile
+                            </h2>
+                            <p class="text-xs text-slate-400 mt-0.5">Punteggio aggiornato in tempo reale con Supabase</p>
+                        </div>
+                        <span class="text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full">
+                            Premio in palio: Buono 10€
+                        </span>
+                    </div>
+
+                    <ul id="lista-classifica" class="space-y-2">
+                        <li class="text-center text-slate-500 py-8 text-sm">Caricamento classifica in corso...</li>
+                    </ul>
                 </div>
 
+                <!-- CARD ACCESSO / UTENTE (1 Colonna) -->
+                <div class="rounded-3xl p-6 sm:p-7 bg-slate-900/90 border border-slate-800 shadow-xl flex flex-col justify-between">
+                    
+                    <!-- STATO NON CONNESSO -->
+                    <div id="auth-section">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl mb-4">
+                            🔐
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1">Salva i tuoi Punti</h3>
+                        <p class="text-xs text-slate-400 mb-5 leading-relaxed">Crea o accedi al tuo account GeoFlash per registrare i punti vinti oggi nella classifica.</p>
+
+                        <div class="space-y-3">
+                            <input type="email" id="email-input" placeholder="La tua email" class="w-full bg-slate-950 border border-slate-800 text-white placeholder-slate-500 p-3 rounded-xl text-xs focus:outline-none focus:border-indigo-500">
+                            <input type="password" id="password-input" placeholder="Password (min 6 caratteri)" class="w-full bg-slate-950 border border-slate-800 text-white placeholder-slate-500 p-3 rounded-xl text-xs focus:outline-none focus:border-indigo-500">
+                            
+                            <div class="grid grid-cols-2 gap-2 pt-1">
+                                <button onclick="registrati()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 rounded-xl text-xs font-bold border border-slate-700 transition">Registrati</button>
+                                <button onclick="accedi()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-2.5 rounded-xl text-xs font-bold transition shadow-md shadow-indigo-950">Accedi</button>
+                            </div>
+                        </div>
+                        <p id="auth-msg" class="text-xs text-rose-400 mt-3 text-center hidden"></p>
+                    </div>
+
+                    <!-- STATO CONNESSO -->
+                    <div id="user-section" class="hidden text-center py-4">
+                        <div class="w-14 h-14 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center text-2xl mb-3">
+                            👤
+                        </div>
+                        <p class="text-xs uppercase font-extrabold tracking-widest text-emerald-400">Account Connesso</p>
+                        <p id="user-email" class="font-bold text-white text-sm my-1 truncate px-2"></p>
+                        <p class="text-xs text-slate-400 mb-6">I tuoi punti e le tue streak vengono salvati nel database.</p>
+                        <button onclick="esci()" class="bg-rose-500/10 border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 text-xs font-bold px-4 py-2 rounded-xl transition">
+                            Disconnetti account
+                        </button>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- 3. BANNER PUBBLICITARIO A FONDO PAGINA (LARGE LEADERBOARD / FOOTER AD) -->
+            <section class="w-full bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-4 text-center mt-6">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500 block mb-1">Annuncio Pubblicitario</span>
+                <div class="min-h-[90px] md:min-h-[120px] bg-slate-950/60 rounded-xl flex items-center justify-center text-xs text-slate-500 border border-slate-800/40">
+                    <span>Spazio Banner Fondo Pagina (Billboard / Leaderboard 728x90 o 970x90)</span>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- 4. BANNER LATERALE DESTRO (SKYSCRAPER DESKTOP) -->
+        <aside class="hidden xl:block w-[160px] shrink-0">
+            <div class="sticky top-24 bg-slate-900/60 border border-dashed border-slate-800 rounded-2xl p-2 text-center h-[600px] flex flex-col justify-between shadow-lg">
+                <span class="text-[9px] font-bold uppercase tracking-widest text-slate-500 block">Annuncio</span>
+                <div class="flex-1 my-2 bg-slate-950/70 border border-slate-800/50 rounded-xl flex items-center justify-center text-[11px] text-slate-400 px-2 font-medium">
+                    Banner Skyscraper<br>160x600<br>(Google AdSense)
+                </div>
+                <span class="text-[9px] text-slate-600">GeoFlash Sponsor</span>
             </div>
+        </aside>
 
-        </section>
-
-    </main>
+    </div>
 
     <!-- FOOTER CON LINK LEGALI RICHIESTI DA ADSENSE & GDPR -->
     <footer class="border-t border-slate-800/80 bg-slate-950 text-slate-400 py-8 text-xs mt-12">
@@ -350,7 +385,7 @@
         </div>
     </footer>
 
-    <!-- BANNER CONSENSO COOKIE / GDPR (Obbligatorio per AdSense in Europa) -->
+    <!-- BANNER CONSENSO COOKIE / GDPR -->
     <div id="cookie-banner" class="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md bg-slate-900/95 border border-slate-700/80 text-white p-5 rounded-2xl shadow-2xl backdrop-blur-md z-50 transition-all duration-300 hidden">
         <div class="flex items-start gap-3">
             <span class="text-2xl">🍪</span>
@@ -428,7 +463,7 @@
             privacy: {
                 titolo: 'Informativa sulla Privacy (GDPR)',
                 testo: `
-                    <p><strong>Titolare del trattamento:</strong> GeoFlash Team (postmaster@geoflash.it).</p>
+                    <p><strong>Titolare del trattamento:</strong> GeoFlash Team (info@geoflash.app).</p>
                     <p>GeoFlash rispetta la tua privacy ai sensi del Regolamento UE 2016/679 (GDPR). Raccogliamo esclusivamente l'indirizzo email fornito in fase di registrazione per identificare il tuo account e sincronizzare il punteggio della classifica nel database Supabase.</p>
                     <p>I tuoi dati non vengono ceduti, venduti o comunicati a terze parti a scopo di marketing diretto.</p>
                     <p>Puoi richiedere la cancellazione completa del tuo account e dei tuoi punteggi in qualsiasi momento inviando un'email al nostro supporto.</p>
@@ -457,7 +492,7 @@
                 testo: `
                     <p><strong>GeoFlash</strong> è una piattaforma web indipendente creata per informare in modo sintetico e testare la conoscenza geografica quotidiana degli utenti.</p>
                     <p>Per richieste commerciali, supporto tecnico o richieste di partnership, puoi contattare il team di sviluppo all'indirizzo:</p>
-                    <p class="font-mono text-emerald-400 bg-slate-950 p-2 rounded border border-slate-800">postmaster@geoflash.it</p>
+                    <p class="font-mono text-emerald-400 bg-slate-950 p-2 rounded border border-slate-800">support@geoflash.app</p>
                 `
             }
         };
@@ -520,7 +555,7 @@
             return streak;
         }
 
-        // --- 2. CONTROLLO GIOCATE ODIERNE AL CARICAMENTO ---
+        // --- CONTROLLO GIOCATE ODIERNE AL CARICAMENTO ---
         window.addEventListener('load', () => {
             const oggi = new Date().toDateString(); 
             aggiornaVisualizzazioneStreak();
@@ -556,7 +591,7 @@
             }
         });
 
-        // --- 3. LOGICA GIOCO 1: BANDIERA ---
+        // --- LOGICA GIOCO 1: BANDIERA ---
         async function checkFlag(btn, isCorrect) {
             const oggi = new Date().toDateString();
             if (localStorage.getItem('dataUltimoGiocoBandiera') === oggi) {
@@ -586,7 +621,7 @@
             localStorage.setItem('dataUltimoGiocoBandiera', oggi);
         }
 
-        // --- 4. LOGICA GIOCO 2: LUOGO MISTERIOSO ---
+        // --- LOGICA GIOCO 2: LUOGO MISTERIOSO ---
         async function checkLuogo(btn) {
             const oggi = new Date().toDateString();
             if (localStorage.getItem('dataUltimoGiocoLuogo') === oggi) {
@@ -632,7 +667,7 @@
             localStorage.setItem('dataUltimoGiocoLuogo', oggi);
         }
 
-        // --- 5. LOGICA GIOCO 3: TRIVIA EXPRESS ---
+        // --- LOGICA GIOCO 3: TRIVIA EXPRESS ---
         async function checkTrivia(btn, isCorrect) {
             const oggi = new Date().toDateString();
             if (localStorage.getItem('dataUltimoGiocoTrivia') === oggi) {
@@ -657,15 +692,13 @@
             } else {
                 btn.classList.remove('bg-slate-800', 'hover:bg-slate-700');
                 btn.classList.add('bg-rose-600', 'text-white', 'border-rose-500');
-                
-                // Evidenzia la corretta per trasparenza
                 buttons[0].classList.add('bg-purple-700', 'text-white');
                 toast("Peccato! La risposta corretta era Australia.", '❌');
             }
             localStorage.setItem('dataUltimoGiocoTrivia', oggi);
         }
 
-        // --- 6. SALVATAGGIO PUNTI SU SUPABASE ---
+        // --- SALVATAGGIO PUNTI SU SUPABASE ---
         async function salvaPunti(puntiDaAggiungere) {
             const { data: sessionData } = await db.auth.getSession();
             const session = sessionData.session;
@@ -697,7 +730,7 @@
             }
         }
 
-        // --- 7. AUTENTICAZIONE UTENTI ---
+        // --- AUTENTICAZIONE UTENTI ---
         async function registrati() {
             const email = document.getElementById('email-input').value;
             const password = document.getElementById('password-input').value;
@@ -738,7 +771,7 @@
             }
         });
 
-        // --- 8. CARICAMENTO CLASSIFICA CON STILE MODERNO ---
+        // --- CARICAMENTO CLASSIFICA ---
         async function caricaClassifica() {
             const listaHtml = document.getElementById('lista-classifica');
             const { data, error } = await db
