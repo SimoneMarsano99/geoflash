@@ -6,7 +6,7 @@
     <title>GeoFlash - Notizie e Mappe</title>
     <link rel="icon" type="image/png" href="favicon.png.png">
 
-    <!-- FONT MODERNO GOOGLE -->
+    <!-- FONT GOOGLE -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -28,6 +28,11 @@
     <!-- SDK SUPABASE & CONFETTI -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- PREDISPOSIZIONE GOOGLE ADSENSE: Incolla qui il tuo script AdSense appena approvato -->
+    <!--
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    -->
 
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -172,13 +177,13 @@
             </div>
         </section>
 
-        <!-- BANNER ADSENSE PLACEHOLDER (Ad alta monetizzazione prima dei giochi) -->
-        <div class="w-full bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-4 text-center">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-1">Pubblicità Sponsor</span>
-            <div class="h-20 bg-slate-950/60 rounded-xl flex items-center justify-center text-xs text-slate-500">
-                Spazio Banner Google AdSense (Leaderboard 728x90 / Mobile Responsive)
+        <!-- BANNER ADSENSE DISPLAY -->
+        <section class="w-full bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-4 text-center">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500 block mb-1">Annuncio Pubblicitario</span>
+            <div class="min-h-[90px] bg-slate-950/60 rounded-xl flex items-center justify-center text-xs text-slate-500 border border-slate-800/40">
+                <span>Spazio Riservato a Google AdSense (Banner Leaderboard 728x90 / Responsive)</span>
             </div>
-        </div>
+        </section>
 
         <!-- 2. SEZIONE GIOCHI: TRIS DI SFIDE DEL GIORNO -->
         <section class="rounded-3xl p-6 sm:p-8 bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800/80 shadow-2xl relative overflow-hidden">
@@ -332,9 +337,55 @@
 
     </main>
 
-    <footer class="border-t border-slate-800/80 bg-slate-950 text-slate-500 text-center py-6 text-xs mt-12">
-        <p>© 2026 GeoFlash. Tutte le notizie e le sfide geografiche quotidiane.</p>
+    <!-- FOOTER CON LINK LEGALI RICHIESTI DA ADSENSE & GDPR -->
+    <footer class="border-t border-slate-800/80 bg-slate-950 text-slate-400 py-8 text-xs mt-12">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>© 2026 GeoFlash. Tutte le notizie e le sfide geografiche quotidiane.</p>
+            <div class="flex flex-wrap items-center justify-center gap-4 text-slate-400 font-medium">
+                <button onclick="apriModal('privacy')" class="hover:text-emerald-400 transition underline-offset-4 hover:underline">Privacy Policy</button>
+                <button onclick="apriModal('cookie')" class="hover:text-emerald-400 transition underline-offset-4 hover:underline">Cookie Policy</button>
+                <button onclick="apriModal('termini')" class="hover:text-emerald-400 transition underline-offset-4 hover:underline">Termini di Servizio</button>
+                <button onclick="apriModal('contatti')" class="hover:text-emerald-400 transition underline-offset-4 hover:underline">Chi Siamo & Contatti</button>
+            </div>
+        </div>
     </footer>
+
+    <!-- BANNER CONSENSO COOKIE / GDPR (Obbligatorio per AdSense in Europa) -->
+    <div id="cookie-banner" class="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md bg-slate-900/95 border border-slate-700/80 text-white p-5 rounded-2xl shadow-2xl backdrop-blur-md z-50 transition-all duration-300 hidden">
+        <div class="flex items-start gap-3">
+            <span class="text-2xl">🍪</span>
+            <div class="space-y-2">
+                <h4 class="text-sm font-bold text-white">Informativa sui Cookie & Privacy</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    Utilizziamo cookie tecnici per salvare i tuoi progressi di gioco e cookie pubblicitari per offrirti annunci personalizzati tramite Google AdSense.
+                </p>
+                <div class="flex items-center gap-2 pt-2">
+                    <button onclick="accettaCookie(true)" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2 px-3.5 rounded-xl transition shadow">
+                        Accetta tutti
+                    </button>
+                    <button onclick="accettaCookie(false)" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold py-2 px-3.5 rounded-xl border border-slate-700 transition">
+                        Solo essenziali
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE LEGALE (PRIVACY, TERMINI, COOKIE, CONTATTI) -->
+    <div id="legal-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+            <div class="p-6 border-b border-slate-800 flex justify-between items-center">
+                <h3 id="modal-title" class="text-lg font-bold text-white">Informativa</h3>
+                <button onclick="chiudiModal()" class="text-slate-400 hover:text-white text-xl font-bold p-1">✕</button>
+            </div>
+            <div id="modal-body" class="p-6 overflow-y-auto text-xs text-slate-300 space-y-4 leading-relaxed">
+                <!-- Contenuto caricato via JavaScript -->
+            </div>
+            <div class="p-4 border-t border-slate-800 flex justify-end">
+                <button onclick="chiudiModal()" class="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2 rounded-xl text-xs font-bold transition">Chiudi</button>
+            </div>
+        </div>
+    </div>
 
     <!-- SCRIPT LOGICA COMPLETA -->
     <script>
@@ -356,6 +407,73 @@
                 el.classList.add('-translate-y-20', 'opacity-0');
                 el.classList.remove('translate-y-0', 'opacity-100');
             }, 3500);
+        }
+
+        // --- GESTIONE BANNER COOKIE & CONSENSO ---
+        function controllaConsensoCookie() {
+            const consenso = localStorage.getItem('geoflash_cookie_consent');
+            if (!consenso) {
+                document.getElementById('cookie-banner').classList.remove('hidden');
+            }
+        }
+
+        function accettaCookie(tutti) {
+            localStorage.setItem('geoflash_cookie_consent', tutti ? 'all' : 'essential');
+            document.getElementById('cookie-banner').classList.add('hidden');
+            toast(tutti ? 'Preferenze salvate! Cookie accettati.' : 'Salvati solo cookie tecnici.', '🍪');
+        }
+
+        // --- GESTIONE MODALI LEGALI PER ADSENSE ---
+        const testiLegali = {
+            privacy: {
+                titolo: 'Informativa sulla Privacy (GDPR)',
+                testo: `
+                    <p><strong>Titolare del trattamento:</strong> GeoFlash Team (info@geoflash.app).</p>
+                    <p>GeoFlash rispetta la tua privacy ai sensi del Regolamento UE 2016/679 (GDPR). Raccogliamo esclusivamente l'indirizzo email fornito in fase di registrazione per identificare il tuo account e sincronizzare il punteggio della classifica nel database Supabase.</p>
+                    <p>I tuoi dati non vengono ceduti, venduti o comunicati a terze parti a scopo di marketing diretto.</p>
+                    <p>Puoi richiedere la cancellazione completa del tuo account e dei tuoi punteggi in qualsiasi momento inviando un'email al nostro supporto.</p>
+                `
+            },
+            cookie: {
+                titolo: 'Cookie Policy',
+                testo: `
+                    <p>Questo sito utilizza:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Cookie tecnici essenziali e LocalStorage:</strong> necessari per memorizzare le giocate quotidiane, la streak e lo stato della sessione di accesso.</li>
+                        <li><strong>Cookie di terze parti (Google AdSense):</strong> utilizzati per erogare annunci pubblicitari pertinenti e analizzare il rendimento degli annunci in conformità con le policy di Google.</li>
+                    </ul>
+                    <p>Puoi revocare o modificare il tuo consenso in qualsiasi momento cancellando la cache e i cookie del tuo browser.</p>
+                `
+            },
+            termini: {
+                titolo: 'Termini e Condizioni di Utilizzo',
+                testo: `
+                    <p>L'accesso e l'utilizzo di GeoFlash sono gratuiti. Partecipando alla classifica mensile, gli utenti si impegnano a non utilizzare bot, script automatici o tentativi di manomissione del database.</p>
+                    <p>Eventuali premi mensili (come buoni regalo) vengono assegnati al primo classificato del mese al netto delle verifiche anti-frode e secondo la disponibilità comunicata sul portale.</p>
+                `
+            },
+            contatti: {
+                titolo: 'Chi Siamo & Contatti',
+                testo: `
+                    <p><strong>GeoFlash</strong> è una piattaforma web indipendente creata per informare in modo sintetico e testare la conoscenza geografica quotidiana degli utenti.</p>
+                    <p>Per richieste commerciali, supporto tecnico o richieste di partnership, puoi contattare il team di sviluppo all'indirizzo:</p>
+                    <p class="font-mono text-emerald-400 bg-slate-950 p-2 rounded border border-slate-800">support@geoflash.app</p>
+                `
+            }
+        };
+
+        function apriModal(tipo) {
+            const modale = document.getElementById('legal-modal');
+            const data = testiLegali[tipo];
+            if (data) {
+                document.getElementById('modal-title').innerText = data.titolo;
+                document.getElementById('modal-body').innerHTML = data.testo;
+                modale.classList.remove('hidden');
+            }
+        }
+
+        function chiudiModal() {
+            document.getElementById('legal-modal').classList.add('hidden');
         }
 
         // --- SISTEMA DI STREAK (GIORNI CONSECUTIVI) ---
@@ -406,6 +524,7 @@
         window.addEventListener('load', () => {
             const oggi = new Date().toDateString(); 
             aggiornaVisualizzazioneStreak();
+            controllaConsensoCookie();
 
             // Blocco Gioco 1: Bandiera
             if (localStorage.getItem('dataUltimoGiocoBandiera') === oggi) {
