@@ -827,11 +827,25 @@
             p.classList.remove('hidden');
         }
 
-        db.auth.onAuthStateChange((event, session) => {
+        db.auth.onAuthStateChange(async (event, session) => {
             if (session) {
                 document.getElementById('auth-section').classList.add('hidden');
                 document.getElementById('user-section').classList.remove('hidden');
                 document.getElementById('user-email').innerText = session.user.email;
+
+                // Sincronizza la streak salvata su Supabase su questo dispositivo
+                const { data: profilo } = await db
+                    .from('leaderboard')
+                    .select('streak')
+                    .eq('user_id', session.user.id)
+                    .single();
+
+                if (profilo && profilo.streak !== undefined && profilo.streak !== null) {
+                    const localStreak = ottieniStreak();
+                    const streakFinale = Math.max(localStreak, profilo.streak);
+                    localStorage.setItem('geoflash_streak', streakFinale);
+                    aggiornaVisualizzazioneStreak();
+                }
             } else {
                 document.getElementById('auth-section').classList.remove('hidden');
                 document.getElementById('user-section').classList.add('hidden');
