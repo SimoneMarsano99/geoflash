@@ -1,0 +1,30 @@
+name: Auto Update Notizie GeoFlash
+
+on:
+  schedule:
+    # Orari UTC corrispondenti all'Italia (~07:50, 13:50, 19:50)
+    - cron: '50 5 * * *'
+    - cron: '50 11 * * *'
+    - cron: '50 17 * * *'
+  workflow_dispatch: # Permette di farlo partire a mano con un click
+
+jobs:
+  fetch-and-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Installa dipendenze
+        run: npm install rss-parser @supabase/supabase-js
+
+      - name: Esegui aggiornamento notizie
+        run: node scripts/update-news.js
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
