@@ -756,10 +756,11 @@
             localStorage.setItem('dataUltimoGiocoTrivia', oggi);
         }
 
-        // --- SALVATAGGIO PUNTI SU SUPABASE ---
+       // --- SALVATAGGIO PUNTI & STREAK SU SUPABASE ---
         async function salvaPunti(puntiDaAggiungere) {
             const { data: sessionData } = await db.auth.getSession();
             const session = sessionData.session;
+            const streakAttuale = ottieniStreak();
 
             if (session) {
                 const user = session.user;
@@ -772,18 +773,26 @@
                     .single();
 
                 if (existingUser) {
-                    await db.from('leaderboard').update({ score: existingUser.score + puntiDaAggiungere }).eq('user_id', user.id);
+                    await db.from('leaderboard').update({ 
+                        score: existingUser.score + puntiDaAggiungere,
+                        streak: streakAttuale
+                    }).eq('user_id', user.id);
                 } else {
-                    await db.from('leaderboard').insert([{ user_id: user.id, username: username, score: puntiDaAggiungere }]);
+                    await db.from('leaderboard').insert([{ 
+                        user_id: user.id, 
+                        username: username, 
+                        score: puntiDaAggiungere,
+                        streak: streakAttuale
+                    }]);
                 }
                 
                 setTimeout(() => {
-                    toast(`Punti salvati su Supabase! Classifica aggiornata.`, '⚡');
+                    toast(`Punti e streak sincronizzati! Classifica aggiornata.`, '⚡');
                     caricaClassifica();
                 }, 600);
             } else {
                 setTimeout(() => {
-                    toast("Accedi o registrati per salvare il tuo punteggio in classifica!", '💡');
+                    toast("Accedi o registrati per sincronizzare streak e punteggio!", '💡');
                 }, 600);
             }
         }
