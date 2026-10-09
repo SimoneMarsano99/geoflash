@@ -6,7 +6,7 @@
     <title>GeoFlash - Notizie e Mappe</title>
     <link rel="icon" type="image/png" href="favicon.png.png">
 
-    <!-- FONT MODERNO GOOGLE (Fa un'enorme differenza rispetto ai font standard) -->
+    <!-- FONT MODERNO GOOGLE -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -19,16 +19,6 @@
                 extend: {
                     fontFamily: {
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            900: '#0f172a'
-                        }
                     }
                 }
             }
@@ -41,14 +31,11 @@
 
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
+        @keyframes flame-pulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(249, 115, 22, 0.4)); }
+            50% { transform: scale(1.15); filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.8)); }
         }
-        .shine-effect {
-            background: linear-gradient(110deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
-            background-size: 200% 100%;
-        }
+        .flame-anim { animation: flame-pulse 2s infinite ease-in-out; }
     </style>
 </head>
 <body class="bg-[#0b1120] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
@@ -59,7 +46,7 @@
         <span id="toast-msg">Notifica</span>
     </div>
 
-    <!-- NAVBAR PREMIUM -->
+    <!-- NAVBAR PREMIUM CON STREAK COUNTER -->
     <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 h-18 py-3.5 flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -70,14 +57,26 @@
                     <h1 class="text-2xl font-black tracking-tight text-white flex items-center gap-1.5 leading-none">
                         GeoFlash<span class="text-xs text-emerald-400 font-bold px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-800">LIVE</span>
                     </h1>
-                    <p class="text-xs text-slate-400 font-medium">Il mondo in sintesi & sfide geografiche</p>
+                    <p class="text-xs text-slate-400 font-medium">Il mondo in sintesi & sfide quotidiane</p>
                 </div>
             </div>
 
-            <!-- BADGE PREMIO MENSILE -->
-            <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500/10 to-yellow-500/10 border border-amber-500/30 px-3 py-1.5 rounded-xl">
-                <span class="text-lg">🏆</span>
-                <span class="text-xs font-bold text-amber-300">Buono Amazon 10€ a fine mese</span>
+            <!-- CONTATORE STREAK GIORNALIERA & PREMIO -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- BADGE STREAK -->
+                <div id="streak-badge" class="flex items-center gap-2 bg-gradient-to-r from-orange-500/10 to-amber-500/10 border border-orange-500/30 px-3 py-1.5 rounded-xl shadow-sm cursor-pointer hover:border-orange-500/60 transition" onclick="toast(`Streak attuale: ${ottieniStreak()} giorni consecutivi! Gioca ogni giorno per moltiplicare i punti.`, '🔥')">
+                    <span class="text-lg flame-anim">🔥</span>
+                    <div class="text-left leading-tight">
+                        <span id="streak-counter" class="text-sm font-black text-orange-400">0</span>
+                        <span class="text-[10px] font-bold text-orange-300 block uppercase">Giorni Streak</span>
+                    </div>
+                </div>
+
+                <!-- BADGE PREMIO MENSILE (Visibile su schermi medi/grandi) -->
+                <div class="hidden md:flex items-center gap-2 bg-gradient-to-r from-amber-500/10 to-yellow-500/10 border border-amber-500/30 px-3 py-1.5 rounded-xl">
+                    <span class="text-lg">🏆</span>
+                    <span class="text-xs font-bold text-amber-300">Buono Amazon 10€ in palio</span>
+                </div>
             </div>
         </div>
     </header>
@@ -175,13 +174,12 @@
 
         <!-- 2. SEZIONE GIOCHI: SFIDA DEL GIORNO -->
         <section class="rounded-3xl p-6 sm:p-8 bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800/80 shadow-2xl relative overflow-hidden">
-            <!-- Glow background -->
             <div class="absolute -top-24 -right-24 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
             <div class="text-center max-w-xl mx-auto mb-8">
                 <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-2">Quiz Giornalieri</span>
                 <h2 class="text-3xl font-black text-white tracking-tight">🎯 La Sfida del Giorno</h2>
-                <p class="text-sm text-slate-400 mt-1">Indovina la bandiera e il monumento misterioso per scalare la classifica del mese!</p>
+                <p class="text-sm text-slate-400 mt-1">Gioca ogni giorno per proteggere la tua fiamma 🔥 ed ottenere bonus streak cumulativi!</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
@@ -287,7 +285,7 @@
                     </div>
                     <p class="text-xs uppercase font-extrabold tracking-widest text-emerald-400">Account Connesso</p>
                     <p id="user-email" class="font-bold text-white text-sm my-1 truncate px-2"></p>
-                    <p class="text-xs text-slate-400 mb-6">I tuoi punti vengono salvati automaticamente nel database.</p>
+                    <p class="text-xs text-slate-400 mb-6">I tuoi punti e le tue streak vengono salvati nel database.</p>
                     <button onclick="esci()" class="bg-rose-500/10 border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 text-xs font-bold px-4 py-2 rounded-xl transition">
                         Disconnetti account
                     </button>
@@ -303,15 +301,15 @@
         <p>© 2026 GeoFlash. Tutte le notizie e le sfide geografiche quotidiane.</p>
     </footer>
 
-    <!-- SCRIPT COMPLETO E IDENTICO AL TUO -->
+    <!-- SCRIPT LOGICA COMPLETA -->
     <script>
         // --- 1. CONFIGURAZIONE SUPABASE ---
         const supabaseUrl = 'https://rwkfnkqdsdokjxzwfddg.supabase.co'; 
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; // <-- METTI QUI LA TUA CHIAVE SUPABASE ANON
         const db = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-        // Toast per sostituire gli alert invasivi
-        function toast(msg, icon = '✨', type = 'info') {
+        // Toast per notifiche moderne
+        function toast(msg, icon = '✨') {
             const el = document.getElementById('toast');
             document.getElementById('toast-msg').innerText = msg;
             document.getElementById('toast-icon').innerText = icon;
@@ -322,12 +320,60 @@
             setTimeout(() => {
                 el.classList.add('-translate-y-20', 'opacity-0');
                 el.classList.remove('translate-y-0', 'opacity-100');
-            }, 3200);
+            }, 3500);
+        }
+
+        // --- SISTEMA DI STREAK (GIORNI CONSECUTIVI) ---
+        function ottieniStreak() {
+            return parseInt(localStorage.getItem('geoflash_streak') || '0', 10);
+        }
+
+        function aggiornaVisualizzazioneStreak() {
+            const contatore = document.getElementById('streak-counter');
+            if (contatore) {
+                contatore.innerText = ottieniStreak();
+            }
+        }
+
+        function calcolaESalvaStreak() {
+            const oggi = new Date();
+            const oggiStr = oggi.toDateString();
+            const ultimoAccessoStr = localStorage.getItem('geoflash_ultimo_accesso');
+            let streak = ottieniStreak();
+
+            if (!ultimoAccessoStr) {
+                // Primo giorno in assoluto
+                streak = 1;
+                localStorage.setItem('geoflash_streak', streak);
+                localStorage.setItem('geoflash_ultimo_accesso', oggiStr);
+                toast(`Streak iniziata! 🔥 Giorno 1`, '🔥');
+            } else if (ultimoAccessoStr !== oggiStr) {
+                const ultimoAccesso = new Date(ultimoAccessoStr);
+                const diffTempo = oggi.getTime() - ultimoAccesso.getTime();
+                const diffGiorni = Math.floor(diffTempo / (1000 * 60 * 60 * 24));
+
+                if (diffGiorni === 1) {
+                    // È il giorno successivo consecutivo!
+                    streak += 1;
+                    localStorage.setItem('geoflash_streak', streak);
+                    toast(`Streak aumentata! 🔥 ${streak} giorni di fila! (+${streak * 10} pt bonus)`, '🔥');
+                } else if (diffGiorni > 1) {
+                    // Ha saltato uno o più giorni: la streak riparte da 1
+                    streak = 1;
+                    localStorage.setItem('geoflash_streak', streak);
+                    toast(`Hai saltato dei giorni! Streak ripartita da 1 🔥`, '⚠️');
+                }
+                localStorage.setItem('geoflash_ultimo_accesso', oggiStr);
+            }
+
+            aggiornaVisualizzazioneStreak();
+            return streak;
         }
 
         // --- 2. CONTROLLO GIOCATE ODIERNE AL CARICAMENTO ---
         window.addEventListener('load', () => {
             const oggi = new Date().toDateString(); 
+            aggiornaVisualizzazioneStreak();
 
             if (localStorage.getItem('dataUltimoGiocoBandiera') === oggi) {
                 let buttons = document.querySelectorAll('#flag-buttons button');
@@ -360,10 +406,16 @@
             buttons.forEach(b => b.disabled = true); 
 
             if (isCorrect) {
-                confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+                const streakAttuale = calcolaESalvaStreak();
+                const bonusStreak = streakAttuale * 10;
+                const totalePunti = 50 + bonusStreak;
+
+                confetti({ particleCount: 160, spread: 80, origin: { y: 0.6 } });
                 btn.classList.remove('bg-slate-800', 'hover:bg-slate-700');
                 btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-500');
-                await salvaPunti(50);
+
+                toast(`Risposta esatta! +50 pt (+${bonusStreak} pt bonus streak 🔥)`, '🎉');
+                await salvaPunti(totalePunti);
             } else {
                 btn.classList.remove('bg-slate-800', 'hover:bg-slate-700');
                 btn.classList.add('bg-rose-600', 'text-white', 'border-rose-500');
@@ -388,8 +440,8 @@
             btn.classList.add('opacity-40', 'cursor-not-allowed');
 
             const soluzioni = ["mont saint michel", "mont saint-michel", "mont st michel", "mont-saint-michel"];
-            
             let isCorrect = false;
+
             for (let sol of soluzioni) {
                 if (rispostaUtente.includes(sol)) {
                     isCorrect = true; 
@@ -398,11 +450,17 @@
             }
 
             if (isCorrect) {
-                confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+                const streakAttuale = calcolaESalvaStreak();
+                const bonusStreak = streakAttuale * 10;
+                const totalePunti = 100 + bonusStreak;
+
+                confetti({ particleCount: 160, spread: 80, origin: { y: 0.6 } });
                 btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
                 btn.classList.add('bg-emerald-500');
-                btn.innerText = "Esatto! (+100 pt)";
-                await salvaPunti(100);
+                btn.innerText = `Esatto! (+${totalePunti} pt)`;
+
+                toast(`Grandioso! +100 pt (+${bonusStreak} pt bonus streak 🔥)`, '🏰');
+                await salvaPunti(totalePunti);
             } else {
                 btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
                 btn.classList.add('bg-rose-600');
@@ -434,12 +492,12 @@
                 }
                 
                 setTimeout(() => {
-                    toast(`+${puntiDaAggiungere} pt salvati! Classifica aggiornata.`, '🎉');
+                    toast(`Punti salvati su Supabase! Classifica aggiornata.`, '⚡');
                     caricaClassifica();
                 }, 600);
             } else {
                 setTimeout(() => {
-                    toast("Ottimo risultato! Registrati o accedi per registrare il punteggio.", '💡');
+                    toast("Accedi o registrati per salvare il tuo punteggio in classifica!", '💡');
                 }, 600);
             }
         }
