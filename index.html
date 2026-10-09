@@ -29,9 +29,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <!-- PREDISPOSIZIONE GOOGLE ADSENSE: Incolla qui il tuo script AdSense appena approvato -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9236303488934991"
-     crossorigin="anonymous"></script>
+    <!-- INCOLLA QUI LO SCRIPT DI GOOGLE ADSENSE QUANDO ATTIVO -->
+    <!--
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    -->
 
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -67,7 +68,6 @@
 
             <!-- CONTATORE STREAK GIORNALIERA & PREMIO -->
             <div class="flex items-center gap-2 sm:gap-3">
-                <!-- BADGE STREAK -->
                 <div id="streak-badge" class="flex items-center gap-2 bg-gradient-to-r from-orange-500/10 to-amber-500/10 border border-orange-500/30 px-3 py-1.5 rounded-xl shadow-sm cursor-pointer hover:border-orange-500/60 transition" onclick="toast(`Streak attuale: ${ottieniStreak()} giorni consecutivi! Gioca ogni giorno per moltiplicare i punti.`, '🔥')">
                     <span class="text-lg flame-anim">🔥</span>
                     <div class="text-left leading-tight">
@@ -76,7 +76,6 @@
                     </div>
                 </div>
 
-                <!-- BADGE PREMIO MENSILE -->
                 <div class="hidden md:flex items-center gap-2 bg-gradient-to-r from-amber-500/10 to-yellow-500/10 border border-amber-500/30 px-3 py-1.5 rounded-xl">
                     <span class="text-lg">🏆</span>
                     <span class="text-xs font-bold text-amber-300">Buono Amazon 10€ in palio</span>
@@ -91,7 +90,7 @@
         <span class="truncate">Accordo storico sul clima a Parigi raggiunto questa mattina. Mercati in rialzo globale.</span>
     </div>
 
-    <!-- WRAPPER CON LAYOUT 3 COLONNE (BANNER SX - CONTENUTO CENTRALE - BANNER DX) -->
+    <!-- WRAPPER LAYOUT (BANNER SX - CONTENUTO CENTRALE - BANNER DX) -->
     <div class="max-w-[1550px] mx-auto px-2 sm:px-4 flex justify-center gap-6 my-6 flex-1 w-full">
 
         <!-- 1. BANNER LATERALE SINISTRO (SKYSCRAPER DESKTOP) -->
@@ -105,7 +104,7 @@
             </div>
         </aside>
 
-        <!-- CONTENUTO PRINCIPALE DEL SITO -->
+        <!-- CONTENUTO CENTRALE -->
         <main class="w-full max-w-4xl space-y-10">
 
             <!-- NOTIZIE: IL DIARIO DI OGGI -->
@@ -116,14 +115,15 @@
                             <span class="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 text-lg">📰</span>
                             Il Diario di Oggi
                         </h2>
-                        <p class="text-xs text-slate-400 mt-0.5">Tutto quello che è successo nelle ultime 24 ore</p>
+                        <p class="text-xs text-slate-400 mt-0.5">Aggiornamenti a colpo d'occhio nel corso della giornata</p>
                     </div>
-                    <span class="text-xs font-medium text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1 rounded-full">3 min di lettura</span>
+                    <span id="orario-badge" class="text-xs font-semibold text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-3 py-1 rounded-full">Aggiornato in tempo reale</span>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <!-- Mattina -->
-                    <div class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 hover:border-amber-500/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
+                    
+                    <!-- 1. MATTINA (Sempre attiva) -->
+                    <div id="card-mattina" class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 hover:border-amber-500/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
                         <div class="flex items-center justify-between mb-4">
                             <span class="text-sm font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-lg">☕ Mattina</span>
                             <span class="text-xs text-slate-500">08:00</span>
@@ -144,49 +144,70 @@
                         </ul>
                     </div>
 
-                    <!-- Pomeriggio -->
-                    <div class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 hover:border-orange-500/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-sm font-bold text-orange-400 bg-orange-400/10 border border-orange-400/20 px-3 py-1 rounded-lg">☀️ Pomeriggio</span>
-                            <span class="text-xs text-slate-500">14:30</span>
+                    <!-- 2. POMERIGGIO (Sbloccata alle 14:00) -->
+                    <div id="card-pomeriggio" class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 transition-all duration-300 shadow-xl flex flex-col justify-between">
+                        <!-- Stato Sbloccato -->
+                        <div id="pomeriggio-aperto" class="space-y-4">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-sm font-bold text-orange-400 bg-orange-400/10 border border-orange-400/20 px-3 py-1 rounded-lg">☀️ Pomeriggio</span>
+                                <span class="text-xs text-slate-500">14:00</span>
+                            </div>
+                            <ul class="space-y-3.5 text-sm text-slate-300">
+                                <li class="flex items-start gap-2.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
+                                    <span>Disoccupazione in calo dello 0.5% nell'ultimo trimestre.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
+                                    <span>Fiera del Libro a Torino: record assoluto di presenze.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
+                                    <span>Scoperto un nuovo esopianeta roccioso simile alla Terra.</span>
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="space-y-3.5 text-sm text-slate-300">
-                            <li class="flex items-start gap-2.5">
-                                <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
-                                <span>Disoccupazione in calo dello 0.5% nell'ultimo trimestre.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
-                                <span>Fiera del Libro a Torino: record assoluto di presenze.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <span class="h-1.5 w-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></span>
-                                <span>Scoperto un nuovo esopianeta roccioso simile alla Terra.</span>
-                            </li>
-                        </ul>
+                        <!-- Stato In Arrivo -->
+                        <div id="pomeriggio-bloccato" class="hidden text-center py-8">
+                            <span class="text-3xl block mb-2 opacity-50">☀️</span>
+                            <span class="text-xs font-bold text-orange-300 uppercase tracking-wider block mb-1">Pomeriggio</span>
+                            <p class="text-xs text-slate-400">Notizie in arrivo alle <strong class="text-white">14:00</strong></p>
+                            <span class="inline-block mt-3 text-[11px] text-slate-500 bg-slate-950 px-3 py-1 rounded-full border border-slate-800">Torna più tardi</span>
+                        </div>
                     </div>
 
-                    <!-- Sera -->
-                    <div class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 hover:border-indigo-500/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-sm font-bold text-indigo-400 bg-indigo-400/10 border border-indigo-400/20 px-3 py-1 rounded-lg">🌙 Sera</span>
-                            <span class="text-xs text-slate-500">20:45</span>
+                    <!-- 3. SERA (Sbloccata alle 20:00) -->
+                    <div id="card-sera" class="rounded-2xl p-6 bg-slate-900/90 border border-slate-800 transition-all duration-300 shadow-xl flex flex-col justify-between">
+                        <!-- Stato Sbloccato -->
+                        <div id="sera-aperto" class="space-y-4">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-sm font-bold text-indigo-400 bg-indigo-400/10 border border-indigo-400/20 px-3 py-1 rounded-lg">🌙 Sera</span>
+                                <span class="text-xs text-slate-500">20:00</span>
+                            </div>
+                            <ul class="space-y-3.5 text-sm text-slate-300">
+                                <li class="flex items-start gap-2.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
+                                    <span>Wall Street chiude in positivo trainata dal settore tech.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
+                                    <span>L'Italia vince l'oro agli Europei di scherma.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
+                                    <span>Previsioni meteo: piogge autunnali in arrivo al Nord.</span>
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="space-y-3.5 text-sm text-slate-300">
-                            <li class="flex items-start gap-2.5">
-                                <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
-                                <span>Wall Street chiude in positivo trainata dal settore tech.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
-                                <span>L'Italia vince l'oro agli Europei di scherma.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 mt-2 shrink-0"></span>
-                                <span>Previsioni meteo: piogge autunnali in arrivo al Nord.</span>
-                            </li>
-                        </ul>
+                        <!-- Stato In Arrivo -->
+                        <div id="sera-bloccato" class="hidden text-center py-8">
+                            <span class="text-3xl block mb-2 opacity-50">🌙</span>
+                            <span class="text-xs font-bold text-indigo-300 uppercase tracking-wider block mb-1">Sera</span>
+                            <p class="text-xs text-slate-400">Notizie in arrivo alle <strong class="text-white">20:00</strong></p>
+                            <span class="inline-block mt-3 text-[11px] text-slate-500 bg-slate-950 px-3 py-1 rounded-full border border-slate-800">Torna più tardi</span>
+                        </div>
                     </div>
+
                 </div>
             </section>
 
@@ -208,7 +229,6 @@
                     <p class="text-sm text-slate-400 mt-1">Completa tutte e 3 le prove per massimizzare il punteggio e proteggere la tua fiamma streak 🔥!</p>
                 </div>
 
-                <!-- GRIGLIA A 3 GIOCHI -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
                     
                     <!-- GIOCO 1: BANDIERA -->
@@ -257,7 +277,7 @@
                         </div>
                     </div>
 
-                    <!-- GIOCO 3: TRIVIA / QUIZ CULTURA GEOGRAFICA -->
+                    <!-- GIOCO 3: TRIVIA EXPRESS -->
                     <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 flex flex-col justify-between shadow-lg">
                         <div>
                             <div class="flex items-center justify-between mb-3">
@@ -289,7 +309,7 @@
             <!-- CLASSIFICA & AUTENTICAZIONE -->
             <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 
-                <!-- LISTA CLASSIFICA (2 Colonne) -->
+                <!-- LISTA CLASSIFICA -->
                 <div class="lg:col-span-2 rounded-3xl p-6 sm:p-7 bg-slate-900/90 border border-slate-800 shadow-xl">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6 border-b border-slate-800 pb-4">
                         <div>
@@ -308,7 +328,7 @@
                     </ul>
                 </div>
 
-                <!-- CARD ACCESSO / UTENTE (1 Colonna) -->
+                <!-- CARD ACCESSO / UTENTE -->
                 <div class="rounded-3xl p-6 sm:p-7 bg-slate-900/90 border border-slate-800 shadow-xl flex flex-col justify-between">
                     
                     <!-- STATO NON CONNESSO -->
@@ -348,7 +368,7 @@
 
             </section>
 
-            <!-- 3. BANNER PUBBLICITARIO A FONDO PAGINA (LARGE LEADERBOARD / FOOTER AD) -->
+            <!-- 3. BANNER PUBBLICITARIO A FONDO PAGINA -->
             <section class="w-full bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-4 text-center mt-6">
                 <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500 block mb-1">Annuncio Pubblicitario</span>
                 <div class="min-h-[90px] md:min-h-[120px] bg-slate-950/60 rounded-xl flex items-center justify-center text-xs text-slate-500 border border-slate-800/40">
@@ -371,7 +391,7 @@
 
     </div>
 
-    <!-- FOOTER CON LINK LEGALI RICHIESTI DA ADSENSE & GDPR -->
+    <!-- FOOTER CON LINK LEGALI -->
     <footer class="border-t border-slate-800/80 bg-slate-950 text-slate-400 py-8 text-xs mt-12">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <p>© 2026 GeoFlash. Tutte le notizie e le sfide geografiche quotidiane.</p>
@@ -405,16 +425,14 @@
         </div>
     </div>
 
-    <!-- MODALE LEGALE (PRIVACY, TERMINI, COOKIE, CONTATTI) -->
+    <!-- MODALE LEGALE -->
     <div id="legal-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
             <div class="p-6 border-b border-slate-800 flex justify-between items-center">
                 <h3 id="modal-title" class="text-lg font-bold text-white">Informativa</h3>
                 <button onclick="chiudiModal()" class="text-slate-400 hover:text-white text-xl font-bold p-1">✕</button>
             </div>
-            <div id="modal-body" class="p-6 overflow-y-auto text-xs text-slate-300 space-y-4 leading-relaxed">
-                <!-- Contenuto caricato via JavaScript -->
-            </div>
+            <div id="modal-body" class="p-6 overflow-y-auto text-xs text-slate-300 space-y-4 leading-relaxed"></div>
             <div class="p-4 border-t border-slate-800 flex justify-end">
                 <button onclick="chiudiModal()" class="bg-slate-800 hover:bg-slate-700 text-white px-5 py-2 rounded-xl text-xs font-bold transition">Chiudi</button>
             </div>
@@ -425,7 +443,7 @@
     <script>
         // --- 1. CONFIGURAZIONE SUPABASE ---
         const supabaseUrl = 'https://rwkfnkqdsdokjxzwfddg.supabase.co'; 
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; // <-- METTI QUI LA TUA CHIAVE SUPABASE ANON
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3a2Zua3Fkc2Rva2p4endmZGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0MDgzMzQsImV4cCI6MjEwNjk4NDMzNH0.o0Gq7Ye7xrd4lziMSH2qiY784Iu4mpwdX8wr_zRpXwQ'; // <-- INSERISCI LA TUA CHIAVE SUPABASE ANON QUI
         const db = window.supabase.createClient(supabaseUrl, supabaseKey);
 
         // Toast per notifiche moderne
@@ -443,6 +461,43 @@
             }, 3500);
         }
 
+        // --- GESTIONE AUTOMATICA ORARIO NOTIZIE ---
+        function aggiornaStatoNotizie() {
+            const ora = new Date().getHours();
+            
+            const cardPomeriggio = document.getElementById('card-pomeriggio');
+            const pomAperto = document.getElementById('pomeriggio-aperto');
+            const pomBloccato = document.getElementById('pomeriggio-bloccato');
+
+            const cardSera = document.getElementById('card-sera');
+            const seraAperto = document.getElementById('sera-aperto');
+            const seraBloccato = document.getElementById('sera-bloccato');
+
+            // Controllo Pomeriggio (sbloccato dalle 14 in poi)
+            if (ora < 14) {
+                pomAperto.classList.add('hidden');
+                pomBloccato.classList.remove('hidden');
+                cardPomeriggio.classList.add('opacity-70', 'border-dashed');
+            } else {
+                pomAperto.classList.remove('hidden');
+                pomBloccato.classList.add('hidden');
+                cardPomeriggio.classList.remove('opacity-70', 'border-dashed');
+                cardPomeriggio.classList.add('hover:border-orange-500/40', 'group', 'hover:-translate-y-1');
+            }
+
+            // Controllo Sera (sbloccato dalle 20 in poi)
+            if (ora < 20) {
+                seraAperto.classList.add('hidden');
+                seraBloccato.classList.remove('hidden');
+                cardSera.classList.add('opacity-70', 'border-dashed');
+            } else {
+                seraAperto.classList.remove('hidden');
+                seraBloccato.classList.add('hidden');
+                cardSera.classList.remove('opacity-70', 'border-dashed');
+                cardSera.classList.add('hover:border-indigo-500/40', 'group', 'hover:-translate-y-1');
+            }
+        }
+
         // --- GESTIONE BANNER COOKIE & CONSENSO ---
         function controllaConsensoCookie() {
             const consenso = localStorage.getItem('geoflash_cookie_consent');
@@ -457,12 +512,12 @@
             toast(tutti ? 'Preferenze salvate! Cookie accettati.' : 'Salvati solo cookie tecnici.', '🍪');
         }
 
-        // --- GESTIONE MODALI LEGALI PER ADSENSE ---
+        // --- GESTIONE MODALI LEGALI ---
         const testiLegali = {
             privacy: {
                 titolo: 'Informativa sulla Privacy (GDPR)',
                 testo: `
-                    <p><strong>Titolare del trattamento:</strong> GeoFlash Team (info@geoflash.app).</p>
+                    <p><strong>Titolare del trattamento:</strong> GeoFlash Team (postmaster@geoflash.it).</p>
                     <p>GeoFlash rispetta la tua privacy ai sensi del Regolamento UE 2016/679 (GDPR). Raccogliamo esclusivamente l'indirizzo email fornito in fase di registrazione per identificare il tuo account e sincronizzare il punteggio della classifica nel database Supabase.</p>
                     <p>I tuoi dati non vengono ceduti, venduti o comunicati a terze parti a scopo di marketing diretto.</p>
                     <p>Puoi richiedere la cancellazione completa del tuo account e dei tuoi punteggi in qualsiasi momento inviando un'email al nostro supporto.</p>
@@ -491,7 +546,7 @@
                 testo: `
                     <p><strong>GeoFlash</strong> è una piattaforma web indipendente creata per informare in modo sintetico e testare la conoscenza geografica quotidiana degli utenti.</p>
                     <p>Per richieste commerciali, supporto tecnico o richieste di partnership, puoi contattare il team di sviluppo all'indirizzo:</p>
-                    <p class="font-mono text-emerald-400 bg-slate-950 p-2 rounded border border-slate-800">support@geoflash.app</p>
+                    <p class="font-mono text-emerald-400 bg-slate-950 p-2 rounded border border-slate-800">postmaster@geoflash.it</p>
                 `
             }
         };
@@ -510,7 +565,7 @@
             document.getElementById('legal-modal').classList.add('hidden');
         }
 
-        // --- SISTEMA DI STREAK (GIORNI CONSECUTIVI) ---
+        // --- SISTEMA DI STREAK ---
         function ottieniStreak() {
             return parseInt(localStorage.getItem('geoflash_streak') || '0', 10);
         }
@@ -559,6 +614,7 @@
             const oggi = new Date().toDateString(); 
             aggiornaVisualizzazioneStreak();
             controllaConsensoCookie();
+            aggiornaStatoNotizie();
 
             // Blocco Gioco 1: Bandiera
             if (localStorage.getItem('dataUltimoGiocoBandiera') === oggi) {
